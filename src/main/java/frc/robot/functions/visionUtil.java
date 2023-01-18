@@ -23,10 +23,16 @@ public class visionUtil {
 
         double distanceFrom = (fovHeight/2)/Math.tan(Math.toRadians(VisionInfo.LIME_TOP_LIM_DEGREE));
 
-        SmartDashboard.putNumber("fov AREA", fovAreaIn);
-        SmartDashboard.putNumber("fov HEIGHT", fovHeight);
-        SmartDashboard.putNumber("fov LENGTH", fovLength);
-        SmartDashboard.putNumber("distance FROM", distanceFrom);
+        boolean lol = false;
+
+        if (lol){
+
+            SmartDashboard.putNumber("fov AREA", fovAreaIn);
+            SmartDashboard.putNumber("fov HEIGHT", fovHeight);
+            SmartDashboard.putNumber("fov LENGTH", fovLength);
+            SmartDashboard.putNumber("distance FROM", distanceFrom);
+
+        }
 
         return distanceFrom;
 

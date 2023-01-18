@@ -76,6 +76,22 @@ public final class driveUtil {
         setPowerUniform(drive, 0.0);
     }
 
+    public static void testFL(DriveData drive, double pow){
+        drive.frontLeftDrive.set(pow);
+    }
+
+    public static void testBL(DriveData drive, double pow){
+        drive.backLeftDrive.set(pow);
+    }
+
+    public static void testFR(DriveData drive, double pow){
+        drive.frontRightDrive.set(pow);
+    }
+
+    public static void testBR(DriveData drive, double pow){
+        drive.backRightDrive.set(pow);
+    }
+
 
 
 

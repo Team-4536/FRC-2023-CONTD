@@ -8,7 +8,7 @@ import frc.robot.controllers.PIDController;
 
 public class DriveData {
 
-    public PIDController pidController = new PIDController(0.1, 0.1, 0);
+    public PIDController pidController = new PIDController(0.05, 0.0, -0.01);
 
     public WPI_VictorSPX frontLeftDrive;
     public WPI_VictorSPX frontRightDrive;

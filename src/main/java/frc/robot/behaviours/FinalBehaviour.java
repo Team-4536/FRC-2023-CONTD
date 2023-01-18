@@ -13,6 +13,7 @@ public class FinalBehaviour {
 
         driveUtil.setPowerTank(r.drive, r.input.controller.getLeftY(), r.input.controller.getLeftX(), r.input.controller.getRightTriggerAxis());
         visionUtil.distanceFrom(r.vision.getArea());
+        r.vision.pipeline7();
 
     };
 }

@@ -27,15 +27,10 @@ public class VisionData {
       SmartDashboard.putNumber("Target Y", getY());
       SmartDashboard.putNumber("Target Area", getArea());
 
-      for (String s : limelight.getSubTables()){
-
-        SmartDashboard.putString(s, s);
-
-      }
-
       for (String s : limelight.getKeys()){
 
         SmartDashboard.putString(s, s);
+
       }
 
 

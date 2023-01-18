@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionData {
@@ -25,6 +26,18 @@ public class VisionData {
       SmartDashboard.putNumber("Target X", getX());
       SmartDashboard.putNumber("Target Y", getY());
       SmartDashboard.putNumber("Target Area", getArea());
+
+      for (String s : limelight.getSubTables()){
+
+        SmartDashboard.putString(s, s);
+
+      }
+
+      for (String s : limelight.getKeys()){
+
+        SmartDashboard.putString(s, s);
+      }
+
 
     }
 

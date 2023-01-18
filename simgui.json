@@ -1,0 +1,20 @@
+{
+  "HALProvider": {
+    "Other Devices": {
+      "navX-Sensor[0]": {
+        "header": {
+          "open": true
+        }
+      }
+    }
+  },
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Auto Init": "String Chooser",
+      "/SmartDashboard/Auto Periodic": "String Chooser",
+      "/SmartDashboard/Test Init": "String Chooser",
+      "/SmartDashboard/Test Periodic": "String Chooser"
+    }
+  }
+}

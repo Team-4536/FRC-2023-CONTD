@@ -20,10 +20,10 @@ public final class Constants {
     public static final int DRIVE_BACK_LEFT_PORT = 3;
     public static final int DRIVE_BACK_RIGHT_PORT = 4;
 
-    public static final boolean DRIVE_FRONT_LEFT_FLIPPED = true;
-    public static final boolean DRIVE_FRONT_RIGHT_FLIPPED = false;
-    public static final boolean DRIVE_BACK_LEFT_FLIPPED = true;
-    public static final boolean DRIVE_BACK_RIGHT_FLIPPED = false;
+    public static final boolean DRIVE_FRONT_LEFT_FLIPPED = false;
+    public static final boolean DRIVE_FRONT_RIGHT_FLIPPED = true;
+    public static final boolean DRIVE_BACK_LEFT_FLIPPED = false;
+    public static final boolean DRIVE_BACK_RIGHT_FLIPPED = true;
 
 
 

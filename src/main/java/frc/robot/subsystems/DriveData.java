@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.controllers.PIDController;
@@ -15,6 +14,11 @@ public class DriveData {
     public WPI_VictorSPX backLeftDrive;
     public WPI_VictorSPX backRightDrive;
 
+    public Encoder FLEncoder;
+    public Encoder FREncoder;
+    public Encoder BLEncoder;
+    public Encoder BREncoder;
+
     public DriveData() {
         
         this.frontLeftDrive = new WPI_VictorSPX(Constants.DRIVE_FRONT_LEFT_PORT);
@@ -27,8 +31,14 @@ public class DriveData {
         this.backLeftDrive.setInverted(Constants.DRIVE_BACK_LEFT_FLIPPED);
         this.backRightDrive.setInverted(Constants.DRIVE_BACK_RIGHT_FLIPPED);
 
+        FLEncoder = new Encoder(0, 1);
+        FREncoder = new Encoder(2, 3);
+        BLEncoder = new Encoder(4, 5);
+        BREncoder = new Encoder(6, 7);
 
     }
+    
+
 
     public void sendTelemetry() {
         SmartDashboard.putNumber("FL Pwr", frontLeftDrive.get());

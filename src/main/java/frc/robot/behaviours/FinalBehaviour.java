@@ -15,6 +15,7 @@ public class FinalBehaviour {
         //driveUtil.setPowerTank(r.drive, r.input.controller.getLeftY(), r.input.controller.getLeftX(), r.input.controller.getRightTriggerAxis());
         driveUtil.setPowerMechanum(r.drive, r.input.joystick.getX(), r.input.joystick.getY(), r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true), r.input.joystick.getRawAxis(3));
         visionUtil.distanceFrom(r.vision.getArea());
+        r.vision.pipeline7();
 
     };
 

@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.V2d;
 import frc.robot.functions.driveUtil;
+import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.telemetryUtil.Tabs;
 import frc.robot.subsystems.PositionData;
 
 public class TestingBehaviour {
@@ -16,7 +18,7 @@ public class TestingBehaviour {
     static PositionData p = new PositionData();
     static Field2d f = new Field2d();
 
-    public static Consumer<Robot> periodic = r -> {
+    public static Consumer<Robot> encoderPeriodic = r -> {
 
         // double d = r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
         driveUtil.setPowerTank(r.drive, r.input.controller.getLeftY(), r.input.controller.getLeftX(), r.input.controller.getRightTriggerAxis()*2 - 1);
@@ -28,8 +30,20 @@ public class TestingBehaviour {
         f.setRobotPose(p.prevPosition.x, p.prevPosition.y, new Rotation2d(r.gyro.globGyroscope.getAngle()));
     };
 
-    public static Consumer<Robot> init = r -> {
+
+
+
+
+
+    public static Consumer<Robot> encoderInit = r -> {
         p.prevVelocity = new V2d(0, -9);
+    };
+
+
+
+
+    public static Consumer<Robot> testPeriodic = r -> {
+        telemetryUtil.put("Testing str", "HI THERE", Tabs.DEBUG);
     };
 
 

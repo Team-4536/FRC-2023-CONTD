@@ -16,6 +16,11 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Ungrouped/Victor SPX [0]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Victor SPX [1]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Victor SPX [2]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Victor SPX [3]": "Motor Controller",
+      "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
       "/SmartDashboard/Auto Init": "String Chooser",
       "/SmartDashboard/Auto Periodic": "String Chooser",
       "/SmartDashboard/Test Init": "String Chooser",
@@ -31,6 +36,16 @@
         "window": {
           "visible": true
         }
+      },
+      "/SmartDashboard/Test Init": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/Test Periodic": {
+        "window": {
+          "visible": true
+        }
       }
     }
   },
@@ -42,7 +57,29 @@
       "open": false
     },
     "transitory": {
+      "Debug": {
+        "open": true
+      },
+      "Limelight": {
+        "open": true
+      },
+      "LiveWindow": {
+        "Ungrouped": {
+          "open": true
+        }
+      },
+      "Shuffleboard": {
+        "Debug": {
+          "open": true
+        }
+      },
       "SmartDashboard": {
+        "SmartDashboard": {
+          "open": true
+        },
+        "open": true
+      },
+      "limelight": {
         "open": true
       }
     }

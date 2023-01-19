@@ -9,7 +9,7 @@ import frc.robot.functions.visionUtil;
 
 public class FinalBehaviour {
 
-    public static Consumer<Robot> teleOpPeriodic = r -> {
+    public static @Hidden Consumer<Robot> teleOpPeriodic = r -> {
 
         r.drive.pidController.target += r.input.joystick.getZ() * 40 * Robot.dt;
         //driveUtil.setPowerTank(r.drive, r.input.controller.getLeftY(), r.input.controller.getLeftX(), r.input.controller.getRightTriggerAxis());
@@ -19,6 +19,7 @@ public class FinalBehaviour {
 
     };
 
+    @Hidden
     public static Consumer<Robot> teleOpInit = r -> {
 
         r.drive.pidController.target = r.gyro.globGyroscope.getAngle();

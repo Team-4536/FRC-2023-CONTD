@@ -30,19 +30,13 @@ public class TestingBehaviour {
         f.setRobotPose(p.prevPosition.x, p.prevPosition.y, new Rotation2d(r.gyro.globGyroscope.getAngle()));
     };
 
-
-
-
-
-
     public static Consumer<Robot> encoderInit = r -> {
         p.prevVelocity = new V2d(0, -9);
     };
 
 
 
-
-    public static Consumer<Robot> testPeriodic = r -> {
+    public static Consumer<Robot> testLog = r -> {
         telemetryUtil.put("Testing str", "HI THERE", Tabs.DEBUG);
     };
 

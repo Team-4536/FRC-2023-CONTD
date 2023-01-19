@@ -192,11 +192,11 @@ public class telemetryUtil {
 
                     if(m.getType().isAssignableFrom(Consumer.class)){
 
-                        if(m.getAnnotation(Hidden.class) == null){
+                        if(m.getAnnotation(Hidden.class) != null) {
+                            continue; }
 
-                            String name = c.getSimpleName() + "." + m.getName();
-                            d.chooser.addOption(name, name);
-                        }
+                        String name = c.getSimpleName() + "." + m.getName();
+                        d.chooser.addOption(name, name);
                     }
                 }
             }

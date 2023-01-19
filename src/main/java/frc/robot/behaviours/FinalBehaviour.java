@@ -11,9 +11,17 @@ public class FinalBehaviour {
 
     public static Consumer<Robot> teleOpPeriodic = r -> {
 
-        driveUtil.setPowerTank(r.drive, r.input.controller.getLeftY(), r.input.controller.getLeftX(), r.input.controller.getRightTriggerAxis());
+        r.drive.pidController.target += r.input.joystick.getZ() * 40 * Robot.dt;
+        //driveUtil.setPowerTank(r.drive, r.input.controller.getLeftY(), r.input.controller.getLeftX(), r.input.controller.getRightTriggerAxis());
+        driveUtil.setPowerMechanum(r.drive, r.input.joystick.getX(), r.input.joystick.getY(), r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true), r.input.joystick.getRawAxis(3));
         visionUtil.distanceFrom(r.vision.getArea());
         r.vision.pipeline7();
+
+    };
+
+    public static Consumer<Robot> teleOpInit = r -> {
+
+        r.drive.pidController.target = r.gyro.globGyroscope.getAngle();
 
     };
 }

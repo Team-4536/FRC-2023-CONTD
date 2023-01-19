@@ -2,6 +2,7 @@ package frc.robot.functions;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveData;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public final class driveUtil {
 
@@ -19,11 +20,13 @@ public final class driveUtil {
 
 
         double[] speeds = {
-                (y + x - turning),
-                (y - x + turning),
                 (y - x - turning),
                 (y + x + turning),
+                (y + x - turning),
+                (y - x + turning),
         };
+
+        scale *= -1;
 
 
         double max = Math.abs(speeds[0]);
@@ -47,6 +50,8 @@ public final class driveUtil {
         for (int i = 0; i < speeds.length; i++){
             speeds[i] = speeds[i] * scale;
         }
+
+        SmartDashboard.putNumber("scale", scale);
 
         drive.frontLeftDrive.set(speeds[0]);
         drive.frontRightDrive.set(speeds[1]);
@@ -74,6 +79,22 @@ public final class driveUtil {
 
     public static void stop(DriveData drive){
         setPowerUniform(drive, 0.0);
+    }
+
+    public static void testFL(DriveData drive, double pow){
+        drive.frontLeftDrive.set(pow);
+    }
+
+    public static void testBL(DriveData drive, double pow){
+        drive.backLeftDrive.set(pow);
+    }
+
+    public static void testFR(DriveData drive, double pow){
+        drive.frontRightDrive.set(pow);
+    }
+
+    public static void testBR(DriveData drive, double pow){
+        drive.backRightDrive.set(pow);
     }
 
 

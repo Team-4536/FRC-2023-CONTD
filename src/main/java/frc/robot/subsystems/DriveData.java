@@ -1,19 +1,18 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.controllers.PIDController;
 
 public class DriveData {
 
-    public PIDController pidController = new PIDController(0.1, 0.1, 0);
+    public PIDController pidController = new PIDController(0.05, 0.0, -0.01);
 
-    public Spark frontLeftDrive;
-    public Spark frontRightDrive;
-    public Spark backLeftDrive;
-    public Spark backRightDrive;
+    public WPI_VictorSPX frontLeftDrive;
+    public WPI_VictorSPX frontRightDrive;
+    public WPI_VictorSPX backLeftDrive;
+    public WPI_VictorSPX backRightDrive;
 
     public Encoder FLEncoder;
     public Encoder FREncoder;
@@ -21,10 +20,11 @@ public class DriveData {
     public Encoder BREncoder;
 
     public DriveData() {
-        this.frontLeftDrive = new Spark(Constants.DRIVE_FRONT_LEFT_PORT);
-        this.frontRightDrive = new Spark(Constants.DRIVE_FRONT_RIGHT_PORT);
-        this.backLeftDrive = new Spark(Constants.DRIVE_BACK_LEFT_PORT);
-        this.backRightDrive = new Spark(Constants.DRIVE_BACK_RIGHT_PORT);
+        
+        this.frontLeftDrive = new WPI_VictorSPX(Constants.DRIVE_FRONT_LEFT_PORT);
+        this.frontRightDrive = new WPI_VictorSPX(Constants.DRIVE_FRONT_RIGHT_PORT);
+        this.backLeftDrive = new WPI_VictorSPX(Constants.DRIVE_BACK_LEFT_PORT);
+        this.backRightDrive = new WPI_VictorSPX(Constants.DRIVE_BACK_RIGHT_PORT);
 
         this.frontLeftDrive.setInverted(Constants.DRIVE_FRONT_LEFT_FLIPPED);
         this.frontRightDrive.setInverted(Constants.DRIVE_FRONT_RIGHT_FLIPPED);

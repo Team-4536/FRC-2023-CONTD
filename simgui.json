@@ -1,6 +1,11 @@
 {
   "HALProvider": {
     "Other Devices": {
+      "Victor SPX[0]": {
+        "header": {
+          "open": true
+        }
+      },
       "navX-Sensor[0]": {
         "header": {
           "open": true

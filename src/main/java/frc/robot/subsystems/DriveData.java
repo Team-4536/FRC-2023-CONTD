@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
@@ -14,6 +15,11 @@ public class DriveData {
     public Spark backLeftDrive;
     public Spark backRightDrive;
 
+    public Encoder FLEncoder;
+    public Encoder FREncoder;
+    public Encoder BLEncoder;
+    public Encoder BREncoder;
+
     public DriveData() {
         this.frontLeftDrive = new Spark(Constants.DRIVE_FRONT_LEFT_PORT);
         this.frontRightDrive = new Spark(Constants.DRIVE_FRONT_RIGHT_PORT);
@@ -25,8 +31,14 @@ public class DriveData {
         this.backLeftDrive.setInverted(Constants.DRIVE_BACK_LEFT_FLIPPED);
         this.backRightDrive.setInverted(Constants.DRIVE_BACK_RIGHT_FLIPPED);
 
+        FLEncoder = new Encoder(0, 1);
+        FREncoder = new Encoder(2, 3);
+        BLEncoder = new Encoder(4, 5);
+        BREncoder = new Encoder(6, 7);
 
     }
+    
+
 
     public void sendTelemetry() {
         SmartDashboard.putNumber("FL Pwr", frontLeftDrive.get());

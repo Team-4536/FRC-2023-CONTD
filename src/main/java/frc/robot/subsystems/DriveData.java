@@ -39,7 +39,10 @@ public class DriveData {
         BLEncoder = new Encoder(0, 1);
         BREncoder = new Encoder(2, 3);
 
-        BREncoder.setReverseDirection(true);
+        BREncoder.setReverseDirection(false);
+        FLEncoder.setReverseDirection(true);
+        BLEncoder.setReverseDirection(true);
+        FREncoder.setReverseDirection(false);
 
     }
     

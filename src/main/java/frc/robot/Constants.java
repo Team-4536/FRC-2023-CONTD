@@ -27,9 +27,11 @@ public final class Constants {
 
 
     // all of these are placeholders
-    public static final int ENCODER_TICKS_PER_REV = 2048;
-    public static final double WHEEL_RADIUS = 7.0;
-    public static final double WHEEL_CIRCUMFERENCE_INCHES = (2.0*WHEEL_RADIUS*Math.PI);
+    public static final int ENCODER_TICKS_PER_REV = 360;
+    
+    public static final double WHEEL_CIRCUMFERENCE_INCHES = 19.0;
+    public static final double WHEEL_DIAMETER_INCHES = WHEEL_CIRCUMFERENCE_INCHES/Math.PI;
+    public static final double WHEEL_RADIUS = WHEEL_DIAMETER_INCHES;
 
     public static final double STATIC_FRICTION = 0.8;
     public static final double DYNAMIC_FRICTION = 0.8;

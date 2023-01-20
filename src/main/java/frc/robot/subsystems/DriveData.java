@@ -9,7 +9,7 @@ import frc.robot.controllers.PIDController;
 
 public class DriveData {
 
-    public PIDController pidController = new PIDController(0.05, 0.0, -0.01);
+    public PIDController pidController = new PIDController(0.01, 0.0, 0);
 
     public WPI_VictorSPX frontLeftDrive;
     public WPI_VictorSPX frontRightDrive;
@@ -33,10 +33,13 @@ public class DriveData {
         this.backLeftDrive.setInverted(Constants.DRIVE_BACK_LEFT_FLIPPED);
         this.backRightDrive.setInverted(Constants.DRIVE_BACK_RIGHT_FLIPPED);
 
-        FLEncoder = new Encoder(0, 1);
-        FREncoder = new Encoder(2, 3);
-        BLEncoder = new Encoder(4, 5);
-        BREncoder = new Encoder(6, 7);
+        //ChannelA is the one with 3 wires channelB is the one with 1 wire(TRUE)
+        FLEncoder = new Encoder(6, 7);
+        FREncoder = new Encoder(4, 5);
+        BLEncoder = new Encoder(0, 1);
+        BREncoder = new Encoder(2, 3);
+
+        BREncoder.setReverseDirection(true);
 
     }
     
@@ -47,5 +50,10 @@ public class DriveData {
         SmartDashboard.putNumber("FR Pwr", frontRightDrive.get());
         SmartDashboard.putNumber("BL Pwr", backLeftDrive.get());
         SmartDashboard.putNumber("BR Pwr", backRightDrive.get());
+
+        SmartDashboard.putNumber("BLeft Encoder", BLEncoder.get());
+        SmartDashboard.putNumber("BRight Encoder", BREncoder.get());
+        SmartDashboard.putNumber("FLeft Encoder", FLEncoder.get());
+        SmartDashboard.putNumber("FRight Encoder", FREncoder.get());
     }
 }

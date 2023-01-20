@@ -12,6 +12,7 @@ import java.util.function.Consumer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.behaviours.BehaviourUtil;
 import frc.robot.behaviours.FinalBehaviour;
+import frc.robot.behaviours.TestingBehaviour;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.subsystems.DriveData;
 import frc.robot.subsystems.GyroData;
@@ -38,8 +39,8 @@ public class Robot extends TimedRobot {
     public static Consumer<Robot> AUTO_INIT_FUNC = NULL_FUNC;
     public static Consumer<Robot> AUTO_PER_FUNC = NULL_FUNC;
 
-    public static Consumer<Robot> TEST_INIT_FUNC = NULL_FUNC;
-    public static Consumer<Robot> TEST_PER_FUNC = NULL_FUNC;
+    public static Consumer<Robot> TEST_INIT_FUNC = TestingBehaviour.encoderInit;
+    public static Consumer<Robot> TEST_PER_FUNC = TestingBehaviour.encoderPeriodic;
 
     public static Consumer<Robot> DISABLED_INIT_FUNC = BehaviourUtil.stopDrive;
     public static Consumer<Robot> DISABLED_PER_FUNC = BehaviourUtil.stopDrive;
@@ -88,7 +89,7 @@ public class Robot extends TimedRobot {
         timeSinceInit = Duration.between(startTime, Instant.now()).toNanos() * (1.0/Constants.NANOS_PER_SECOND);
         prevtime = Instant.now();
 
-        telemetryUtil.grabChoosers();
+        // telemetryUtil.grabChoosers();
 
         this.drive.sendTelemetry();
         this.input.sendTelemetry();

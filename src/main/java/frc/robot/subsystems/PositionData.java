@@ -31,6 +31,7 @@ public class PositionData {
         V2d frAcc = new V2d(1, 1).normalized().rotateDegrees(angle);
 
         V2d deltaP = getMotorPosDeltaBasic(drive.FLEncoder, FLPrev, flAcc);
+        SmartDashboard.putNumber("delta FL", deltaP.y);
         deltaP = deltaP.add(getMotorPosDeltaBasic(drive.FREncoder, FRPrev, frAcc));
         deltaP = deltaP.add(getMotorPosDeltaBasic(drive.BLEncoder, BLPrev, frAcc));
         deltaP = deltaP.add(getMotorPosDeltaBasic(drive.BREncoder, BRPrev, flAcc));
@@ -122,7 +123,7 @@ public class PositionData {
 
 
     public int wrapEncoderVal(int x) {
-        int r = x;
+        int r = x % Constants.ENCODER_TICKS_PER_REV;
         while(r < -(Constants.ENCODER_TICKS_PER_REV/2)) { r += Constants.ENCODER_TICKS_PER_REV; }
         while(r > (Constants.ENCODER_TICKS_PER_REV/2)) { r -= Constants.ENCODER_TICKS_PER_REV; }
         return r;

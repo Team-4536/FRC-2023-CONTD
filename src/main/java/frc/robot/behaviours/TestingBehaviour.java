@@ -22,16 +22,18 @@ public class TestingBehaviour {
 
         // double d = r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
         driveUtil.setPowerTank(r.drive, r.input.controller.getLeftY(), r.input.controller.getLeftX(), r.input.controller.getRightTriggerAxis()*2 - 1);
-        p.update(Robot.dt, r.drive, r.gyro);
+        p.updateBasic(Robot.dt, r.drive, r.gyro);
         p.sendTelemetry();
 
+        telemetryUtil.put("pos", p.prevPosition.toString(), Tabs.DEBUG);
 
-        SmartDashboard.putData(f);
-        f.setRobotPose(p.prevPosition.x, p.prevPosition.y, new Rotation2d(r.gyro.globGyroscope.getAngle()));
+
+        // SmartDashboard.putData(f);
+        // f.setRobotPose(p.prevPosition.x, p.prevPosition.y, new Rotation2d(r.gyro.globGyroscope.getAngle()));
     };
 
     public static Consumer<Robot> encoderInit = r -> {
-        p.prevVelocity = new V2d(0, -9);
+        // p.prevVelocity = new V2d(0, -9);
     };
 
 

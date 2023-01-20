@@ -2,27 +2,59 @@ package frc.robot.behaviours;
 
 import java.util.function.Consumer;
 
+import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.functions.driveUtil;
-import frc.robot.functions.visionUtil;
+import frc.robot.V2d;
+import frc.robot.functions.*;
+import frc.robot.functions.telemetryUtil.Tabs;
+
+
+
+
+
+
+
 
 
 public class FinalBehaviour {
 
+    public static double startAngle = 0;
+
     public static @Hidden Consumer<Robot> teleOpPeriodic = r -> {
 
-        r.drive.pidController.target += r.input.joystick.getZ() * 40 * Robot.dt;
-        //driveUtil.setPowerTank(r.drive, r.input.controller.getLeftY(), r.input.controller.getLeftX(), r.input.controller.getRightTriggerAxis());
-        driveUtil.setPowerMechanum(r.drive, r.input.joystick.getX(), r.input.joystick.getY(), r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true), r.input.joystick.getRawAxis(3));
+        double t = inputUtil.deadzoneAxis(r.input.joystick.getZ(), Constants.TURNING_DEADZONE);
+        r.drive.pidController.target += t * 40 * Robot.dt;
+        double PIDOut = r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
+        telemetryUtil.put("PIDOUT", PIDOut, Tabs.DEBUG);
+
+
+        V2d input = new V2d(
+            inputUtil.deadzoneAxis(r.input.joystick.getX(), Constants.MOVEMENT_DEADZONE),
+            inputUtil.deadzoneAxis(r.input.joystick.getY(), Constants.MOVEMENT_DEADZONE)
+            );
+        // rotate degrees goes clockwise, and angle retrieved goes cc
+        // this means no inversion is necissary
+        input = input.rotateDegrees(gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle() - startAngle));
+
+
+        driveUtil.setPowerMechanum(r.drive,
+            input.x,
+            input.y,
+            PIDOut,
+            r.input.joystick.getRawAxis(3));
+
+
+
         visionUtil.distanceFrom(r.vision.getArea());
         r.vision.pipeline7();
-
     };
 
     @Hidden
     public static Consumer<Robot> teleOpInit = r -> {
 
+        BehaviourUtil.stopDrive.accept(r);
         r.drive.pidController.target = r.gyro.globGyroscope.getAngle();
+        startAngle = r.drive.pidController.target;
 
     };
 }

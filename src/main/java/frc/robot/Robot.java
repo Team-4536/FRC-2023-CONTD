@@ -10,6 +10,7 @@ import java.time.Instant;
 import java.util.function.Consumer;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import frc.robot.behaviours.AutoBehaviours;
 import frc.robot.behaviours.BehaviourUtil;
 import frc.robot.behaviours.FinalBehaviour;
 import frc.robot.functions.telemetryUtil;
@@ -36,7 +37,7 @@ public class Robot extends TimedRobot {
     public static Consumer<Robot> TELEOP_PER_FUNC = FinalBehaviour.teleOpPeriodic;
 
     public static Consumer<Robot> AUTO_INIT_FUNC = NULL_FUNC;
-    public static Consumer<Robot> AUTO_PER_FUNC = NULL_FUNC;
+    public static Consumer<Robot> AUTO_PER_FUNC = AutoBehaviours.autoPeriodic;
 
     public static Consumer<Robot> TEST_INIT_FUNC = NULL_FUNC;
     public static Consumer<Robot> TEST_PER_FUNC = NULL_FUNC;

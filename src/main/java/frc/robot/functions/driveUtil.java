@@ -26,7 +26,7 @@ public final class driveUtil {
                 (y - x + turning),
         };
 
-        scale *= -1;
+        //scale *= -1;
 
 
         double max = Math.abs(speeds[0]);
@@ -37,8 +37,9 @@ public final class driveUtil {
         }
 
         //turn -1, 1 joystick into a scale based on upper and lower bound constants
-        double scaleBound = Constants.POWER_SCALE_UPPER_BOUND - Constants.POWER_SCALE_LOWER_BOUND;
-        scale = ((scale + 1.0) / (2/scaleBound)) + Constants.POWER_SCALE_LOWER_BOUND;
+        //double scaleBound = Constants.POWER_SCALE_UPPER_BOUND - Constants.POWER_SCALE_LOWER_BOUND;
+        //scale = ((scale + 1.0) / (2/scaleBound)) + Constants.POWER_SCALE_LOWER_BOUND;
+        //scale = 1;
 
 
         //scale all sppeds so that the fastest is now going at 1

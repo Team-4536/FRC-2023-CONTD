@@ -14,7 +14,6 @@ import frc.robot.functions.*;
 
 
 
-
 public class FinalBehaviour {
 
     public static double startAngle = 0;
@@ -44,7 +43,8 @@ public class FinalBehaviour {
 
 
         visionUtil.distanceFrom(r.vision.getArea());
-        r.vision.pipeline7();
+        r.vision.pipelineTag(7);
+
     };
 
     @Hidden

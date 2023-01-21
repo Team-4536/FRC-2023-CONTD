@@ -27,7 +27,7 @@ public class VisionData {
       SmartDashboard.putNumber("Target Y", getY());
       SmartDashboard.putNumber("Target Area", getArea());
 
-      this.pipeline5();
+      this.pipelineTag(5);
 
     }
 
@@ -65,52 +65,10 @@ public class VisionData {
 
     }
 
-    public void pipeline1(){
+    public void pipelineTag(int t){
 
-      limelight.getEntry("pipeline").setNumber(1);
+      limelight.getEntry("pipeline").setNumber(t);
 
-    }
-
-    public void pipeline2(){
-
-      limelight.getEntry("pipeline").setNumber(2);
-
-    }
-
-    public void pipeline3(){
-
-      limelight.getEntry("pipeline").setNumber(3);
-
-    }
-
-    public void pipeline4(){
-
-      limelight.getEntry("pipeline").setNumber(4);
-
-    }
-
-    public void pipeline5(){
-
-      limelight.getEntry("pipeline").setNumber(5);
-
-    }
-
-    public void pipeline6(){
-
-      limelight.getEntry("pipeline").setNumber(6);
-      
-    }
-
-    public void pipeline7(){
-
-      limelight.getEntry("pipeline").setNumber(7);
-      
-    }
-
-    public void pipeline8(){
-
-      limelight.getEntry("pipeline").setNumber(8);
-      
     }
     
 }

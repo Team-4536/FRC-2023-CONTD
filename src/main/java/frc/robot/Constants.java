@@ -12,6 +12,8 @@ public final class Constants {
     public static final double POWER_SCALE_UPPER_BOUND = 1.0;
     public static final double POWER_SCALE_LOWER_BOUND = 0.2;
 
+    public static final double MOVEMENT_DEADZONE = 0.15;
+    public static final double TURNING_DEADZONE = 0.2;
 
 
 

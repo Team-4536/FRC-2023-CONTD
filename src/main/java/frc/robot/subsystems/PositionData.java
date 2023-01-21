@@ -18,15 +18,15 @@ public class PositionData {
     //                      start loc
     public Pose2d pose = new Pose2d();
 
-    // Creating my kinematics object using the wheel locations.
     MecanumDriveKinematics m_kinematics = new MecanumDriveKinematics(
         m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation
     );
 
-    // Creating my odometry object from the kinematics object and the initial wheel positions.
-    // Here, our starting pose is 5 meters along the long end of the field and in the
-    // center of the field along the short end, facing the opposing alliance wall.
     MecanumDriveOdometry m_odometry;
+
+
+
+
 
     public PositionData(GyroData gyro, DriveData drive) {
         m_odometry = new MecanumDriveOdometry(
@@ -38,7 +38,6 @@ public class PositionData {
             ),
             this.pose
             );
-
     }
 
 

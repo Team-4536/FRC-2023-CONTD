@@ -2,15 +2,19 @@ package frc.robot.behaviours;
 
 import java.util.function.Consumer;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.visionUtil;
 import frc.robot.subsystems.PositionData;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.FieldObject2d;
 
 
 public class FinalBehaviour {
 
-    static PositionData p = new PositionData();
+    static PositionData p = null;
+    static Field2d f = new Field2d();
 
     public static @Hidden Consumer<Robot> teleOpPeriodic = r -> {
 
@@ -21,13 +25,19 @@ public class FinalBehaviour {
         r.vision.pipeline7();
 
 
-        
+        if(p != null) {
+
+            p.update(r.drive, r.gyro);
+            SmartDashboard.putData("Field", f);
+        }
     };
 
     @Hidden
     public static Consumer<Robot> teleOpInit = r -> {
 
         r.drive.pidController.target = r.gyro.globGyroscope.getAngle();
+        p = new PositionData(r.gyro, r.drive);
+        f.setRobotPose(p.pose);
 
     };
 }

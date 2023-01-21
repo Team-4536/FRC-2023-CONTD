@@ -40,8 +40,8 @@ public class AutoStages {
 
         int pip = 0;
         PIDController anglePID = new PIDController(0.05, 0.0, -0.01);
-        PIDController xPID = new PIDController(0.05, 0.0, -0.01);
-        PIDController yPID = new PIDController(0.05, 0.0, -0.01);
+        PIDController xPID = new PIDController(0.15, 0.0, -0.01);
+        PIDController yPID = new PIDController(0.15, 0.0, -0.01);
 
         public goToAprilTag(int p) { this.pip = p; }
 
@@ -60,8 +60,8 @@ public class AutoStages {
                 );
 
                 driveUtil.setPowerMechanum(r.drive, 
-                -xPID.tick(out.x, Robot.dt, false),
-                -yPID.tick(out.y, Robot.dt, false),
+                xPID.tick(out.x, Robot.dt, false),
+                yPID.tick(out.y, Robot.dt, false),
                 -anglePID.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true),
                 0.4);
             }

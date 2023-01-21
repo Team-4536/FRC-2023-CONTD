@@ -3,14 +3,13 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionData {
 
     public NetworkTable limelight = NetworkTableInstance.getDefault().getTable("limelight");
 
-    public NetworkTableEntry tv = limelight.getEntry("tv");    
+    public NetworkTableEntry tv = limelight.getEntry("tv");
     public NetworkTableEntry tx = limelight.getEntry("tx");
     public NetworkTableEntry ty = limelight.getEntry("ty");
     public NetworkTableEntry ta = limelight.getEntry("ta");
@@ -51,7 +50,7 @@ public class VisionData {
       return targetY;
 
     }
-    
+
     public double getArea(){
 
       targetArea = ta.getDouble(0.0);
@@ -70,5 +69,4 @@ public class VisionData {
       limelight.getEntry("pipeline").setNumber(t);
 
     }
-    
 }

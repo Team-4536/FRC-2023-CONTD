@@ -1,6 +1,5 @@
 package frc.robot.functions;
 
-import frc.robot.Constants;
 import frc.robot.subsystems.DriveData;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 

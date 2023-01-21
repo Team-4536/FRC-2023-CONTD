@@ -6,7 +6,6 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.V2d;
 import frc.robot.functions.*;
-import frc.robot.functions.telemetryUtil.Tabs;
 
 
 
@@ -25,7 +24,6 @@ public class FinalBehaviour {
         double t = inputUtil.deadzoneAxis(r.input.joystick.getZ(), Constants.TURNING_DEADZONE);
         r.drive.pidController.target += t * 40 * Robot.dt;
         double PIDOut = r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
-        telemetryUtil.put("PIDOUT", PIDOut, Tabs.DEBUG);
 
 
         V2d input = new V2d(

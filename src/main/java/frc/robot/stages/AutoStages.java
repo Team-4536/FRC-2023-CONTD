@@ -1,15 +1,11 @@
 
 package frc.robot.stages;
 
-import java.util.function.Function;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.V2d;
 import frc.robot.controllers.PIDController;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.gyroUtil;
-import frc.robot.functions.visionUtil;
 
 public class AutoStages {
 
@@ -23,7 +19,7 @@ public class AutoStages {
 
 
 
-    public static class goTo90 extends Stage {
+    public static class goTo180 extends Stage {
         // 90
         // public static PIDController pidController = new PIDController(0.007, 0.002, -0.05);
         // 180
@@ -34,7 +30,6 @@ public class AutoStages {
         }
 
     }
-    
 
     public static class goToAprilTag extends Stage {
 
@@ -51,7 +46,7 @@ public class AutoStages {
             V2d goal = new V2d(0, 9);
             xPID.target = goal.x;
             yPID.target = goal.y;
-            
+
             if(r.vision.getTargets()) {
 
                 V2d out = new V2d(
@@ -59,7 +54,7 @@ public class AutoStages {
                     r.vision.getY()
                 );
 
-                driveUtil.setPowerMechanum(r.drive, 
+                driveUtil.setPowerMechanum(r.drive,
                 xPID.tick(out.x, Robot.dt, false),
                 yPID.tick(out.y, Robot.dt, false),
                 -anglePID.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true),

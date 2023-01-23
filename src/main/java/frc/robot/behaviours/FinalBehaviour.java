@@ -29,9 +29,10 @@ public class FinalBehaviour {
         double t = inputUtil.deadzoneAxis(r.input.controller.getRightX(), ControlInfo.TURNING_DEADZONE);
 
         double turningScalar = inputUtil.mapInput(
-            1-r.input.controller.getLeftTriggerAxis(),
+            r.input.controller.getLeftTriggerAxis(),
             1, 0, ControlInfo.MAX_TURNING_OUT, ControlInfo.DEFAULT_TURNING_OUT);
         r.drive.pidController.target += t * turningScalar * Robot.dt;
+
 
         double PIDOut = -r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
 
@@ -39,17 +40,19 @@ public class FinalBehaviour {
 
         // linear
         double driveScalar = inputUtil.mapInput(
-            1-r.input.controller.getRightTriggerAxis(),
+            r.input.controller.getRightTriggerAxis(),
             1, 0, ControlInfo.MAX_DRIVE_OUT, ControlInfo.DEFAULT_DRIVE_OUT);
 
         double xIn = inputUtil.deadzoneAxis(r.input.controller.getLeftX(), ControlInfo.MOVEMENT_DEADZONE);
-        xIn *= driveScalar;
+        xIn *= driveScalar * 2;
+
         double yIn = inputUtil.deadzoneAxis(r.input.controller.getLeftY(), ControlInfo.MOVEMENT_DEADZONE);
         yIn *= driveScalar;
 
 
+
         V2d input = new V2d( xIn, yIn);
-        input = input.rotateDegrees(gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle() - startAngle));
+        //input = input.rotateDegrees(gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle() - startAngle));
 
 
 
@@ -58,7 +61,7 @@ public class FinalBehaviour {
             input.x,
             input.y,
             PIDOut,
-            r.input.joystick.getRawAxis(3));
+            0.5);
 
         // end of drive stuff :)
 

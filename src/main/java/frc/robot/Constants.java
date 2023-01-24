@@ -62,6 +62,11 @@ public final class Constants {
 
         public static final double LIMELIGHT_FOV_ASPECT = Math.sin(Math.toRadians(27))/Math.sin(Math.toRadians(20.5));
 
+        public static final double GRID_TAG_HEIGHT_INCHES = 15.25;
+        public static final double SUBSTATION_TAG_HEIGHT_INCHES = 24.375;
+
+        public static final double GRID_RRTAPE_HEIGHT_INCHES = 23.5;
+
 
     }
 }

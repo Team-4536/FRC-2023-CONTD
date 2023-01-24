@@ -52,7 +52,7 @@ public class FinalBehaviour {
 
 
         V2d input = new V2d( xIn, yIn);
-        //input = input.rotateDegrees(gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle() - startAngle));
+        //input = input.rotateDegrees(-gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle() - startAngle));
 
 
 

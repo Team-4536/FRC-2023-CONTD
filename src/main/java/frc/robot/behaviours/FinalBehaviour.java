@@ -56,7 +56,7 @@ public class FinalBehaviour {
 
 
         visionUtil.distanceFrom(r.vision.getArea());
-        r.vision.pipelineTag(7);
+        //r.vision.pipelineTag(7);
 
 
         if(p != null) {

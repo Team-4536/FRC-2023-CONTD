@@ -2,14 +2,15 @@ package frc.robot.behaviours;
 
 import java.util.function.Consumer;
 
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.visionUtil;
 import frc.robot.subsystems.PositionData;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import frc.robot.Constants;
 import frc.robot.V2d;
+import frc.robot.Constants.ControlInfo;
 import frc.robot.functions.*;
 
 
@@ -26,19 +27,33 @@ public class FinalBehaviour {
 
 
         // angular
-        double t = inputUtil.deadzoneAxis(r.input.controller.getRightX(), Constants.TURNING_DEADZONE);
-        r.drive.pidController.target += t * 90 * Robot.dt;
+        double t = inputUtil.deadzoneAxis(r.input.controller.getRightX(), ControlInfo.TURNING_DEADZONE);
+
+        double turningScalar = inputUtil.mapInput(
+            r.input.controller.getLeftTriggerAxis(),
+            1, 0, ControlInfo.MAX_TURNING_OUT, ControlInfo.DEFAULT_TURNING_OUT);
+        r.drive.pidController.target += t * turningScalar * Robot.dt;
+
 
         double PIDOut = -r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
 
 
-        // linear
-        V2d input = new V2d(
-            inputUtil.deadzoneAxis(r.input.controller.getLeftX(), Constants.MOVEMENT_DEADZONE),
-            inputUtil.deadzoneAxis(r.input.controller.getLeftY(), Constants.MOVEMENT_DEADZONE)
-            );
 
-        input = input.rotateDegrees(gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle() - startAngle));
+        // linear
+        double driveScalar = inputUtil.mapInput(
+            r.input.controller.getRightTriggerAxis(),
+            1, 0, ControlInfo.MAX_DRIVE_OUT, ControlInfo.DEFAULT_DRIVE_OUT);
+
+        double xIn = inputUtil.deadzoneAxis(r.input.controller.getLeftX(), ControlInfo.MOVEMENT_DEADZONE);
+        xIn *= driveScalar * 2;
+
+        double yIn = inputUtil.deadzoneAxis(r.input.controller.getLeftY(), ControlInfo.MOVEMENT_DEADZONE);
+        yIn *= driveScalar;
+
+
+
+        V2d input = new V2d( xIn, yIn);
+        //input = input.rotateDegrees(-gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle() - startAngle));
 
 
 
@@ -47,7 +62,7 @@ public class FinalBehaviour {
             input.x,
             input.y,
             PIDOut,
-            r.input.joystick.getRawAxis(3));
+            0.5);
 
         // end of drive stuff :)
 
@@ -57,7 +72,7 @@ public class FinalBehaviour {
 
 
         visionUtil.distanceFrom(r.vision.getArea());
-        r.vision.pipelineTag(7);
+        //r.vision.pipelineTag(7);
 
 
 

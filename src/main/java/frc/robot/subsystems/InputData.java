@@ -23,8 +23,8 @@ public final class InputData {
 
     public void sendTelemetry() {
 
-        telemetryUtil.warnOn(!controller.isConnected(), "Controller A is disconnected", Tabs.DRIVER);
-        telemetryUtil.warnOn(!joystick.isConnected(), "Controller B is disconnected", Tabs.DRIVER);
+        telemetryUtil.warnOn(!controller.isConnected(), "Controller is disconnected (Port 0)", Tabs.DRIVER);
+        telemetryUtil.warnOn(!joystick.isConnected(), "Joystick is disconnected (Port 1)", Tabs.DRIVER);
 
     }
 }

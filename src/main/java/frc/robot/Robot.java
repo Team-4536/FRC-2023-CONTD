@@ -8,6 +8,7 @@ package frc.robot;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.behaviours.AutoBehaviours;
@@ -46,6 +47,7 @@ public class Robot extends TimedRobot {
     public static Consumer<Robot> DISABLED_INIT_FUNC = BehaviourUtil.stopDrive;
     public static Consumer<Robot> DISABLED_PER_FUNC = BehaviourUtil.stopDrive;
     //#endregion
+
 
 
     public static Instant startTime;

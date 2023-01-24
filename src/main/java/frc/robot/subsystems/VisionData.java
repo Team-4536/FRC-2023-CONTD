@@ -26,7 +26,7 @@ public class VisionData {
       SmartDashboard.putNumber("Target Y", getY());
       SmartDashboard.putNumber("Target Area", getArea());
 
-      this.pipelineTag(5);
+      // this.pipelineTag(5);
 
     }
 

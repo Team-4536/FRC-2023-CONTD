@@ -73,6 +73,10 @@ public final class Constants {
 
         public static final double GRID_RRTAPE_HEIGHT_INCHES = 23.5;
 
+        public static final double APRIL_TAG_COMMUNITY_HIGHT = 18.25;
 
+        public static final int CAMMERA_X_OFFSET_FROM_CENTER = 7;
+        public static final int CAMMERA_Y_OFFSET_FROM_GROUND = 16;
+        public static final int CAMMERA_Z_OFFSET_FROM_FRONT_ROBOT = 23;
     }
 }

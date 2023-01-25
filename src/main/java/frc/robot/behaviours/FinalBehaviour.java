@@ -88,6 +88,7 @@ public class FinalBehaviour {
     public static Consumer<Robot> teleOpInit = r -> {
 
         BehaviourUtil.stopDrive.accept(r);
+        r.gyro.globGyroscope.reset();
         r.drive.pidController.target = r.gyro.globGyroscope.getAngle();
         startAngle = r.drive.pidController.target;
 

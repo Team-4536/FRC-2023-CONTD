@@ -44,6 +44,11 @@ public class DriveData {
         BLEncoder.setReverseDirection(true);
         FREncoder.setReverseDirection(false);
 
+        BREncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
+        BLEncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
+        FREncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
+        FLEncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
+
     }
     
 

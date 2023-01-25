@@ -19,7 +19,6 @@ public class FinalBehaviour {
 
     static PositionData p = null;
     static Field2d f = new Field2d();
-
     static double startAngle = 0;
 
 
@@ -75,10 +74,13 @@ public class FinalBehaviour {
         //r.vision.pipelineTag(7);
 
 
-
         if(p != null) {
+
             p.update(r.drive, r.gyro);
             SmartDashboard.putData("Field", f);
+            SmartDashboard.putNumber("Estimate X", p.pose.getX());
+            SmartDashboard.putNumber("Estimate Y", p.pose.getY());
+            SmartDashboard.putNumber("Estimate T", p.pose.getRotation().getDegrees());
         }
     };
 
@@ -88,6 +90,7 @@ public class FinalBehaviour {
         BehaviourUtil.stopDrive.accept(r);
         r.drive.pidController.target = r.gyro.globGyroscope.getAngle();
         startAngle = r.drive.pidController.target;
+
 
 
         p = new PositionData(r.gyro, r.drive);

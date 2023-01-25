@@ -20,47 +20,64 @@ public class FinalBehaviour {
     static PositionData p = null;
     static Field2d f = new Field2d();
     static double startAngle = 0;
+    static boolean buttonIsPressed = false;
+    static int runNumber = 0;
 
 
     public static @Hidden Consumer<Robot> teleOpPeriodic = r -> {
 
+        if(r.input.controller.getBButtonPressed()){
+            
+            runNumber++;
 
-        // angular
-        double t = inputUtil.deadzoneAxis(r.input.controller.getRightX(), ControlInfo.TURNING_DEADZONE);
+            if(runNumber == 1){
+                resetAuto(r);
+                stages.add(new AutoStages.goToAprilTag(1));
 
-        double turningScalar = inputUtil.mapInput(
-            1-r.input.controller.getLeftTriggerAxis(),
-            1, 0, ControlInfo.MAX_TURNING_OUT, ControlInfo.DEFAULT_TURNING_OUT);
-        r.drive.pidController.target += t * turningScalar * Robot.dt;
+            } else{
+                BehaviourUtil.stopDrive.accept(r);
+            }
 
-        double PIDOut = -r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
+        } else {
+        
+            runNumber = 0;
+            // angular
+            double t = inputUtil.deadzoneAxis(r.input.controller.getRightX(), ControlInfo.TURNING_DEADZONE);
 
+            double turningScalar = inputUtil.mapInput(
+                1-r.input.controller.getLeftTriggerAxis(),
+                1, 0, ControlInfo.MAX_TURNING_OUT, ControlInfo.DEFAULT_TURNING_OUT);
+            r.drive.pidController.target += t * turningScalar * Robot.dt;
 
-
-        // linear
-        double driveScalar = inputUtil.mapInput(
-            1-r.input.controller.getRightTriggerAxis(),
-            1, 0, ControlInfo.MAX_DRIVE_OUT, ControlInfo.DEFAULT_DRIVE_OUT);
-
-        double xIn = inputUtil.deadzoneAxis(r.input.controller.getLeftX(), ControlInfo.MOVEMENT_DEADZONE);
-        xIn *= driveScalar;
-        double yIn = inputUtil.deadzoneAxis(r.input.controller.getLeftY(), ControlInfo.MOVEMENT_DEADZONE);
-        yIn *= driveScalar;
-
-
-        V2d input = new V2d( xIn, yIn);
-        input = input.rotateDegrees(gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle() - startAngle));
+            double PIDOut = -r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
 
 
 
+            // linear
+            double driveScalar = inputUtil.mapInput(
+                1-r.input.controller.getRightTriggerAxis(),
+                1, 0, ControlInfo.MAX_DRIVE_OUT, ControlInfo.DEFAULT_DRIVE_OUT);
 
-        driveUtil.setPowerMechanum(r.drive,
-            input.x,
-            input.y,
-            PIDOut,
-            r.input.joystick.getRawAxis(3));
+            double xIn = inputUtil.deadzoneAxis(r.input.controller.getLeftX(), ControlInfo.MOVEMENT_DEADZONE);
+            xIn *= driveScalar;
+            double yIn = inputUtil.deadzoneAxis(r.input.controller.getLeftY(), ControlInfo.MOVEMENT_DEADZONE);
+            yIn *= driveScalar;
 
-        // end of drive stuff :)
+
+            V2d input = new V2d( xIn, yIn);
+            input = input.rotateDegrees(gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle() - startAngle));
+
+
+
+
+            driveUtil.setPowerMechanum(r.drive,
+                input.x,
+                input.y,
+                PIDOut,
+                r.input.joystick.getRawAxis(3));
+
+            // end of drive stuff :)
+        }
 
 
 

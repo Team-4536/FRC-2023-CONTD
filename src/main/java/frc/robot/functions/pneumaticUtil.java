@@ -1,9 +1,10 @@
-package frc.robot.subsystems;
+package frc.robot.functions;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import frc.robot.subsystems.PneumaticData;
 
-public class PneumaticUtilities {
+public class pneumaticUtil {
     
 
 
@@ -12,7 +13,7 @@ public class PneumaticUtilities {
         
             pData.leftBackSol.toggle();
             pData.leftFrontSol.toggle();
-            pData.rightBackSol.toggle();
+            pData.rightBackSol.toggle(); 
             pData.rightFrontSol.toggle();
         
     }

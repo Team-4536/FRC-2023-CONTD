@@ -114,7 +114,7 @@ public class AutoStages {
             r.vision.pipelineTag(this.pip);
 
             //V2d goal = new V2d(0, requiredVerticalAngle);
-            V2d goal = new V2d(-Constants.VisionInfo.CX_FROM_CENTER - (Constants.ROBOT_X_SIZE_IN/2), wantedDistance + Constants.ROBOT_Y_SIZE_IN - Constants.VisionInfo.CY_FROM_CENTER);
+            V2d goal = new V2d(Constants.VisionInfo.CX_FROM_CENTER - (Constants.ROBOT_X_SIZE_IN/2), wantedDistance + Constants.ROBOT_Y_SIZE_IN - Constants.VisionInfo.CY_FROM_CENTER);
 
             xPID.target = goal.x;
             yPID.target = goal.y;
@@ -129,14 +129,12 @@ public class AutoStages {
                 );
 
                 driveUtil.setPowerMechanum(r.drive,
-                -xPID.tick(out.x, Robot.dt, false),
+                xPID.tick(out.x, Robot.dt, false),
                 yPID.tick(out.y, Robot.dt, false),
                 -anglePID.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true),
                 0.4);
                 telemetryUtil.put("Cam Tx", r.vision.getX(),Tabs.DEBUG);
                 telemetryUtil.put("Cam Ty", r.vision.getY(),Tabs.DEBUG);
-                telemetryUtil.put("hello!", visionUtil.distanceFrom(r.vision.getArea()), Tabs.DEBUG);
-                telemetryUtil.put("VerticalAngle", requiredVerticalAngle,Tabs.DEBUG);
                 telemetryUtil.put("HorizontallAngle", requiredHorizontallAngle,telemetryUtil.Tabs.DEBUG);
 
             }

@@ -6,8 +6,11 @@ import frc.robot.V2d;
 import frc.robot.controllers.PIDController;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.gyroUtil;
+import frc.robot.functions.visionUtil;
+import frc.robot.Constants.VisionInfo;
 import frc.robot.Constants;
-
+import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.telemetryUtil.Tabs;
 
 public class AutoStages {
 
@@ -82,27 +85,36 @@ public class AutoStages {
     public static class goToAprilTagTrig extends Stage {
 
         int pip = 0;
-        PIDController anglePID = new PIDController(0.05, 0.0, -0.01);
-        PIDController xPID = new PIDController(0.15, 0.0, -0.01);
-        PIDController yPID = new PIDController(0.15, 0.0, -0.01);
+        PIDController anglePID = new PIDController(0.04, 0.0004, -0.01);
+        PIDController xPID = new PIDController(0.15, 0.05, -0.01);
+        //PIDController yPID = new PIDController(0.15, 0.05, -0.01);
+        PIDController yPID = new PIDController(0.04, 0.00, -0.01);
 
-        public goToAprilTagTrig(int p) { this.pip = p; }
+        double wantedDistance = 36;
+        double opposite = Constants.VisionInfo.APRIL_TAG_COMMUNITY_HIGHT - Constants.VisionInfo.CY_FROM_CENTER;
+        double adjecent = Constants.ROBOT_Y_SIZE_IN - Constants.VisionInfo.CY_FROM_CENTER + wantedDistance;
+        double requiredVerticalAngle = Math.atan(opposite/adjecent) * 180 * Math.PI;
         
-        double wantedDistance = 24;
-        double opposite = Constants.VisionInfo.APRIL_TAG_COMMUNITY_HIGHT - Constants.VisionInfo.CAMMERA_Y_OFFSET_FROM_GROUND;
-        double adjecent = wantedDistance + Constants.VisionInfo.CAMMERA_Z_OFFSET_FROM_FRONT_ROBOT;
-        double requiredVerticalAngle = Math.atan2(opposite, adjecent);
 
         double wantedAlignment = 0;
-        double opposite1 = Constants.VisionInfo.CAMMERA_X_OFFSET_FROM_CENTER;
-        double adjecent1 = wantedDistance + Constants.VisionInfo.CAMMERA_Z_OFFSET_FROM_FRONT_ROBOT;
-        double requiredHorizontallAngle = gyroUtil.wrapAngle(Math.atan2(opposite1, adjecent1));
+        double opposite1 = Constants.VisionInfo.CX_FROM_CENTER - Constants.ROBOT_X_SIZE_IN/2;
+        double adjecent1 = Constants.ROBOT_Y_SIZE_IN - Constants.VisionInfo.CY_FROM_CENTER + wantedAlignment;
+        double requiredHorizontallAngle = Math.toDegrees(Math.atan(opposite1/adjecent1));
+        
+
+        public goToAprilTagTrig(int p) { 
+            this.pip = p; 
+            
+        }
+        
+        
 
         @Override public boolean run(Robot r) {
 
             r.vision.pipelineTag(this.pip);
 
-            V2d goal = new V2d(requiredHorizontallAngle, requiredVerticalAngle);
+            //V2d goal = new V2d(0, requiredVerticalAngle);
+            V2d goal = new V2d(-Constants.VisionInfo.CX_FROM_CENTER - (Constants.ROBOT_X_SIZE_IN/2), wantedDistance + Constants.ROBOT_Y_SIZE_IN - Constants.VisionInfo.CY_FROM_CENTER);
 
             xPID.target = goal.x;
             yPID.target = goal.y;
@@ -110,15 +122,23 @@ public class AutoStages {
             if(r.vision.getTargets()) {
 
                 V2d out = new V2d(
-                    r.vision.getX(),
-                    r.vision.getY()
+                   // r.vision.getX(),
+                    //r.vision.getY()
+                    visionUtil.horizontalOffset(r.vision.getArea(), r.vision.getX()),
+                    visionUtil.distanceFrom(r.vision.getArea())
                 );
 
                 driveUtil.setPowerMechanum(r.drive,
                 -xPID.tick(out.x, Robot.dt, false),
-                -yPID.tick(out.y, Robot.dt, false),
+                yPID.tick(out.y, Robot.dt, false),
                 -anglePID.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true),
                 0.4);
+                telemetryUtil.put("Cam Tx", r.vision.getX(),Tabs.DEBUG);
+                telemetryUtil.put("Cam Ty", r.vision.getY(),Tabs.DEBUG);
+                telemetryUtil.put("hello!", visionUtil.distanceFrom(r.vision.getArea()), Tabs.DEBUG);
+                telemetryUtil.put("VerticalAngle", requiredVerticalAngle,Tabs.DEBUG);
+                telemetryUtil.put("HorizontallAngle", requiredHorizontallAngle,telemetryUtil.Tabs.DEBUG);
+
             }
             else {
                 driveUtil.stop(r.drive);

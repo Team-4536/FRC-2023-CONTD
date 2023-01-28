@@ -44,9 +44,10 @@ public final class Constants {
 
 
     public static final int ENCODER_TICKS_PER_REV = 360;
+    public static final double ENCODER_PULSE_DISTANCE = 1/740.0;
 
-    public static final double WHEEL_CIRCUMFERENCE_INCHES = 19.0;
-    public static final double WHEEL_DIAMETER_INCHES = WHEEL_CIRCUMFERENCE_INCHES/Math.PI;
+    public static final double WHEEL_DIAMETER_INCHES = 6.0;
+    public static final double WHEEL_CIRCUMFERENCE_INCHES = Math.PI * WHEEL_DIAMETER_INCHES;
     public static final double WHEEL_RADIUS = WHEEL_DIAMETER_INCHES;
 
     // FICKS

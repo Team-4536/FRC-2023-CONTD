@@ -56,7 +56,8 @@ public final class Constants {
     public static final V2d BL_MOTOR_POS = new V2d(-1, -1);
     public static final V2d BR_MOTOR_POS = new V2d(1, -1);
 
-
+    public static final double ROBOT_X_SIZE_IN = 24;
+    public static final double ROBOT_Y_SIZE_IN = 30.33333333;
 
     public static final int CONTROLLER_PORT = 0;
     public static final int JOYSTICK_PORT = 1;
@@ -78,6 +79,14 @@ public final class Constants {
 
         public static final double GRID_RRTAPE_HEIGHT_INCHES = 23.5;
 
+        public static final double APRIL_TAG_COMMUNITY_HIGHT = 18.25;
 
+        //public static final int CAMMERA_X_OFFSET_FROM_CENTER = 7;
+        //public static final int CAMMERA_Y_OFFSET_FROM_GROUND = 16;
+        //public static final int CAMMERA_Z_OFFSET_FROM_FRONT_ROBOT = 23;
+
+        public static final double CY_FROM_CENTER = 7.75;
+        public static final double CX_FROM_CENTER = 5.333333333333;
+        public static final double CZ_FRIM_CENTER = 16; 
     }
 }

@@ -52,4 +52,10 @@ public class AutoBehaviours {
 
         stages.add(new AutoStages.goToAprilTagTrig(3, 24));
     };
+
+    public static Consumer<Robot> balenceWithGyroInit = r -> {
+
+        resetAuto(r);
+        stages.add(new AutoStages.balenceWithGyro());
+    };
 }

@@ -4,6 +4,7 @@ package frc.robot.stages;
 import frc.robot.Robot;
 import frc.robot.V2d;
 import frc.robot.controllers.PIDController;
+import frc.robot.controllers.balenceController;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.gyroUtil;
 import frc.robot.functions.visionUtil;
@@ -100,6 +101,38 @@ public class AutoStages {
             telemetryUtil.put("ms", motorSpeed, Tabs.DEBUG);
 
             return (motorSpeed && horizError && verticalError);
+        }
+
+    }
+
+    public static class balenceWithGyro extends Stage {
+
+
+        PIDController anglePID = new PIDController(0.04, 0.0004, -0.01);
+        PIDController xPID = new PIDController(0.35, 0.01, -0.1);
+        PIDController yPID = new PIDController(0.07, 0.006, -0.04);
+
+
+        public balenceWithGyro() { 
+            
+        }
+
+        
+        
+
+        @Override public boolean run(Robot r) {
+            driveUtil.setPowerMechanum(
+                r.drive,
+                0,
+                balenceController.tick(),
+                0,
+                1
+            );
+            
+
+            
+
+            return false;
         }
 
     }

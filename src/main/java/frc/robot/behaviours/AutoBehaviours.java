@@ -46,13 +46,6 @@ public class AutoBehaviours {
         stages.add(new AutoStages.goTo180());
     };
 
-    public static Consumer<Robot> alignTagInit = r -> {
-
-        resetAuto(r);
-
-        stages.add(new AutoStages.goToAprilTag(1));
-    };
-
     public static Consumer<Robot> alignTagTrigInit = r -> {
 
         resetAuto(r);

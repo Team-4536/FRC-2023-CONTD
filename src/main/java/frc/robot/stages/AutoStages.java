@@ -95,9 +95,9 @@ public class AutoStages {
             
             boolean motorSpeed = yPID.prevErr - (goal.y - visionUtil.distanceFrom(r.vision.getArea())) <= .15;
 
-            SmartDashboard.putBoolean("h", horizError);
-            SmartDashboard.putBoolean("v", verticalError);
-            SmartDashboard.putBoolean("ms", motorSpeed);
+            telemetryUtil.put("h", horizError, Tabs.DEBUG);
+            telemetryUtil.put("v", verticalError, Tabs.DEBUG);
+            telemetryUtil.put("ms", motorSpeed, Tabs.DEBUG);
 
             return (motorSpeed && horizError && verticalError);
         }

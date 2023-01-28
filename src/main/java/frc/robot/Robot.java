@@ -18,6 +18,7 @@ import frc.robot.functions.telemetryUtil;
 import frc.robot.subsystems.DriveData;
 import frc.robot.subsystems.GyroData;
 import frc.robot.subsystems.InputData;
+import frc.robot.subsystems.PositionData;
 import frc.robot.subsystems.VisionData;
 
 /**
@@ -58,7 +59,7 @@ public class Robot extends TimedRobot {
     public InputData input;
     public VisionData vision;
     public GyroData gyro;
-
+    public PositionData positionData;
 
 
 
@@ -78,6 +79,7 @@ public class Robot extends TimedRobot {
         this.input = new InputData();
         this.vision = new VisionData();
         this.gyro = new GyroData();
+        this.positionData = new PositionData(gyro, drive);
 
         ROBOT_INIT_FUNC.accept(this);
     }
@@ -97,6 +99,7 @@ public class Robot extends TimedRobot {
         this.input.sendTelemetry();
         this.gyro.sendTelemetry();
         this.vision.sendTelemetry();
+        this.positionData.sendTelemetry();
 
         ROBOT_PER_FUNC.accept(this);
     }

@@ -17,8 +17,6 @@ import frc.robot.functions.*;
 
 public class FinalBehaviour {
 
-    static PositionData p = null;
-    static Field2d f = new Field2d();
     static double startAngle = 0;
 
 
@@ -45,7 +43,8 @@ public class FinalBehaviour {
         V2d input = new V2d(xIn, yIn);
 
         input = input.rotateDegrees(-gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle() - startAngle));
-        
+
+
 
         double driveScalar = inputUtil.mapInput(
             r.input.controller.getRightTriggerAxis(),
@@ -74,15 +73,6 @@ public class FinalBehaviour {
         visionUtil.distanceFrom(r.vision.getArea());
         //r.vision.pipelineTag(7);
 
-
-        if(p != null) {
-
-            p.update(r.drive, r.gyro);
-            SmartDashboard.putData("Field", f);
-            SmartDashboard.putNumber("Estimate X", p.pose.getX());
-            SmartDashboard.putNumber("Estimate Y", p.pose.getY());
-            SmartDashboard.putNumber("Estimate T", p.pose.getRotation().getDegrees());
-        }
     };
 
     @Hidden
@@ -95,8 +85,6 @@ public class FinalBehaviour {
 
 
 
-        p = new PositionData(r.gyro, r.drive);
-        f.setRobotPose(p.pose);
     };
 }
 

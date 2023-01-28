@@ -52,4 +52,11 @@ public class AutoBehaviours {
 
         stages.add(new AutoStages.goToAprilTag(1));
     };
+
+    public static Consumer<Robot> alignTagTrigInit = r -> {
+
+        resetAuto(r);
+
+        stages.add(new AutoStages.goToAprilTagTrig(3, 24));
+    };
 }

@@ -46,7 +46,7 @@ public class visionUtil {
         double fovLength = fovHeight * VisionInfo.LIMELIGHT_FOV_ASPECT;
 
         //return (Math.sin(Math.toRadians(tX))/Math.sin(Math.toRadians(VisionInfo.LIME_RIGHT_LIM_DEGREE))) * (fovLength/2);
-        return (distanceFrom(tArea)*Math.tan(Math.toDegrees(tX)));
+        return (distanceFrom(tArea)*Math.tan(Math.toRadians(tX)));
 
     }
     

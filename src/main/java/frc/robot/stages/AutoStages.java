@@ -86,21 +86,10 @@ public class AutoStages {
 
         int pip = 0;
         PIDController anglePID = new PIDController(0.04, 0.0004, -0.01);
-        PIDController xPID = new PIDController(0.15, 0.05, -0.01);
-        //PIDController yPID = new PIDController(0.15, 0.05, -0.01);
-        PIDController yPID = new PIDController(0.04, 0.00, -0.01);
+        PIDController xPID = new PIDController(0.21, 0.01, -0.1);
+        PIDController yPID = new PIDController(0.09, 0.006, -0.03);
 
         double wantedDistance = 36;
-        double opposite = Constants.VisionInfo.APRIL_TAG_COMMUNITY_HIGHT - Constants.VisionInfo.CY_FROM_CENTER;
-        double adjecent = Constants.ROBOT_Y_SIZE_IN - Constants.VisionInfo.CY_FROM_CENTER + wantedDistance;
-        double requiredVerticalAngle = Math.atan(opposite/adjecent) * 180 * Math.PI;
-        
-
-        double wantedAlignment = 0;
-        double opposite1 = Constants.VisionInfo.CX_FROM_CENTER - Constants.ROBOT_X_SIZE_IN/2;
-        double adjecent1 = Constants.ROBOT_Y_SIZE_IN - Constants.VisionInfo.CY_FROM_CENTER + wantedAlignment;
-        double requiredHorizontallAngle = Math.toDegrees(Math.atan(opposite1/adjecent1));
-        
 
         public goToAprilTagTrig(int p) { 
             this.pip = p; 
@@ -113,7 +102,6 @@ public class AutoStages {
 
             r.vision.pipelineTag(this.pip);
 
-            //V2d goal = new V2d(0, requiredVerticalAngle);
             V2d goal = new V2d(Constants.VisionInfo.CX_FROM_CENTER - (Constants.ROBOT_X_SIZE_IN/2), wantedDistance + Constants.ROBOT_Y_SIZE_IN - Constants.VisionInfo.CY_FROM_CENTER);
 
             xPID.target = goal.x;
@@ -129,13 +117,10 @@ public class AutoStages {
                 );
 
                 driveUtil.setPowerMechanum(r.drive,
-                xPID.tick(out.x, Robot.dt, false),
+                -xPID.tick(out.x, Robot.dt, false),
                 yPID.tick(out.y, Robot.dt, false),
                 -anglePID.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true),
                 0.4);
-                telemetryUtil.put("Cam Tx", r.vision.getX(),Tabs.DEBUG);
-                telemetryUtil.put("Cam Ty", r.vision.getY(),Tabs.DEBUG);
-                telemetryUtil.put("HorizontallAngle", requiredHorizontallAngle,telemetryUtil.Tabs.DEBUG);
 
             }
             else {

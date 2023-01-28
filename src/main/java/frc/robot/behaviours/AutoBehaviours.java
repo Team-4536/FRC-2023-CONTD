@@ -57,6 +57,6 @@ public class AutoBehaviours {
 
         resetAuto(r);
 
-        stages.add(new AutoStages.goToAprilTagTrig(1));
+        stages.add(new AutoStages.goToAprilTagTrig(3, 24));
     };
 }

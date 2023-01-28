@@ -11,6 +11,7 @@ import frc.robot.Constants.VisionInfo;
 import frc.robot.Constants;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoStages {
 
@@ -86,15 +87,18 @@ public class AutoStages {
 
         int pip = 0;
         PIDController anglePID = new PIDController(0.04, 0.0004, -0.01);
-        PIDController xPID = new PIDController(0.21, 0.01, -0.1);
-        PIDController yPID = new PIDController(0.09, 0.006, -0.03);
+        PIDController xPID = new PIDController(0.35, 0.01, -0.1);
+        PIDController yPID = new PIDController(0.07, 0.006, -0.04);
 
-        double wantedDistance = 36;
+        double wantedDistance = 24;
 
-        public goToAprilTagTrig(int p) { 
+        public goToAprilTagTrig(int p, double d) { 
+
             this.pip = p; 
+            this.wantedDistance = d;
             
         }
+
         
         
 
@@ -132,7 +136,16 @@ public class AutoStages {
                 0.4);
             }
 
-            return false;
+            boolean horizError = Math.abs(goal.x - visionUtil.horizontalOffset(r.vision.getArea(), r.vision.getX())) <= .65;
+            boolean verticalError = Math.abs(goal.y - visionUtil.distanceFrom(r.vision.getArea())) <= 2.5;
+            
+            boolean motorSpeed = yPID.prevErr - (goal.y - visionUtil.distanceFrom(r.vision.getArea())) <= .15;
+
+            SmartDashboard.putBoolean("h", horizError);
+            SmartDashboard.putBoolean("v", verticalError);
+            SmartDashboard.putBoolean("ms", motorSpeed);
+
+            return (motorSpeed && horizError && verticalError);
         }
 
     }

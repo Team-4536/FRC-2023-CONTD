@@ -79,6 +79,9 @@ public class FinalBehaviour {
 
             p.update(r.drive, r.gyro);
             SmartDashboard.putData("Field", f);
+            SmartDashboard.putNumber("Estimate X", p.pose.getX());
+            SmartDashboard.putNumber("Estimate Y", p.pose.getY());
+            SmartDashboard.putNumber("Estimate T", p.pose.getRotation().getDegrees());
         }
     };
 
@@ -86,6 +89,7 @@ public class FinalBehaviour {
     public static Consumer<Robot> teleOpInit = r -> {
 
         BehaviourUtil.stopDrive.accept(r);
+        r.gyro.globGyroscope.reset();
         r.drive.pidController.target = r.gyro.globGyroscope.getAngle();
         startAngle = r.drive.pidController.target;
 

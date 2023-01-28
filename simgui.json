@@ -63,7 +63,8 @@
       "SmartDashboard": {
         "SmartDashboard": {
           "open": true
-        }
+        },
+        "open": true
       }
     }
   },

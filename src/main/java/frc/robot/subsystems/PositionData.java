@@ -8,6 +8,7 @@ import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.telemetryUtil.Tabs;
 
 
 public class PositionData {
@@ -67,9 +68,9 @@ public class PositionData {
 
     public void sendTelemetry() {
 
-        SmartDashboard.putData("Field", f);
-        SmartDashboard.putNumber("Estimate X", pose.getX());
-        SmartDashboard.putNumber("Estimate Y", pose.getY());
-        SmartDashboard.putNumber("Estimate T", pose.getRotation().getDegrees());
+        // SmartDashboard.putData("Field", f);
+        telemetryUtil.put("Estimate X", pose.getX(), Tabs.DEBUG);
+        telemetryUtil.put("Estimate Y", pose.getY(), Tabs.DEBUG);
+        telemetryUtil.put("Estimate T", pose.getRotation().getDegrees(), Tabs.DEBUG);
     }
 }

@@ -7,10 +7,7 @@ import frc.robot.controllers.PIDController;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.gyroUtil;
 import frc.robot.functions.visionUtil;
-import frc.robot.Constants.VisionInfo;
 import frc.robot.Constants;
-import frc.robot.functions.telemetryUtil;
-import frc.robot.functions.telemetryUtil.Tabs;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoStages {
@@ -138,7 +135,6 @@ public class AutoStages {
 
             boolean horizError = Math.abs(goal.x - visionUtil.horizontalOffset(r.vision.getArea(), r.vision.getX())) <= .65;
             boolean verticalError = Math.abs(goal.y - visionUtil.distanceFrom(r.vision.getArea())) <= 2.5;
-            
             boolean motorSpeed = yPID.prevErr - (goal.y - visionUtil.distanceFrom(r.vision.getArea())) <= .15;
 
             SmartDashboard.putBoolean("h", horizError);

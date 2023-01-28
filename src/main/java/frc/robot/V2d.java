@@ -28,8 +28,8 @@ public class V2d {
         return l == 0? new V2d() : this.divide(this.length()); }
 
     public V2d rotateDegrees(double d) {
-        double cos = Math.cos(d);
-        double sin = Math.sin(d);
+        double cos = Math.cos(d * (Math.PI / 180));
+        double sin = Math.sin(d * (Math.PI / 180));
 
         return new V2d(
             this.x * cos - this.y * sin,

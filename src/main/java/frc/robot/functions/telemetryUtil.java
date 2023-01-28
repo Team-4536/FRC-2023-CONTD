@@ -151,7 +151,7 @@ public class telemetryUtil {
                     if(m.getAnnotation(Hidden.class) != null) {
                         continue; }
 
-                    String name = m.getName();
+                    String name = c.getSimpleName() + "." + m.getName();
                     d.chooser.addOption(name, name);
                 }
             }

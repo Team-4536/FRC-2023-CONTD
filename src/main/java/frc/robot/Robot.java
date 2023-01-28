@@ -96,7 +96,7 @@ public class Robot extends TimedRobot {
         timeSinceInit = Duration.between(startTime, Instant.now()).toNanos() * (1.0/Constants.NANOS_PER_SECOND);
         prevtime = Instant.now();
 
-        // telemetryUtil.grabChoosers();
+        telemetryUtil.grabChoosers();
 
         this.drive.sendTelemetry();
         this.input.sendTelemetry();

@@ -39,7 +39,7 @@ public class AutoStages {
 
         int pip = 0;
         PIDController anglePID = new PIDController(0.04, 0.0004, -0.01);
-        PIDController xPID = new PIDController(0.35, 0.01, -0.1);
+        PIDController xPID = new PIDController(0.35, 0.005, -0.2);
         PIDController yPID = new PIDController(0.07, 0.006, -0.04);
 
         double wantedDistance = 24;

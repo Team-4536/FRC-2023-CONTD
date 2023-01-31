@@ -1,6 +1,5 @@
 package frc.robot.functions;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.subsystems.PneumaticData;
 

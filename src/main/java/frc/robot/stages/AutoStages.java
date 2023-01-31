@@ -12,6 +12,7 @@ import frc.robot.Constants.VisionInfo;
 import frc.robot.Constants;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
+import frc.robot.subsystems.GyroData;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoStages {
@@ -108,9 +109,7 @@ public class AutoStages {
     public static class balenceWithGyro extends Stage {
 
 
-        PIDController anglePID = new PIDController(0.04, 0.0004, -0.01);
-        PIDController xPID = new PIDController(0.35, 0.01, -0.1);
-        PIDController yPID = new PIDController(0.07, 0.006, -0.04);
+        balenceController xBalence = new balenceController(Robot.instance.gyro.globGyroscope.getPitch(), 10);
 
 
         public balenceWithGyro() { 
@@ -124,9 +123,9 @@ public class AutoStages {
             driveUtil.setPowerMechanum(
                 r.drive,
                 0,
-                balenceController.tick(),
+                xBalence.tick(Robot.instance.gyro.globGyroscope.getPitch()),
                 0,
-                1
+                0.5
             );
             
 

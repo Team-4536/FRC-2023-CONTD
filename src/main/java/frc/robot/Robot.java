@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
     public VisionData vision;
     public GyroData gyro;
 
-
+    public static Robot instance;
 
 
 
@@ -73,6 +73,8 @@ public class Robot extends TimedRobot {
     // runs once when the robot is turned on
     @Override
     public void robotInit() {
+
+        instance = this;
 
         startTime = Instant.now();
         prevtime = Instant.now();

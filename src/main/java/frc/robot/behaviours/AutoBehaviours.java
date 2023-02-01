@@ -58,4 +58,10 @@ public class AutoBehaviours {
         resetAuto(r);
         stages.add(new AutoStages.balenceWithGyro());
     };
+
+    public static Consumer<Robot> goToCone = r -> {
+
+        resetAuto(r);
+        stages.add(new AutoStages.goToCone(9, 24));
+    };
 }

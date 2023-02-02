@@ -24,7 +24,7 @@ public class goToPosition extends Stage {
         telemetryUtil.put("Position Error Y", error.y, Tabs.DEBUG);
 
         double a = -r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
-        driveUtil.setPowerMechanum(r.drive, -error.x, -error.y, a, 0.5);
+        driveUtil.setPowerMechanum(r.drive, -error.x, -error.y, a, 0.05);
 
         return false;
 

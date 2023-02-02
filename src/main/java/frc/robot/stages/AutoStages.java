@@ -7,10 +7,7 @@ import frc.robot.controllers.PIDController;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.gyroUtil;
 import frc.robot.functions.visionUtil;
-import frc.robot.Constants.VisionInfo;
 import frc.robot.Constants;
-import frc.robot.functions.telemetryUtil;
-import frc.robot.functions.telemetryUtil.Tabs;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoStages {

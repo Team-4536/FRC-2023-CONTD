@@ -12,7 +12,7 @@ public class TurretData {
     public CANSparkMax turretMotor = new CANSparkMax(5, MotorType.kBrushed);
     
     private DigitalInput leftBoundLimitSwitch = new DigitalInput(0);
-    private DigitalInput rightBoundLimitSwitch = new DigitalInput(0);
+    private DigitalInput rightBoundLimitSwitch = new DigitalInput(1);
 
 
         public void sendTelemetry(){

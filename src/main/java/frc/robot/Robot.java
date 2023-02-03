@@ -18,6 +18,9 @@ import frc.robot.functions.telemetryUtil;
 import frc.robot.subsystems.DriveData;
 import frc.robot.subsystems.GyroData;
 import frc.robot.subsystems.InputData;
+import frc.robot.subsystems.IntakeData;
+import frc.robot.subsystems.PneumaticData;
+import frc.robot.subsystems.TurretData;
 import frc.robot.subsystems.VisionData;
 
 /**

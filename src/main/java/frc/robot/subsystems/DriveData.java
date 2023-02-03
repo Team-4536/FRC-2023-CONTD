@@ -1,11 +1,14 @@
 package frc.robot.subsystems;
 
 
-import com.revrobotics.*;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Encoder;
+
+import com.revrobotics.*;
 import frc.robot.Constants;
 import frc.robot.controllers.PIDController;
+import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.telemetryUtil.Tabs;
 
 public class DriveData {
 
@@ -61,14 +64,16 @@ public class DriveData {
 
 
     public void sendTelemetry() {
-        SmartDashboard.putNumber("FL Pwr", frontLeftDrive.get());
-        SmartDashboard.putNumber("FR Pwr", frontRightDrive.get());
-        SmartDashboard.putNumber("BL Pwr", backLeftDrive.get());
-        SmartDashboard.putNumber("BR Pwr", backRightDrive.get());
 
-        SmartDashboard.putNumber("BLeft Encoder", BLEncoder.getPosition());
-        SmartDashboard.putNumber("BRight Encoder", BREncoder.getPosition());
-        SmartDashboard.putNumber("FLeft Encoder", FLEncoder.getPosition());
-        SmartDashboard.putNumber("FRight Encoder", FREncoder.getPosition());
+        telemetryUtil.put("FL Pwr", frontLeftDrive.get(), Tabs.ROBOT);
+        telemetryUtil.put("FR Pwr", frontRightDrive.get(), Tabs.ROBOT);
+        telemetryUtil.put("BL Pwr", backLeftDrive.get(), Tabs.ROBOT);
+        telemetryUtil.put("BR Pwr", backRightDrive.get(), Tabs.ROBOT);
+
+        telemetryUtil.put("BLeft Encoder", BLEncoder.getPosition(), Tabs.ROBOT);
+        telemetryUtil.put("BRight Encoder", BREncoder.getPosition(), Tabs.ROBOT);
+        telemetryUtil.put("FLeft Encoder", FLEncoder.getPosition(), Tabs.ROBOT);
+        telemetryUtil.put("FRight Encoder", FREncoder.getPosition(), Tabs.ROBOT);
+
     }
 }

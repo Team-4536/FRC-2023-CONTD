@@ -4,7 +4,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.telemetryUtil.Tabs;
 
 public class TurretData {
     
@@ -16,9 +17,10 @@ public class TurretData {
 
         public void sendTelemetry(){
 
-            SmartDashboard.putNumber("Turret Motor", turretMotor.get());
-            SmartDashboard.putBoolean("Left Bound Limit Switch", leftBoundLimitSwitch.get());
-            SmartDashboard.putBoolean("Right Bound Limit Switch", rightBoundLimitSwitch.get());
+            telemetryUtil.put("Turret Motor", turretMotor.get(), Tabs.ROBOT);
+            
+            telemetryUtil.put("Left Bound Limit Switch", leftBoundLimitSwitch.get(), Tabs.ROBOT);
+            telemetryUtil.put("Right Bound Limit Switch", rightBoundLimitSwitch.get(), Tabs.ROBOT);
 
         }
 

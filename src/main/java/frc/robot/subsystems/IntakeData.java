@@ -7,7 +7,7 @@ import frc.robot.functions.telemetryUtil.Tabs;
 
 public class IntakeData {
 
-    public PneumaticsControlModule pcm = new PneumaticsControlModule(0);
+    public PneumaticsControlModule pcm = PneumaticData.pcm;
 
     public DoubleSolenoid armSolenoid = pcm.makeDoubleSolenoid(0, 0);
 

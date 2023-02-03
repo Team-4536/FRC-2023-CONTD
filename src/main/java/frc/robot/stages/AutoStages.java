@@ -140,21 +140,36 @@ public class AutoStages {
 
     public static class goToCone extends Stage {
 
-       int pip = 0;
+       int pip = 9;
        PIDController anglePID = new PIDController(0.04, 0.0004, -0.01);
        PIDController xPID = new PIDController(0.35, 0.01, -0.1);
        PIDController yPID = new PIDController(0.07, 0.006, -0.04);
 
-       double wantedDistance;
+       double wantedTx;
+       double wantedTy;
+       double tyAve = 0;
+       double angleToCone;
+       double distanceFrom;
 
-       public goToCone(int p, double d) { 
-
+       public goToCone(int p, double tx, double ty) { 
            this.pip = p; 
-           this.wantedDistance = d;
-           
+           this.wantedTx = tx;
+           this.wantedTy = ty;
+
+           for(int i = 0; i < 100; i++){
+                tyAve += Robot.instance.vision.getY();
+           }
+ 
+           angleToCone = tyAve/100;
+
+           distanceFrom = Constants.CONE_HAT_CENTER_HIGHT/(Math.tan(angleToCone));
+           telemetryUtil.put("Angle to Cone", angleToCone, Tabs.DEBUG);
+           telemetryUtil.put("distance in", distanceFrom, Tabs.DEBUG);
+           telemetryUtil.put("tyAve", tyAve, Tabs.DEBUG);
        }
 
        
+
        
 
        @Override public boolean run(Robot r) {
@@ -175,7 +190,7 @@ public class AutoStages {
 
                driveUtil.setPowerMechanum(r.drive,
                -xPID.tick(out.x, Robot.dt, false),
-               yPID.tick(out.y, Robot.dt, false),
+               -yPID.tick(out.y, Robot.dt, false),
                -anglePID.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true),
                0.4);
 
@@ -196,7 +211,8 @@ public class AutoStages {
            telemetryUtil.put("h", horizError, Tabs.DEBUG);
            telemetryUtil.put("v", verticalError, Tabs.DEBUG);
 
-           return (horizError && verticalError);
+           //return (horizError && verticalError);
+           return false;
        }
 
     }

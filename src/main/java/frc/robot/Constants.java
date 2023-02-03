@@ -61,6 +61,8 @@ public final class Constants {
     public static final int CONTROLLER_PORT = 0;
     public static final int JOYSTICK_PORT = 1;
 
+    public static final double CONE_HAT_CENTER_HIGHT = -5.5; //inches
+
     public static final class VisionInfo{
 
         public static final double TAG_SIZE_IN2 = 36;

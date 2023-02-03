@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -11,10 +13,10 @@ public class DriveData {
 
     public PIDController pidController = new PIDController(0.05, 0.01, 0);
 
-    public WPI_VictorSPX frontLeftDrive;
-    public WPI_VictorSPX frontRightDrive;
-    public WPI_VictorSPX backLeftDrive;
-    public WPI_VictorSPX backRightDrive;
+    public CANSparkMax frontLeftDrive;
+    public CANSparkMax frontRightDrive;
+    public CANSparkMax backLeftDrive;
+    public CANSparkMax backRightDrive;
 
     public Encoder FLEncoder;
     public Encoder FREncoder;
@@ -22,11 +24,11 @@ public class DriveData {
     public Encoder BREncoder;
 
     public DriveData() {
-        
-        this.frontLeftDrive = new WPI_VictorSPX(Constants.DRIVE_FRONT_LEFT_PORT);
-        this.frontRightDrive = new WPI_VictorSPX(Constants.DRIVE_FRONT_RIGHT_PORT);
-        this.backLeftDrive = new WPI_VictorSPX(Constants.DRIVE_BACK_LEFT_PORT);
-        this.backRightDrive = new WPI_VictorSPX(Constants.DRIVE_BACK_RIGHT_PORT);
+
+        this.frontLeftDrive = new CANSparkMax(Constants.DRIVE_FRONT_LEFT_PORT, MotorType.kBrushless);
+        this.frontRightDrive = new CANSparkMax(Constants.DRIVE_FRONT_RIGHT_PORT, MotorType.kBrushless);
+        this.backLeftDrive = new CANSparkMax(Constants.DRIVE_BACK_LEFT_PORT, MotorType.kBrushless);
+        this.backRightDrive = new CANSparkMax(Constants.DRIVE_BACK_RIGHT_PORT, MotorType.kBrushless);
 
         this.frontLeftDrive.setInverted(Constants.DRIVE_FRONT_LEFT_FLIPPED);
         this.frontRightDrive.setInverted(Constants.DRIVE_FRONT_RIGHT_FLIPPED);

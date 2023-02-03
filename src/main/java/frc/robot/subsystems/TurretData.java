@@ -18,6 +18,7 @@ public class TurretData {
         public void sendTelemetry(){
 
             telemetryUtil.put("Turret Motor", turretMotor.get(), Tabs.ROBOT);
+            
             telemetryUtil.put("Left Bound Limit Switch", leftBoundLimitSwitch.get(), Tabs.ROBOT);
             telemetryUtil.put("Right Bound Limit Switch", rightBoundLimitSwitch.get(), Tabs.ROBOT);
 

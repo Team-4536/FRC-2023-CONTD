@@ -16,18 +16,29 @@ public class SimulationDrive extends DriveData{
     GyroData gyro = new GyroData();
     DriveData drive = new DriveData();
 
+    //our gyroscope and drivedata
+
     public DifferentialDrivetrainSim driveSim = new DifferentialDrivetrainSim(DCMotor.getNEO(4), 7.29, 7.5, 68.0, 
     Units.inchesToMeters(4.5), Units.inchesToMeters(23.667), 
     VecBuilder.fill(0.001, 0.001, 0.001, 0.1, 0.1, 0.005, 0.005));
+
+    //we don't have a differentisal drivetrain so I made one, for sim purposes should be just fine
 
     private EncoderSim FLEncoderSim = new EncoderSim(FLEncoder);
     private EncoderSim FREncoderSim = new EncoderSim(FREncoder);
     private EncoderSim BLEncoderSim = new EncoderSim(BLEncoder);
     private EncoderSim BREncoderSim = new EncoderSim(BREncoder);
 
+    //we have four motors, with four encoders, but the sim coed is stupid and only wants 2 motors?? 
+    //i'll try to distribute speed and voltage properly to all mecanums with just 2 sim motors, should work like a dream
+
     private Field2d field = new Field2d();
 
+    //simulation field
+
     private PositionData pData = new PositionData(gyro, drive);
+
+    //real position data
 
     public void SimulationPeriodic(AnalogGyroSim gyroSim){
 
@@ -45,6 +56,8 @@ public class SimulationDrive extends DriveData{
         gyroSim.setAngle(-driveSim.getHeading().getDegrees());
 
     }
+
+    //distributes voltage from all four motors to just two motors and sets some parameters
     
     public void sendTelemetry(){SmartDashboard.putData("Field", field);}
 

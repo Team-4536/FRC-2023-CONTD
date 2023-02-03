@@ -16,8 +16,12 @@ public final class Constants {
     public static final class ControlInfo {
 
         public static final double MOVEMENT_DEADZONE = 0.15;
-        public static final double MAX_DRIVE_OUT = 1;
+
+        public static final double MAX_DRIVE_OUT = 0.85;
         public static final double DEFAULT_DRIVE_OUT = 0.4;
+
+        public static final double MAX_STRAFE_OUT = 1;
+        public static final double DEFAULT_STRAFE_OUT = 0.7;
 
 
         public static final double TURNING_DEADZONE = 0.2;
@@ -40,9 +44,10 @@ public final class Constants {
 
 
     public static final int ENCODER_TICKS_PER_REV = 360;
+    public static final double ENCODER_PULSE_DISTANCE = 1/740.0;
 
-    public static final double WHEEL_CIRCUMFERENCE_INCHES = 19.0;
-    public static final double WHEEL_DIAMETER_INCHES = WHEEL_CIRCUMFERENCE_INCHES/Math.PI;
+    public static final double WHEEL_DIAMETER_INCHES = 6.0;
+    public static final double WHEEL_CIRCUMFERENCE_INCHES = Math.PI * WHEEL_DIAMETER_INCHES;
     public static final double WHEEL_RADIUS = WHEEL_DIAMETER_INCHES;
 
     // FICKS
@@ -51,7 +56,8 @@ public final class Constants {
     public static final V2d BL_MOTOR_POS = new V2d(-1, -1);
     public static final V2d BR_MOTOR_POS = new V2d(1, -1);
 
-
+    public static final double ROBOT_X_SIZE_IN = 24;
+    public static final double ROBOT_Y_SIZE_IN = 30.33333333;
 
     public static final int CONTROLLER_PORT = 0;
     public static final int JOYSTICK_PORT = 1;
@@ -73,6 +79,14 @@ public final class Constants {
 
         public static final double GRID_RRTAPE_HEIGHT_INCHES = 23.5;
 
+        public static final double APRIL_TAG_COMMUNITY_HIGHT = 18.25;
 
+        //public static final int CAMMERA_X_OFFSET_FROM_CENTER = 7;
+        //public static final int CAMMERA_Y_OFFSET_FROM_GROUND = 16;
+        //public static final int CAMMERA_Z_OFFSET_FROM_FRONT_ROBOT = 23;
+
+        public static final double CY_FROM_CENTER = 7.75;
+        public static final double CX_FROM_CENTER = 5.333333333333;
+        public static final double CZ_FRIM_CENTER = 16; 
     }
 }

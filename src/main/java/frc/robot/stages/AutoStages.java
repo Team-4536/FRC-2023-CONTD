@@ -6,6 +6,10 @@ import frc.robot.V2d;
 import frc.robot.controllers.PIDController;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.gyroUtil;
+import frc.robot.functions.visionUtil;
+import frc.robot.Constants;
+import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.telemetryUtil.Tabs;
 
 public class AutoStages {
 
@@ -31,21 +35,30 @@ public class AutoStages {
 
     }
 
-    public static class goToAprilTag extends Stage {
+    public static class goToAprilTagTrig extends Stage {
 
         int pip = 0;
-        PIDController anglePID = new PIDController(0.05, 0.0, -0.01);
-        PIDController xPID = new PIDController(0.15, 0.0, -0.01);
-        PIDController yPID = new PIDController(0.15, 0.0, -0.01);
+        PIDController anglePID = new PIDController(0.04, 0.0004, -0.01);
+        PIDController xPID = new PIDController(0.35, 0.005, -0.2);
+        PIDController yPID = new PIDController(0.07, 0.006, -0.04);
 
-        public goToAprilTag(int p) { this.pip = p; }
+        double wantedDistance = 24;
 
+        public goToAprilTagTrig(int p, double d) { 
+
+            this.pip = p; 
+            this.wantedDistance = d;
+            
+        }
+
+        
+        
 
         @Override public boolean run(Robot r) {
 
             r.vision.pipelineTag(this.pip);
 
-            V2d goal = new V2d(0, 9);
+            V2d goal = new V2d(Constants.VisionInfo.CX_FROM_CENTER - (Constants.ROBOT_X_SIZE_IN/2), wantedDistance + Constants.ROBOT_Y_SIZE_IN - Constants.VisionInfo.CY_FROM_CENTER);
 
             xPID.target = goal.x;
             yPID.target = goal.y;
@@ -53,15 +66,18 @@ public class AutoStages {
             if(r.vision.getTargets()) {
 
                 V2d out = new V2d(
-                    r.vision.getX(),
-                    r.vision.getY()
+                   // r.vision.getX(),
+                    //r.vision.getY()
+                    visionUtil.horizontalOffset(r.vision.getArea(), r.vision.getX()),
+                    visionUtil.distanceFrom(r.vision.getArea())
                 );
 
                 driveUtil.setPowerMechanum(r.drive,
                 -xPID.tick(out.x, Robot.dt, false),
-                -yPID.tick(out.y, Robot.dt, false),
+                yPID.tick(out.y, Robot.dt, false),
                 -anglePID.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true),
                 0.4);
+
             }
             else {
                 driveUtil.stop(r.drive);
@@ -72,7 +88,16 @@ public class AutoStages {
                 0.4);
             }
 
-            return false;
+            boolean horizError = Math.abs(goal.x - visionUtil.horizontalOffset(r.vision.getArea(), r.vision.getX())) <= .65;
+            boolean verticalError = Math.abs(goal.y - visionUtil.distanceFrom(r.vision.getArea())) <= 2.5;
+            
+            boolean motorSpeed = yPID.prevErr - (goal.y - visionUtil.distanceFrom(r.vision.getArea())) <= .15;
+
+            telemetryUtil.put("h", horizError, Tabs.DEBUG);
+            telemetryUtil.put("v", verticalError, Tabs.DEBUG);
+            telemetryUtil.put("ms", motorSpeed, Tabs.DEBUG);
+
+            return (motorSpeed && horizError && verticalError);
         }
 
     }

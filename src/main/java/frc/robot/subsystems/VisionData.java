@@ -3,7 +3,9 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.visionUtil;
+import frc.robot.functions.telemetryUtil.Tabs;
 
 public class VisionData {
 
@@ -21,12 +23,13 @@ public class VisionData {
 
     public void sendTelemetry(){
 
-      SmartDashboard.putBoolean("Target Found", getTargets());
-      SmartDashboard.putNumber("Target X", getX());
-      SmartDashboard.putNumber("Target Y", getY());
-      SmartDashboard.putNumber("Target Area", getArea());
+      telemetryUtil.put("Target Found", getTargets(), Tabs.LIMELIGHT);
+      telemetryUtil.put("Target X", getX(), Tabs.LIMELIGHT);
+      telemetryUtil.put("Target Y", getY(), Tabs.LIMELIGHT);
+      telemetryUtil.put("Target Area", getArea(), Tabs.LIMELIGHT);
 
-      // this.pipelineTag(5);
+      telemetryUtil.put("Distance From Target", visionUtil.distanceFrom(getArea()), Tabs.LIMELIGHT);
+      telemetryUtil.put("Horizontal Offset", visionUtil.horizontalOffset(getArea(), getX()), Tabs.LIMELIGHT);
 
     }
 

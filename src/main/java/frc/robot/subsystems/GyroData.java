@@ -2,7 +2,8 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.telemetryUtil.Tabs;
 
 public class GyroData {
 
@@ -11,8 +12,8 @@ public class GyroData {
 
     public void sendTelemetry(){
 
-        SmartDashboard.putNumber("Global Angle", globGyroscope.getAngle());
-        SmartDashboard.putNumber("Local Angle", localGyroscope.getAngle());
+        telemetryUtil.put("Global Angle", globGyroscope.getAngle(), Tabs.ROBOT);
+        telemetryUtil.put("Local Angle", localGyroscope.getAngle(), Tabs.ROBOT);
 
     }
 

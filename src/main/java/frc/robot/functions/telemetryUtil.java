@@ -1,14 +1,9 @@
 package frc.robot.functions;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import edu.wpi.first.networktables.BooleanPublisher;
 import edu.wpi.first.networktables.DoublePublisher;
@@ -19,6 +14,7 @@ import edu.wpi.first.networktables.StringPublisher;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.behaviours.AutoBehaviours;
 import frc.robot.behaviours.Hidden;
 
 
@@ -75,7 +71,8 @@ public class telemetryUtil {
 
         DRIVER("SmartDashboard"),
         LIMELIGHT("Limelight"),
-        DEBUG("Debug");
+        DEBUG("Debug"),
+        ROBOT("Robot Info");
 
         String name;
         NetworkTable table;
@@ -135,31 +132,9 @@ public class telemetryUtil {
 
 
     public static final List<DashFuncChooser> funcChoosers = List.of(
-        new DashFuncChooser(new SendableChooser<String>(), "Auto Init", x -> { Robot.AUTO_INIT_FUNC = x; }),
-        new DashFuncChooser(new SendableChooser<String>(), "Auto Periodic", x -> { Robot.AUTO_PER_FUNC = x; }),
-        new DashFuncChooser(new SendableChooser<String>(), "Test Init", x -> { Robot.TEST_INIT_FUNC = x; }),
-        new DashFuncChooser(new SendableChooser<String>(), "Test Periodic", x -> { Robot.TEST_PER_FUNC = x; })
+        new DashFuncChooser(new SendableChooser<String>(), "Auto Init", x -> { Robot.AUTO_INIT_FUNC = x; })
     );
 
-    public static Set<Class<?>> findAllClassesUsingClassLoader(String packageName) {
-        InputStream stream = ClassLoader.getSystemClassLoader()
-            .getResourceAsStream(packageName.replaceAll("[.]", "/"));
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        return reader.lines()
-            .filter(line -> line.endsWith(".class"))
-            .map(line -> getClass(line, packageName))
-            .collect(Collectors.toSet());
-    }
-
-    private static Class<?> getClass(String className, String packageName) {
-        try {
-            return Class.forName(packageName + "."
-                + className.substring(0, className.lastIndexOf('.')));
-        } catch (ClassNotFoundException e) {
-            // handle the exception
-        }
-        return null;
-    }
 
     public static void initChoosers() {
 
@@ -169,18 +144,16 @@ public class telemetryUtil {
             SmartDashboard.putData(d.name, d.chooser);
             d.chooser.setDefaultOption("nothing", "");
 
-            Set<Class<?>> classes = findAllClassesUsingClassLoader("frc.robot.behaviours");
-            for(Class<?> c : classes) {
-                for(Field m : c.getDeclaredFields()){
+            Class<?> c = AutoBehaviours.class;
+            for(Field m : c.getDeclaredFields()){
 
-                    if(m.getType().isAssignableFrom(Consumer.class)){
+                if(m.getType().isAssignableFrom(Consumer.class)){
 
-                        if(m.getAnnotation(Hidden.class) != null) {
-                            continue; }
+                    if(m.getAnnotation(Hidden.class) != null) {
+                        continue; }
 
-                        String name = c.getSimpleName() + "." + m.getName();
-                        d.chooser.addOption(name, name);
-                    }
+                    String name = c.getSimpleName() + "." + m.getName();
+                    d.chooser.addOption(name, name);
                 }
             }
         }

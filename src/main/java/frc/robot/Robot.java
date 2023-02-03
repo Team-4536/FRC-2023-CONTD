@@ -8,7 +8,6 @@ package frc.robot;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.behaviours.AutoBehaviours;
@@ -19,6 +18,9 @@ import frc.robot.functions.telemetryUtil;
 import frc.robot.subsystems.DriveData;
 import frc.robot.subsystems.GyroData;
 import frc.robot.subsystems.InputData;
+import frc.robot.subsystems.IntakeData;
+import frc.robot.subsystems.PneumaticData;
+import frc.robot.subsystems.TurretData;
 import frc.robot.subsystems.VisionData;
 
 /**
@@ -38,7 +40,10 @@ public class Robot extends TimedRobot {
     public static Consumer<Robot> TELEOP_INIT_FUNC = FinalBehaviour.teleOpInit;
     public static Consumer<Robot> TELEOP_PER_FUNC = FinalBehaviour.teleOpPeriodic;
 
-    public static Consumer<Robot> AUTO_INIT_FUNC = AutoBehaviours.alignTagInit;
+    //public static Consumer<Robot> AUTO_INIT_FUNC = AutoBehaviours.alignTagInit;
+    //public static Consumer<Robot> AUTO_PER_FUNC = AutoBehaviours.autoPeriodic;
+
+    public static Consumer<Robot> AUTO_INIT_FUNC = AutoBehaviours.alignTagTrigInit;
     public static Consumer<Robot> AUTO_PER_FUNC = AutoBehaviours.autoPeriodic;
 
     public static Consumer<Robot> TEST_INIT_FUNC = TestingBehaviour.encoderInit;
@@ -46,6 +51,8 @@ public class Robot extends TimedRobot {
 
     public static Consumer<Robot> DISABLED_INIT_FUNC = BehaviourUtil.stopDrive;
     public static Consumer<Robot> DISABLED_PER_FUNC = BehaviourUtil.stopDrive;
+
+    
     //#endregion
 
 
@@ -92,7 +99,7 @@ public class Robot extends TimedRobot {
         timeSinceInit = Duration.between(startTime, Instant.now()).toNanos() * (1.0/Constants.NANOS_PER_SECOND);
         prevtime = Instant.now();
 
-        // telemetryUtil.grabChoosers();
+        telemetryUtil.grabChoosers();
 
         this.drive.sendTelemetry();
         this.input.sendTelemetry();

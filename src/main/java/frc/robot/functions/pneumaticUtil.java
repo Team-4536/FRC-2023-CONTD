@@ -10,7 +10,7 @@ public class pneumaticUtil {
     public void toggleSolenoid(PneumaticData pData){
 
         
-            pData.breakSolenoid.toggle();
+        pData.breakSolenoid.toggle();
         
     }
 

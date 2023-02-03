@@ -14,7 +14,7 @@ public class PneumaticData {
 
     public void sendTelemetry(){
 
-        telemetryUtil.put("Is Extended", breakSolenoid.get() == DoubleSolenoid.Value.kForward,Tabs.ROBOT);
+        telemetryUtil.put("Brake is Extended", breakSolenoid.get() == DoubleSolenoid.Value.kForward,Tabs.ROBOT);
 
         
     }

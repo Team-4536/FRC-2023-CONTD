@@ -24,7 +24,7 @@ public class PositionData {
         m_backLeftLocation.minus(center), m_backRightLocation.minus(center)
     );
 
-    MecanumDriveOdometry m_odometry;
+    public MecanumDriveOdometry m_odometry;
 
 
 

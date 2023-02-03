@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.Simulation;
 
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
@@ -10,6 +10,9 @@ import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.DriveData;
+import frc.robot.subsystems.GyroData;
+import frc.robot.subsystems.PositionData;
 
 public class SimulationDrive extends DriveData{
     

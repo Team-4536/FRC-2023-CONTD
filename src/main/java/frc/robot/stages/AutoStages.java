@@ -13,6 +13,7 @@ import frc.robot.Constants;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 import frc.robot.subsystems.GyroData;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoStages {
@@ -151,21 +152,20 @@ public class AutoStages {
        double angleToCone;
        double distanceFrom;
 
+       Timer flymer;
+
        public goToCone(int p, double tx, double ty) { 
            this.pip = p; 
            this.wantedTx = tx;
            this.wantedTy = ty;
 
-           for(int i = 0; i < 100; i++){
-                tyAve += Robot.instance.vision.getY();
-           }
- 
-           angleToCone = tyAve/100;
+           flymer = new Timer();
+           flymer.start();
 
-           distanceFrom = Constants.CONE_HAT_CENTER_HIGHT/(Math.tan(angleToCone));
-           telemetryUtil.put("Angle to Cone", angleToCone, Tabs.DEBUG);
-           telemetryUtil.put("distance in", distanceFrom, Tabs.DEBUG);
-           telemetryUtil.put("tyAve", tyAve, Tabs.DEBUG);
+           distanceFrom = (Constants.VisionInfo.CZ_FROM_CENTER - Constants.VisionInfo.CONE_HEIGHT)/(Math.tan(Math.toRadians(tyAve)));
+           //telemetryUtil.put("Angle to Cone", angleToCone, Tabs.DEBUG);
+           //telemetryUtil.put("distance in", distanceFrom, Tabs.DEBUG);
+           //telemetryUtil.put("tyAve", tyAve, Tabs.DEBUG);
        }
 
        
@@ -173,6 +173,24 @@ public class AutoStages {
        
 
        @Override public boolean run(Robot r) {
+
+        tyAve = Robot.instance.vision.getY();
+
+           if (flymer.get() < 1){
+
+            if (Robot.instance.vision.getY() > tyAve){
+
+                tyAve = Robot.instance.vision.getY();
+
+            }
+
+           }
+
+           distanceFrom = (Constants.VisionInfo.CZ_FROM_CENTER - Constants.VisionInfo.CONE_HEIGHT)/(Math.tan(Math.toRadians(tyAve)));
+           telemetryUtil.put("Angle to Cone", angleToCone, Tabs.DEBUG);
+           telemetryUtil.put("distance in", distanceFrom, Tabs.DEBUG);
+           telemetryUtil.put("tyAve", tyAve, Tabs.DEBUG);
+
 
            r.vision.pipelineTag(this.pip);
 
@@ -188,11 +206,11 @@ public class AutoStages {
                    r.vision.getY()
                );
 
-               driveUtil.setPowerMechanum(r.drive,
+               /*driveUtil.setPowerMechanum(r.drive,
                -xPID.tick(out.x, Robot.dt, false),
                -yPID.tick(out.y, Robot.dt, false),
                -anglePID.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true),
-               0.4);
+               0.4);*/
 
            }
            else {

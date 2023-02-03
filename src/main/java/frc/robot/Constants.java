@@ -88,6 +88,8 @@ public final class Constants {
 
         public static final double CY_FROM_CENTER = 7.75;
         public static final double CX_FROM_CENTER = 5.333333333333;
-        public static final double CZ_FRIM_CENTER = 16; 
+        public static final double CZ_FROM_CENTER = 16; 
+
+        public static final double CONE_HEIGHT = 12.8125;
     }
 }

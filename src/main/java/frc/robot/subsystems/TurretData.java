@@ -1,8 +1,5 @@
 package frc.robot.subsystems;
 
-import java.util.concurrent.CancellationException;
-
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 

@@ -16,8 +16,12 @@ public final class Constants {
     public static final class ControlInfo {
 
         public static final double MOVEMENT_DEADZONE = 0.15;
-        public static final double MAX_DRIVE_OUT = 1;
+
+        public static final double MAX_DRIVE_OUT = 0.85;
         public static final double DEFAULT_DRIVE_OUT = 0.4;
+
+        public static final double MAX_STRAFE_OUT = 1;
+        public static final double DEFAULT_STRAFE_OUT = 0.7;
 
 
         public static final double TURNING_DEADZONE = 0.2;
@@ -40,9 +44,10 @@ public final class Constants {
 
 
     public static final int ENCODER_TICKS_PER_REV = 360;
+    public static final double ENCODER_PULSE_DISTANCE = 1/740.0;
 
-    public static final double WHEEL_CIRCUMFERENCE_INCHES = 19.0;
-    public static final double WHEEL_DIAMETER_INCHES = WHEEL_CIRCUMFERENCE_INCHES/Math.PI;
+    public static final double WHEEL_DIAMETER_INCHES = 6.0;
+    public static final double WHEEL_CIRCUMFERENCE_INCHES = Math.PI * WHEEL_DIAMETER_INCHES;
     public static final double WHEEL_RADIUS = WHEEL_DIAMETER_INCHES;
 
     // FICKS

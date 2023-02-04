@@ -8,7 +8,6 @@ package frc.robot;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.behaviours.AutoBehaviours;
@@ -97,7 +96,7 @@ public class Robot extends TimedRobot {
         timeSinceInit = Duration.between(startTime, Instant.now()).toNanos() * (1.0/Constants.NANOS_PER_SECOND);
         prevtime = Instant.now();
 
-        // telemetryUtil.grabChoosers();
+        telemetryUtil.grabChoosers();
 
         this.drive.sendTelemetry();
         this.input.sendTelemetry();

@@ -39,27 +39,28 @@ public class FinalBehaviour {
 
 
         // linear
+
+        double xIn = inputUtil.deadzoneAxis(r.input.controller.getLeftX(), ControlInfo.MOVEMENT_DEADZONE);
+        double yIn = inputUtil.deadzoneAxis(r.input.controller.getLeftY(), ControlInfo.MOVEMENT_DEADZONE);
+        V2d input = new V2d(xIn, yIn);
+
+        input = input.rotateDegrees(-gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle() - startAngle));
+        
+
         double driveScalar = inputUtil.mapInput(
             r.input.controller.getRightTriggerAxis(),
             1, 0, ControlInfo.MAX_DRIVE_OUT, ControlInfo.DEFAULT_DRIVE_OUT);
 
-        double xIn = inputUtil.deadzoneAxis(r.input.controller.getLeftX(), ControlInfo.MOVEMENT_DEADZONE);
-        xIn *= driveScalar * 2;
-
-        double yIn = inputUtil.deadzoneAxis(r.input.controller.getLeftY(), ControlInfo.MOVEMENT_DEADZONE);
-        yIn *= driveScalar;
-
-
-
-        V2d input = new V2d( xIn, yIn);
-        //input = input.rotateDegrees(-gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle() - startAngle));
+        double strafeScalar = inputUtil.mapInput(
+            r.input.controller.getRightTriggerAxis(),
+            1, 0, ControlInfo.MAX_STRAFE_OUT, ControlInfo.DEFAULT_STRAFE_OUT);
 
 
 
 
         driveUtil.setPowerMechanum(r.drive,
-            input.x,
-            input.y,
+            input.x * strafeScalar,
+            input.y * driveScalar,
             PIDOut,
             0.5);
 
@@ -78,6 +79,9 @@ public class FinalBehaviour {
 
             p.update(r.drive, r.gyro);
             SmartDashboard.putData("Field", f);
+            SmartDashboard.putNumber("Estimate X", p.pose.getX());
+            SmartDashboard.putNumber("Estimate Y", p.pose.getY());
+            SmartDashboard.putNumber("Estimate T", p.pose.getRotation().getDegrees());
         }
     };
 
@@ -85,6 +89,7 @@ public class FinalBehaviour {
     public static Consumer<Robot> teleOpInit = r -> {
 
         BehaviourUtil.stopDrive.accept(r);
+        r.gyro.globGyroscope.reset();
         r.drive.pidController.target = r.gyro.globGyroscope.getAngle();
         startAngle = r.drive.pidController.target;
 

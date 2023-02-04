@@ -3,13 +3,14 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.controllers.PIDController;
+import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.telemetryUtil.Tabs;
 
 public class DriveData {
 
-    public PIDController pidController = new PIDController(0.05, 0.01, 0);
+    public PIDController pidController = new PIDController(0.08, 0.01, 0);
 
     public WPI_VictorSPX frontLeftDrive;
     public WPI_VictorSPX frontRightDrive;
@@ -44,19 +45,26 @@ public class DriveData {
         BLEncoder.setReverseDirection(true);
         FREncoder.setReverseDirection(false);
 
+        BREncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
+        BLEncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
+        FREncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
+        FLEncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
+
     }
     
 
 
     public void sendTelemetry() {
-        SmartDashboard.putNumber("FL Pwr", frontLeftDrive.get());
-        SmartDashboard.putNumber("FR Pwr", frontRightDrive.get());
-        SmartDashboard.putNumber("BL Pwr", backLeftDrive.get());
-        SmartDashboard.putNumber("BR Pwr", backRightDrive.get());
 
-        SmartDashboard.putNumber("BLeft Encoder", BLEncoder.get());
-        SmartDashboard.putNumber("BRight Encoder", BREncoder.get());
-        SmartDashboard.putNumber("FLeft Encoder", FLEncoder.get());
-        SmartDashboard.putNumber("FRight Encoder", FREncoder.get());
+        telemetryUtil.put("FL Pwr", frontLeftDrive.get(), Tabs.ROBOT);
+        telemetryUtil.put("FR Pwr", frontRightDrive.get(), Tabs.ROBOT);
+        telemetryUtil.put("BL Pwr", backLeftDrive.get(), Tabs.ROBOT);
+        telemetryUtil.put("BR Pwr", backRightDrive.get(), Tabs.ROBOT);
+
+        telemetryUtil.put("BLeft Encoder", BLEncoder.get(), Tabs.ROBOT);
+        telemetryUtil.put("BRight Encoder", BREncoder.get(), Tabs.ROBOT);
+        telemetryUtil.put("FLeft Encoder", FLEncoder.get(), Tabs.ROBOT);
+        telemetryUtil.put("FRight Encoder", FREncoder.get(), Tabs.ROBOT);
+
     }
 }

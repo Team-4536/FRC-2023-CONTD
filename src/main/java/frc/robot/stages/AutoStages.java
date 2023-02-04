@@ -9,6 +9,8 @@ import frc.robot.functions.gyroUtil;
 import frc.robot.functions.visionUtil;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.telemetryUtil.Tabs;
 
 public class AutoStages {
 
@@ -34,57 +36,11 @@ public class AutoStages {
 
     }
 
-    public static class goToAprilTag extends Stage {
-
-        int pip = 0;
-        PIDController anglePID = new PIDController(0.05, 0.0, -0.01);
-        PIDController xPID = new PIDController(0.15, 0.0, -0.01);
-        PIDController yPID = new PIDController(0.35, 0.0, -0.01);
-
-        public goToAprilTag(int p) { this.pip = p; }
-
-
-        @Override public boolean run(Robot r) {
-
-            r.vision.pipelineTag(this.pip);
-
-            V2d goal = new V2d(0, 9);
-
-            xPID.target = goal.x;
-            yPID.target = goal.y;
-
-            if(r.vision.getTargets()) {
-
-                V2d out = new V2d(
-                    r.vision.getX(),
-                    r.vision.getY()
-                );
-
-                driveUtil.setPowerMechanum(r.drive,
-                -xPID.tick(out.x, Robot.dt, false),
-                -yPID.tick(out.y, Robot.dt, false),
-                -anglePID.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true),
-                0.4);
-
-            }
-            else {
-                driveUtil.stop(r.drive);
-                driveUtil.setPowerMechanum(r.drive, 
-                0,
-                0,
-                -anglePID.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true),
-                0.4);
-            }
-
-            return false;
-        }
-
-    }
     public static class goToAprilTagTrig extends Stage {
 
         int pip = 0;
         PIDController anglePID = new PIDController(0.04, 0.0004, -0.01);
-        PIDController xPID = new PIDController(0.35, 0.01, -0.1);
+        PIDController xPID = new PIDController(0.35, 0.005, -0.2);
         PIDController yPID = new PIDController(0.07, 0.006, -0.04);
 
         double wantedDistance = 24;
@@ -137,9 +93,9 @@ public class AutoStages {
             boolean verticalError = Math.abs(goal.y - visionUtil.distanceFrom(r.vision.getArea())) <= 2.5;
             boolean motorSpeed = yPID.prevErr - (goal.y - visionUtil.distanceFrom(r.vision.getArea())) <= .15;
 
-            SmartDashboard.putBoolean("h", horizError);
-            SmartDashboard.putBoolean("v", verticalError);
-            SmartDashboard.putBoolean("ms", motorSpeed);
+            telemetryUtil.put("h", horizError, Tabs.DEBUG);
+            telemetryUtil.put("v", verticalError, Tabs.DEBUG);
+            telemetryUtil.put("ms", motorSpeed, Tabs.DEBUG);
 
             return (motorSpeed && horizError && verticalError);
         }

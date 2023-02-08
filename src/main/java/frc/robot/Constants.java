@@ -98,7 +98,7 @@ public final class Constants {
         public static final MotorType TURRET_MOTOR_TYPE = MotorType.kBrushless;
 
         public static final int ARM_LIFT_ID = 6;
-        public static final int ARM_EXTEND_ID = 7;
+        public static final int ARM_RETRACT_ID = 7;
 
     }    
 

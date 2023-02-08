@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public final class Constants {
 
@@ -89,4 +90,14 @@ public final class Constants {
         public static final double CX_FROM_CENTER = 5.333333333333;
         public static final double CZ_FRIM_CENTER = 16; 
     }
+
+    public static final class MechanismInfo{
+
+        public static final MotorType ARM_MOTOR_TYPE = MotorType.kBrushed;
+        public static final MotorType DRIVE_MOTOR_TYPE = MotorType.kBrushless;
+        public static final MotorType TURRET_MOTOR_TYPE = MotorType.kBrushless;
+
+    }    
+
+    
 }

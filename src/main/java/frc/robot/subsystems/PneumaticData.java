@@ -9,12 +9,12 @@ public class PneumaticData {
     
     public static PneumaticsControlModule pcm = new PneumaticsControlModule(0);
 
-    public DoubleSolenoid breakSolenoid = pcm.makeDoubleSolenoid(0, 0);
+    public DoubleSolenoid brakeSolenoid = pcm.makeDoubleSolenoid(0, 0);
 
 
     public void sendTelemetry(){
 
-        telemetryUtil.put("Brake is Extended", breakSolenoid.get() == DoubleSolenoid.Value.kForward,Tabs.ROBOT);
+        telemetryUtil.put("Brake is Extended", brakeSolenoid.get() == DoubleSolenoid.Value.kForward,Tabs.ROBOT);
 
         
     }

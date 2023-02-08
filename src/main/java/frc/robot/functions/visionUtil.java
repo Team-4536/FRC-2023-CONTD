@@ -40,12 +40,6 @@ public class visionUtil {
 
     public static double horizontalOffset(double tArea, double tX){
 
-        double fovAreaIn = (100/tArea) * VisionInfo.TAG_SIZE_IN2;
-
-        double fovHeight = Math.sqrt(fovAreaIn/VisionInfo.LIMELIGHT_FOV_ASPECT);
-        double fovLength = fovHeight * VisionInfo.LIMELIGHT_FOV_ASPECT;
-
-        //return (Math.sin(Math.toRadians(tX))/Math.sin(Math.toRadians(VisionInfo.LIME_RIGHT_LIM_DEGREE))) * (fovLength/2);
         return (distanceFrom(tArea)*Math.tan(Math.toRadians(tX)));
 
     }

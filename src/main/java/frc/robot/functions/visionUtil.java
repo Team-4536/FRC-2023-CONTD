@@ -1,6 +1,5 @@
 package frc.robot.functions;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.VisionInfo;
 import frc.robot.functions.telemetryUtil.Tabs;
 import frc.robot.subsystems.DriveData;

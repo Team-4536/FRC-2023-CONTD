@@ -99,6 +99,8 @@ public final class Constants {
 
         public static final int ARM_LIFT_ID = 6;
         public static final int ARM_RETRACT_ID = 7;
+        
+        public static final int TURRET_ID = 5;
 
     }    
 

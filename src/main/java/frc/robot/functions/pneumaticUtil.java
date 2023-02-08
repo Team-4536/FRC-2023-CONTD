@@ -10,19 +10,19 @@ public class pneumaticUtil {
     public void toggleSolenoid(PneumaticData pData){
 
         
-        pData.breakSolenoid.toggle();
+        pData.brakeSolenoid.toggle();
         
     }
 
     public void retractAll(PneumaticData pData){
         
-        pData.breakSolenoid.set(Value.kReverse);
+        pData.brakeSolenoid.set(Value.kReverse);
 
     }
 
     public void extendAll(PneumaticData pData){
         
-        pData.breakSolenoid.set(Value.kForward);
+        pData.brakeSolenoid.set(Value.kForward);
 
     }
     

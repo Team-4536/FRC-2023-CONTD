@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 
 import frc.robot.Robot;
 import frc.robot.functions.driveUtil;
+import frc.robot.functions.turretUtil;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 
@@ -31,6 +32,28 @@ public class TestingBehaviour {
 
     public static Consumer<Robot> testLog = r -> {
         telemetryUtil.put("Testing str", "HI THERE", Tabs.DEBUG);
+    };
+
+    public static Consumer<Robot> systemTest = r -> {
+       
+        driveUtil.setPowerUniform(r.drive, r.input.joystick.getY());
+
+        if (r.input.joystick.getRawButtonPressed(2)){
+
+            turretUtil.runTurretMotor(r.turret, .2);
+
+        }
+        else if (r.input.joystick.getRawButtonPressed(3)){
+
+            turretUtil.runTurretMotor(r.turret, -.2);
+
+        }
+        else{
+
+            turretUtil.stopTurretMotor(r.turret);
+
+        }
+
     };
 
 

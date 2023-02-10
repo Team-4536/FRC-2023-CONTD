@@ -5,20 +5,20 @@ import frc.robot.subsystems.IntakeData;
 
 public class armUtil {
 
-    public void toggleSolenoid(IntakeData pData){
+    public static void toggleSolenoid(IntakeData pData){
 
         
         pData.armSolenoid.toggle();
         
     }
 
-    public void retractAll(IntakeData pData){
+    public static void retractAll(IntakeData pData){
         
         pData.armSolenoid.set(Value.kReverse);
 
     }
 
-    public void extendAll(IntakeData pData){
+    public static void extendAll(IntakeData pData){
         
         pData.armSolenoid.set(Value.kForward);
 

@@ -4,35 +4,35 @@ import frc.robot.subsystems.TelescopeData;
 
 public class telescopeUtil {
 
-    public void retractX(TelescopeData telescope, double von){
+    public static void retractX(TelescopeData telescope, double von){
 
         telescope.retractMotor.set(von);
 
     }
 
-    public void liftX(TelescopeData telescope, double elliot){
+    public static void liftX(TelescopeData telescope, double elliot){
 
         telescope.liftMotor.set(elliot);
 
     }
 
-    public void stopLift(TelescopeData telescope){
+    public static void stopLift(TelescopeData telescope){
 
         telescope.liftMotor.set(0);
 
     }
 
-    public void stopRetract(TelescopeData telescope){
+    public static void stopRetract(TelescopeData telescope){
 
         telescope.retractMotor.set(0);
 
     }
 
-    public void stopAll(TelescopeData telescope){
+    public static void stopAll(TelescopeData telescope){
 
         telescope.retractMotor.set(0);
         telescope.liftMotor.set(0);
-        
+
     }
 
 

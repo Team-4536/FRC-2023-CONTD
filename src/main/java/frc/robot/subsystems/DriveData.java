@@ -39,11 +39,6 @@ public class DriveData {
         BLEncoder = backLeftDrive.getEncoder();
         BREncoder = backRightDrive.getEncoder();
 
-        BREncoder.setInverted(false);
-        FLEncoder.setInverted(true);
-        BLEncoder.setInverted(true);
-        FREncoder.setInverted(false); 
-
         BREncoder.setPositionConversionFactor(1);
         FLEncoder.setPositionConversionFactor(1);
         BLEncoder.setPositionConversionFactor(1);

@@ -69,6 +69,8 @@ public class Robot extends TimedRobot {
     public GyroData gyro;
     public TurretData turret;
     public TelescopeData telescope;
+    public PneumaticData brakes;
+    public IntakeData grabber;
 
 
 
@@ -91,6 +93,8 @@ public class Robot extends TimedRobot {
         this.gyro = new GyroData();
         this.turret = new TurretData();
         this.telescope = new TelescopeData();
+        this.brakes = new PneumaticData();
+        this.grabber = new IntakeData();
 
         ROBOT_INIT_FUNC.accept(this);
     }
@@ -112,6 +116,8 @@ public class Robot extends TimedRobot {
         this.vision.sendTelemetry();
         this.turret.sendTelemetry();
         this.telescope.sendTelemetry();
+        this.brakes.sendTelemetry();
+        this.grabber.sendTelemetry();
 
         ROBOT_PER_FUNC.accept(this);
     }

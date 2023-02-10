@@ -2,6 +2,7 @@ package frc.robot.behaviours;
 
 import java.util.function.Consumer;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.Robot;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.turretUtil;
@@ -38,12 +39,12 @@ public class TestingBehaviour {
        
         driveUtil.setPowerUniform(r.drive, r.input.joystick.getY());
 
-        if (r.input.joystick.getRawButtonPressed(2)){
+        if (r.input.joystick.getRawButton(2)){
 
             turretUtil.runTurretMotor(r.turret, .2);
 
         }
-        else if (r.input.joystick.getRawButtonPressed(3)){
+        else if (r.input.joystick.getRawButton(3)){
 
             turretUtil.runTurretMotor(r.turret, -.2);
 
@@ -53,6 +54,8 @@ public class TestingBehaviour {
             turretUtil.stopTurretMotor(r.turret);
 
         }
+
+        if (r.input.joystick.getRawButton(1)){ r.brakes.brakeSolenoid.set(Value.kForward);} else { r.brakes.brakeSolenoid.set(Value.kReverse); }
 
     };
 

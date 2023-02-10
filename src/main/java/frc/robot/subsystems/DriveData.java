@@ -21,8 +21,6 @@ public class DriveData {
     public RelativeEncoder BLEncoder;
     public RelativeEncoder BREncoder;
 
-    public SparkMaxAbsoluteEncoder cum;
-
     public DriveData() {
         
         this.frontLeftDrive = new CANSparkMax(Constants.DRIVE_FRONT_LEFT_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -38,17 +36,17 @@ public class DriveData {
         //ChannelA is the one with 3 wires channelB is the one with 1 wire(TRUE)
         FLEncoder = frontLeftDrive.getEncoder();
         FREncoder = frontRightDrive.getEncoder();
-        //BLEncoder = backLeftDrive.getEncoder();
-        //BREncoder = backRightDrive.getEncoder();
+        BLEncoder = backLeftDrive.getEncoder();
+        BREncoder = backRightDrive.getEncoder();
 
-       /*  BREncoder.setInverted(false);
+        BREncoder.setInverted(false);
         FLEncoder.setInverted(true);
         BLEncoder.setInverted(true);
-        FREncoder.setInverted(false); */
+        FREncoder.setInverted(false); 
 
-        //BREncoder.setPositionConversionFactor(1);
+        BREncoder.setPositionConversionFactor(1);
         FLEncoder.setPositionConversionFactor(1);
-        //BLEncoder.setPositionConversionFactor(1);
+        BLEncoder.setPositionConversionFactor(1);
         FREncoder.setPositionConversionFactor(1);
 
         //BREncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
@@ -67,8 +65,8 @@ public class DriveData {
         telemetryUtil.put("BL Pwr", backLeftDrive.get(), Tabs.ROBOT);
         telemetryUtil.put("BR Pwr", backRightDrive.get(), Tabs.ROBOT);
 
-        //telemetryUtil.put("BLeft Encoder", BLEncoder.getPosition(), Tabs.ROBOT);
-        //telemetryUtil.put("BRight Encoder", BREncoder.getPosition(), Tabs.ROBOT);
+        telemetryUtil.put("BLeft Encoder", BLEncoder.getPosition(), Tabs.ROBOT);
+        telemetryUtil.put("BRight Encoder", BREncoder.getPosition(), Tabs.ROBOT);
         telemetryUtil.put("FLeft Encoder", FLEncoder.getPosition(), Tabs.ROBOT);
         telemetryUtil.put("FRight Encoder", FREncoder.getPosition(), Tabs.ROBOT);
 

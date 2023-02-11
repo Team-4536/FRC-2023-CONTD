@@ -37,7 +37,6 @@ public class TestingBehaviour {
 
     public static Consumer<Robot> systemTest = r -> {
        
-        driveUtil.setPowerUniform(r.drive, r.input.joystick.getY());
 
         if (r.input.joystick.getRawButton(2)){
 

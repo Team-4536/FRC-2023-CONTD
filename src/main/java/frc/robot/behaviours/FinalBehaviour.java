@@ -57,12 +57,11 @@ public class FinalBehaviour {
 
 
 
-
-/*driveUtil.setPowerMechanum(r.drive,
+        driveUtil.setPowerMechanum(r.drive,
             input.x * strafeScalar,
             input.y * driveScalar,
             PIDOut,
-            0.5); */
+            0.5); 
 
             r.drive.backLeftDrive.set(.5);
 

@@ -40,11 +40,17 @@ public final class Constants {
 
     public static final int PCM_ID_PORT = 0;
 
-    public static final int BRAKE_SOLENOID_FORWARD_PORT = 1;
+    public static final int BRAKE_SOLENOID_FORWARD_PORT = 3;
     public static final int BRAKE_SOLENOID_REVERSE_PORT = 2;
 
-    public static final int ARM_SOLENOID_FORWARD_PORT = 3;
-    public static final int ARM_SOLENOID_REVERSE_PORT = 4;
+    public static final int ARM_SOLENOID_FORWARD_PORT = 1;
+    public static final int ARM_SOLENOID_REVERSE_PORT = 0;
+
+    public static final int UP_BOUND_ID = 2;
+    public static final int LOW_BOUND_ID  =3;
+
+    public static final int CLOCKWISE_BOUND_ID = 1;
+    public static final int COUNTERCLOCKWISE_BOUND_ID = 0;
 
     public static final boolean DRIVE_FRONT_LEFT_FLIPPED = false;
     public static final boolean DRIVE_FRONT_RIGHT_FLIPPED = true;

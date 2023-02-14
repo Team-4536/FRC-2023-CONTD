@@ -73,7 +73,7 @@ public class AutoStages {
                 );
 
                 driveUtil.setPowerMechanum(r.drive,
-                -xPID.tick(out.x, Robot.dt, false),
+                xPID.tick(out.x, Robot.dt, false),
                 yPID.tick(out.y, Robot.dt, false),
                 -anglePID.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true),
                 0.4);

@@ -42,7 +42,7 @@ public class TestingBehaviour {
         double y = inputUtil.deadzoneAxis(r.input.joystick.getY(), 0.20);
         double z = inputUtil.deadzoneAxis(r.input.joystick.getZ(), 0.20);
 
-        driveUtil.setPowerMechanum(r.drive, x, y, z, 0.5);
+        driveUtil.setPowerMechanum(r.drive, -x, -y, -z, 0.5);
        
 
         if (r.input.joystick.getRawButton(2)){

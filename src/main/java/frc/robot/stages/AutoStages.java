@@ -7,6 +7,7 @@ import frc.robot.controllers.PIDController;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.gyroUtil;
 import frc.robot.functions.visionUtil;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
@@ -98,6 +99,22 @@ public class AutoStages {
             telemetryUtil.put("ms", motorSpeed, Tabs.DEBUG);
 
             return (motorSpeed && horizError && verticalError);
+        }
+
+    }
+
+    public static class Flymer extends Stage {
+
+        public Timer flymer = new Timer();
+
+        @Override public void init(){
+            flymer.start();
+        }
+        
+
+        @Override public boolean run(Robot r) {
+        
+            return flymer.get() > 0.5f;
         }
 
     }

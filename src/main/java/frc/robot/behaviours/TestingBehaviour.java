@@ -54,7 +54,7 @@ public class TestingBehaviour {
 
         }
 
-        if (r.input.joystick.getRawButton(1)){ r.brakes.brakeSolenoid.set(Value.kReverse);} else { r.brakes.brakeSolenoid.set(Value.kForward); }
+        if (r.input.joystick.getRawButton(1)){ r.brakes.brakeSolenoid.set(Value.kForward);} else { r.brakes.brakeSolenoid.set(Value.kReverse); }
 
     };
 

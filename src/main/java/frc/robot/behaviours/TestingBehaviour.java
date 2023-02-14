@@ -2,12 +2,13 @@ package frc.robot.behaviours;
 
 import java.util.function.Consumer;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.Robot;
+import frc.robot.functions.armUtil;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.inputUtil;
 import frc.robot.functions.turretUtil;
 import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.pneumaticUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 
 public class TestingBehaviour {
@@ -43,6 +44,9 @@ public class TestingBehaviour {
         double z = inputUtil.deadzoneAxis(r.input.joystick.getZ(), 0.20);
 
         driveUtil.setPowerMechanum(r.drive, -x, -y, -z, 0.5);
+
+        if (r.input.controller.getAButtonPressed()) { pneumaticUtil.toggleSolenoid(r.brakes); }
+        if (r.input.controller.getBButtonPressed()) { armUtil.toggleSolenoid(r.grabber); }
        
 
         if (r.input.joystick.getRawButton(2)){
@@ -61,7 +65,6 @@ public class TestingBehaviour {
 
         }
 
-        if (r.input.joystick.getRawButton(1)){ r.brakes.brakeSolenoid.set(Value.kForward);} else { r.brakes.brakeSolenoid.set(Value.kReverse); }
 
     };
 

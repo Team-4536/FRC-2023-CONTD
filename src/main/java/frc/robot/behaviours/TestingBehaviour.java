@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.Robot;
 import frc.robot.functions.driveUtil;
+import frc.robot.functions.inputUtil;
 import frc.robot.functions.turretUtil;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
@@ -36,6 +37,12 @@ public class TestingBehaviour {
     };
 
     public static Consumer<Robot> systemTest = r -> {
+
+        double x = inputUtil.deadzoneAxis(r.input.joystick.getX(), 0.20);
+        double y = inputUtil.deadzoneAxis(r.input.joystick.getY(), 0.20);
+        double z = inputUtil.deadzoneAxis(r.input.joystick.getZ(), 0.20);
+
+        driveUtil.setPowerMechanum(r.drive, x, y, z, 0.5);
        
 
         if (r.input.joystick.getRawButton(2)){

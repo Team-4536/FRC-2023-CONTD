@@ -2,6 +2,7 @@ package frc.robot.behaviours;
 
 import java.util.function.Consumer;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.functions.armUtil;
 import frc.robot.functions.driveUtil;
@@ -10,6 +11,8 @@ import frc.robot.functions.turretUtil;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.pneumaticUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+
 
 public class TestingBehaviour {
 
@@ -43,10 +46,21 @@ public class TestingBehaviour {
         double y = inputUtil.deadzoneAxis(r.input.joystick.getY(), 0.20);
         double z = inputUtil.deadzoneAxis(r.input.joystick.getZ(), 0.20);
 
-        driveUtil.setPowerMechanum(r.drive, -x, -y, -z, 0.5);
+        driveUtil.setPowerMechanum(r.drive, x, -y, z, 0.5);
 
-        if (r.input.controller.getAButtonPressed()) { pneumaticUtil.toggleSolenoid(r.brakes); }
-        if (r.input.controller.getBButtonPressed()) { armUtil.toggleSolenoid(r.grabber); }
+        if (r.input.controller.getAButton()) { r.brakes.brakeSolenoid.set(Value.kForward); }
+        else { r.brakes.brakeSolenoid.set(Value.kReverse);}
+        if (r.input.controller.getBButton()) { r.grabber.armSolenoid.set(Value.kForward); }
+        else { r.grabber.armSolenoid.set(Value.kReverse);}
+
+        //if (r.input.controller.getXButton()){ r.telescope.liftMotor.set(.2); }
+        //else { r.telescope.liftMotor.set(0); }
+        r.telescope.liftMotor.set(r.input.controller.getRightY());
+        
+        //if (r.input.controller.getYButton()){ r.telescope.retractMotor.set(.5); }
+        //else {r.telescope.retractMotor.set(0); }
+        r.telescope.retractMotor.set(r.input.controller.getLeftY());
+
        
 
         if (r.input.joystick.getRawButton(2)){

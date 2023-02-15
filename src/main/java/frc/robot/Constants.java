@@ -29,6 +29,11 @@ public final class Constants {
         //                                          in degs/ sec
         public static final double MAX_TURNING_OUT = 100;
         public static final double DEFAULT_TURNING_OUT = 40;
+
+
+        public static final double angularP = 0.08;
+        public static final double angularI = 0.01;
+        public static final double angularD = 0;
     }
 
 

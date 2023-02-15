@@ -5,10 +5,15 @@ import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.telemetryUtil.Tabs;
 
 
 public class PositionData {
 
+    static Field2d f = new Field2d();
 
     public Translation2d center = new Translation2d(38.85/100, 30.25 / 100);
     public Translation2d m_backRightLocation = new Translation2d(13.0/100, 7.75/100);
@@ -58,5 +63,16 @@ public class PositionData {
 
         // Update the pose
         this.pose = m_odometry.update(gyroAngle, wheelPositions);
+
+        f.setRobotPose(pose);
+    }
+
+
+    public void sendTelemetry() {
+
+        // SmartDashboard.putData("Field", f);
+        telemetryUtil.put("Estimate X", pose.getX(), Tabs.DEBUG);
+        telemetryUtil.put("Estimate Y", pose.getY(), Tabs.DEBUG);
+        telemetryUtil.put("Estimate T", pose.getRotation().getDegrees(), Tabs.DEBUG);
     }
 }

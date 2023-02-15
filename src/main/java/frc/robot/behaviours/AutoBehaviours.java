@@ -5,8 +5,10 @@ import java.util.function.Consumer;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.V2d;
 import frc.robot.stages.AutoStages;
 import frc.robot.stages.Stage;
+import frc.robot.stages.goToPosition;
 
 public class AutoBehaviours {
 
@@ -41,15 +43,19 @@ public class AutoBehaviours {
 
 
     public static Consumer<Robot> turn180init = r -> {
-
         resetAuto(r);
         stages.add(new AutoStages.goTo180());
     };
 
     public static Consumer<Robot> alignTagTrigInit = r -> {
-
         resetAuto(r);
 
         stages.add(new AutoStages.goToAprilTagTrig(3, 24));
+    };
+
+    public static Consumer<Robot> goToPosition0Init = r -> {
+        resetAuto(r);
+
+        stages.add(new goToPosition(new V2d(0, 0), r));
     };
 }

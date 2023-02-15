@@ -2,8 +2,10 @@ package frc.robot.behaviours;
 
 import java.util.function.Consumer;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.Robot;
 import frc.robot.functions.driveUtil;
+import frc.robot.functions.turretUtil;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 
@@ -31,6 +33,29 @@ public class TestingBehaviour {
 
     public static Consumer<Robot> testLog = r -> {
         telemetryUtil.put("Testing str", "HI THERE", Tabs.DEBUG);
+    };
+
+    public static Consumer<Robot> systemTest = r -> {
+       
+
+        if (r.input.joystick.getRawButton(2)){
+
+            turretUtil.runTurretMotor(r.turret, .2);
+
+        }
+        else if (r.input.joystick.getRawButton(3)){
+
+            turretUtil.runTurretMotor(r.turret, -.2);
+
+        }
+        else{
+
+            turretUtil.stopTurretMotor(r.turret);
+
+        }
+
+        if (r.input.joystick.getRawButton(1)){ r.brakes.brakeSolenoid.set(Value.kReverse);} else { r.brakes.brakeSolenoid.set(Value.kForward); }
+
     };
 
 

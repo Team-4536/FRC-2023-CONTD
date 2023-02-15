@@ -19,6 +19,10 @@ import frc.robot.subsystems.DriveData;
 import frc.robot.subsystems.GyroData;
 import frc.robot.subsystems.InputData;
 import frc.robot.subsystems.PositionData;
+import frc.robot.subsystems.IntakeData;
+import frc.robot.subsystems.PneumaticData;
+import frc.robot.subsystems.TelescopeData;
+import frc.robot.subsystems.TurretData;
 import frc.robot.subsystems.VisionData;
 
 /**
@@ -36,7 +40,7 @@ public class Robot extends TimedRobot {
     public static Consumer<Robot> ROBOT_PER_FUNC = NULL_FUNC;
 
     public static Consumer<Robot> TELEOP_INIT_FUNC = FinalBehaviour.teleOpInit;
-    public static Consumer<Robot> TELEOP_PER_FUNC = FinalBehaviour.teleOpPeriodic;
+    public static Consumer<Robot> TELEOP_PER_FUNC = TestingBehaviour.systemTest;
 
     //public static Consumer<Robot> AUTO_INIT_FUNC = AutoBehaviours.alignTagInit;
     //public static Consumer<Robot> AUTO_PER_FUNC = AutoBehaviours.autoPeriodic;
@@ -65,7 +69,10 @@ public class Robot extends TimedRobot {
     public VisionData vision;
     public GyroData gyro;
     public PositionData positionData;
-
+    public TurretData turret;
+    public TelescopeData telescope;
+    public PneumaticData brakes;
+    public IntakeData grabber;
 
 
 
@@ -85,6 +92,10 @@ public class Robot extends TimedRobot {
         this.vision = new VisionData();
         this.gyro = new GyroData();
         this.positionData = new PositionData(gyro, drive);
+        this.turret = new TurretData();
+        this.telescope = new TelescopeData();
+        this.brakes = new PneumaticData();
+        this.grabber = new IntakeData();
 
         ROBOT_INIT_FUNC.accept(this);
     }
@@ -105,6 +116,10 @@ public class Robot extends TimedRobot {
         this.gyro.sendTelemetry();
         this.vision.sendTelemetry();
         this.positionData.sendTelemetry();
+        this.turret.sendTelemetry();
+        this.telescope.sendTelemetry();
+        this.brakes.sendTelemetry();
+        this.grabber.sendTelemetry();
 
         ROBOT_PER_FUNC.accept(this);
     }

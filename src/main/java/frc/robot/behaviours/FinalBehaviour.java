@@ -53,14 +53,17 @@ public class FinalBehaviour {
 
 
 
-
         driveUtil.setPowerMechanum(r.drive,
             input.x * strafeScalar,
             input.y * driveScalar,
             PIDOut,
-            0.5);
+            0.5); 
 
-        // end of drive stuff :)
+            r.drive.backLeftDrive.set(.5);
+
+            //driveUtil.setPowerUniform(r.drive, .5);
+            
+            // end of drive stuff :)
 
 
 

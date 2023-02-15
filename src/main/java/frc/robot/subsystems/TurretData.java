@@ -1,27 +1,27 @@
 package frc.robot.subsystems;
 
-import java.util.concurrent.CancellationException;
-
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
+import frc.robot.Constants.MechanismInfo;
+import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.telemetryUtil.Tabs;
 
 public class TurretData {
     
-    public CANSparkMax turretMotor = new CANSparkMax(5, MotorType.kBrushed);
+    public CANSparkMax turretMotor = new CANSparkMax(MechanismInfo.TURRET_ID, MechanismInfo.TURRET_MOTOR_TYPE);
     
-    private DigitalInput leftBoundLimitSwitch = new DigitalInput(0);
-    private DigitalInput rightBoundLimitSwitch = new DigitalInput(0);
+    public DigitalInput cwBound = new DigitalInput(Constants.CLOCKWISE_BOUND_ID);
+    public DigitalInput ccwBound = new DigitalInput(Constants.COUNTERCLOCKWISE_BOUND_ID);
 
 
         public void sendTelemetry(){
 
-            SmartDashboard.putNumber("Turret Motor", turretMotor.get());
-            SmartDashboard.putBoolean("Left Bound Limit Switch", leftBoundLimitSwitch.get());
-            SmartDashboard.putBoolean("Right Bound Limit Switch", rightBoundLimitSwitch.get());
+            telemetryUtil.put("Turret Motor", turretMotor.get(), Tabs.ROBOT);
+            
+            telemetryUtil.put("Clockwise Limit Switch", cwBound.get(), Tabs.ROBOT);
+            telemetryUtil.put("Counter Clockwise Limit Switch", ccwBound.get(), Tabs.ROBOT);
 
         }
 

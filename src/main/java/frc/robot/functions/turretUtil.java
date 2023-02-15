@@ -4,18 +4,36 @@ import frc.robot.subsystems.TurretData;
 
 public class turretUtil {
 
-    public TurretData tdata = new TurretData();
-
-    public void runTurretMotor(double speed){
+    public static void runTurretMotor(TurretData tdata, double speed){
 
         tdata.turretMotor.set(speed);
     
     }
 
-    public void stopTurretMotor(){
+    public static void stopTurretMotor(TurretData tdata){
 
         tdata.turretMotor.stopMotor();
 
+    }
+
+    public static void run(TurretData tdata, double speed){
+
+        if (tdata.ccwBound.get()){
+
+            if (speed < 0) { speed = 0; }
+            tdata.turretMotor.set(speed);
+
+        } else if (tdata.cwBound.get()){
+
+            if (speed > 0) { speed = 0;}
+            tdata.turretMotor.set(speed);
+
+        } else {
+
+            tdata.turretMotor.set(speed);
+            
+        }
+        
     }
 
 }

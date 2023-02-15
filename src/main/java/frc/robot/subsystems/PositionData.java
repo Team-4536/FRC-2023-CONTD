@@ -40,8 +40,9 @@ public class PositionData {
             m_kinematics,
             gyro.globGyroscope.getRotation2d(),
             new MecanumDriveWheelPositions(
-                drive.FLEncoder.getDistance(), drive.FREncoder.getDistance(),
-                drive.BLEncoder.getDistance(), drive.BREncoder.getDistance()
+                drive.FLEncoder.getPosition(), drive.FREncoder.getPosition(),
+                //drive.BLEncoder.getPosition(), drive.BREncoder.getPosition()
+                1,1
             ),
             this.pose
             );
@@ -52,8 +53,9 @@ public class PositionData {
     public void update(DriveData drive, GyroData gyro) {
         // Get my wheel positions
         var wheelPositions = new MecanumDriveWheelPositions(
-                drive.FLEncoder.getDistance(), drive.FREncoder.getDistance(),
-                drive.BLEncoder.getDistance(), drive.BREncoder.getDistance()
+                drive.FLEncoder.getPosition(), drive.FREncoder.getPosition(),
+                //drive.BLEncoder.getPosition(), drive.BREncoder.getPosition()
+                1,1
             );
 
         // Get the rotation of the robot from the gyro.

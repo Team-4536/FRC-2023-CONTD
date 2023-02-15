@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public final class Constants {
 
@@ -37,14 +38,28 @@ public final class Constants {
 
 
 
-    public static final int DRIVE_FRONT_LEFT_PORT = 2;
-    public static final int DRIVE_FRONT_RIGHT_PORT = 3;
-    public static final int DRIVE_BACK_LEFT_PORT = 1;
-    public static final int DRIVE_BACK_RIGHT_PORT = 0;
+    public static final int DRIVE_FRONT_LEFT_PORT = 4;
+    public static final int DRIVE_FRONT_RIGHT_PORT = 1;
+    public static final int DRIVE_BACK_LEFT_PORT = 3;
+    public static final int DRIVE_BACK_RIGHT_PORT = 2;
 
-    public static final boolean DRIVE_FRONT_LEFT_FLIPPED = false;
+    public static final int PCM_ID_PORT = 0;
+
+    public static final int BRAKE_SOLENOID_FORWARD_PORT = 5;
+    public static final int BRAKE_SOLENOID_REVERSE_PORT = 4;
+
+    public static final int ARM_SOLENOID_FORWARD_PORT = 1;
+    public static final int ARM_SOLENOID_REVERSE_PORT = 0;
+
+    public static final int UP_BOUND_ID = 2;
+    public static final int LOW_BOUND_ID  =3;
+
+    public static final int CLOCKWISE_BOUND_ID = 1;
+    public static final int COUNTERCLOCKWISE_BOUND_ID = 0;
+
+    public static final boolean DRIVE_FRONT_LEFT_FLIPPED = !true;
     public static final boolean DRIVE_FRONT_RIGHT_FLIPPED = true;
-    public static final boolean DRIVE_BACK_LEFT_FLIPPED = false;
+    public static final boolean DRIVE_BACK_LEFT_FLIPPED = !true;
     public static final boolean DRIVE_BACK_RIGHT_FLIPPED = true;
 
 
@@ -94,4 +109,19 @@ public final class Constants {
         public static final double CX_FROM_CENTER = 5.333333333333;
         public static final double CZ_FRIM_CENTER = 16; 
     }
+
+    public static final class MechanismInfo{
+
+        public static final MotorType ARM_MOTOR_TYPE = MotorType.kBrushed;
+        public static final MotorType DRIVE_MOTOR_TYPE = MotorType.kBrushless;
+        public static final MotorType TURRET_MOTOR_TYPE = MotorType.kBrushless;
+
+        public static final int ARM_LIFT_ID = 6;
+        public static final int ARM_RETRACT_ID = 7;
+        
+        public static final int TURRET_ID = 5;
+
+    }    
+
+    
 }

@@ -75,6 +75,7 @@ public final class Constants {
     public static final double ROBOT_Y_SIZE_IN = 30.33333333;
 
     public static final int CONTROLLER_PORT = 0;
+    public static final int CONTROLLER_MECH_PORT = 2;
     public static final int JOYSTICK_PORT = 1;
 
     public static final class VisionInfo{

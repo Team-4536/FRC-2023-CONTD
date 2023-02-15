@@ -26,7 +26,7 @@ public class pneumaticUtil {
 
     }
 
-    public void runCondition(PneumaticData pData, boolean forwardCondition){
+    public static void runCondition(PneumaticData pData, boolean forwardCondition){
 
         if(forwardCondition){pData.brakeSolenoid.set(Value.kForward);}
         else {pData.brakeSolenoid.set(Value.kReverse);} 

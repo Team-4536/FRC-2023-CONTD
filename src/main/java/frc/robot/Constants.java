@@ -45,11 +45,11 @@ public final class Constants {
 
     public static final int PCM_ID_PORT = 0;
 
-    public static final int BRAKE_SOLENOID_FORWARD_PORT = 5;
-    public static final int BRAKE_SOLENOID_REVERSE_PORT = 4;
+    public static final int BRAKE_SOLENOID_FORWARD_PORT = 4;
+    public static final int BRAKE_SOLENOID_REVERSE_PORT = 6;
 
-    public static final int ARM_SOLENOID_FORWARD_PORT = 1;
-    public static final int ARM_SOLENOID_REVERSE_PORT = 0;
+    public static final int ARM_SOLENOID_FORWARD_PORT = 7;
+    public static final int ARM_SOLENOID_REVERSE_PORT = 5;
 
     public static final int UP_BOUND_ID = 2;
     public static final int LOW_BOUND_ID  =3;
@@ -80,6 +80,7 @@ public final class Constants {
     public static final double ROBOT_Y_SIZE_IN = 30.33333333;
 
     public static final int CONTROLLER_PORT = 0;
+    public static final int CONTROLLER_MECH_PORT = 2;
     public static final int JOYSTICK_PORT = 1;
 
     public static final class VisionInfo{
@@ -116,8 +117,8 @@ public final class Constants {
         public static final MotorType DRIVE_MOTOR_TYPE = MotorType.kBrushless;
         public static final MotorType TURRET_MOTOR_TYPE = MotorType.kBrushless;
 
-        public static final int ARM_LIFT_ID = 6;
-        public static final int ARM_RETRACT_ID = 7;
+        public static final int ARM_LIFT_ID = 7;
+        public static final int ARM_RETRACT_ID = 6;
         
         public static final int TURRET_ID = 5;
 

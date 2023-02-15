@@ -23,5 +23,12 @@ public class armUtil {
         pData.armSolenoid.set(Value.kForward);
 
     }
+
+    public static void runCondition(IntakeData pData, boolean forwardCondition){
+
+        if(forwardCondition){pData.armSolenoid.set(Value.kForward);}
+        else {pData.armSolenoid.set(Value.kReverse);}
+
+    }
     
 }

@@ -7,6 +7,7 @@ import frc.robot.controllers.PIDController;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.gyroUtil;
 import frc.robot.functions.visionUtil;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.functions.telemetryUtil;
@@ -74,7 +75,7 @@ public class AutoStages {
                 );
 
                 driveUtil.setPowerMechanum(r.drive,
-                -xPID.tick(out.x, Robot.dt, false),
+                xPID.tick(out.x, Robot.dt, false),
                 yPID.tick(out.y, Robot.dt, false),
                 -anglePID.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true),
                 0.4);
@@ -85,7 +86,7 @@ public class AutoStages {
                 driveUtil.setPowerMechanum(r.drive, 
                 0,
                 0,
-                -anglePID.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true),
+                anglePID.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true),
                 0.4);
             }
 
@@ -99,6 +100,22 @@ public class AutoStages {
             telemetryUtil.put("ms", motorSpeed, Tabs.DEBUG);
 
             return (motorSpeed && horizError && verticalError);
+        }
+
+    }
+
+    public static class Flymer extends Stage {
+
+        public Timer flymer = new Timer();
+
+        @Override public void init(){
+            flymer.start();
+        }
+        
+
+        @Override public boolean run(Robot r) {
+        
+            return flymer.get() > 0.5f;
         }
 
     }

@@ -12,11 +12,13 @@ import frc.robot.stages.goToPosition;
 
 public class AutoBehaviours {
 
-    public static int stage = 0;
+    public static int stage = -1;
     public static ArrayList<Stage> stages = new ArrayList<Stage>();
 
 
     public static Consumer<Robot> autoPeriodic = r -> {
+
+        if(stage == -1) { stage++; stages.get(0).init(); }
 
         if(stage == stages.size()) {
             SmartDashboard.putBoolean("Auto running", false);
@@ -25,7 +27,11 @@ public class AutoBehaviours {
         }
 
         Boolean x = stages.get(stage).run(r);
-        stage+= x?1:0;
+
+        if(x) {
+            stage++;
+            stages.get(stage).init();
+        }
 
         SmartDashboard.putBoolean("Auto running", true);
     };

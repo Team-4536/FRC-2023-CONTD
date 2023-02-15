@@ -10,6 +10,8 @@ public class PneumaticData {
     
     public static PneumaticsControlModule pcm = new PneumaticsControlModule(Constants.PCM_ID_PORT);
 
+    public static boolean status = false;
+
     public DoubleSolenoid brakeSolenoid = pcm.makeDoubleSolenoid(Constants.BRAKE_SOLENOID_FORWARD_PORT, 
     Constants.BRAKE_SOLENOID_REVERSE_PORT);
 

@@ -10,6 +10,8 @@ public class IntakeData {
 
     public PneumaticsControlModule pcm = PneumaticData.pcm;
 
+    public static boolean status = false;
+
     public DoubleSolenoid armSolenoid = pcm.makeDoubleSolenoid(Constants.ARM_SOLENOID_FORWARD_PORT, 
     Constants.ARM_SOLENOID_REVERSE_PORT);
 

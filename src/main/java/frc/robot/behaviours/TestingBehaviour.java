@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.controllers.PIDController;
 import frc.robot.functions.armUtil;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.inputUtil;
@@ -40,13 +41,16 @@ public class TestingBehaviour {
         telemetryUtil.put("Testing str", "HI THERE", Tabs.DEBUG);
     };
 
+    public static PIDController armPID = new PIDController(0.001, 0.0f, 0.0f);
     public static Consumer<Robot> systemTest = r -> {
 
-        double x = inputUtil.deadzoneAxis(r.input.joystick.getX(), 0.20);
-        double y = inputUtil.deadzoneAxis(r.input.joystick.getY(), 0.20);
-        double z = inputUtil.deadzoneAxis(r.input.joystick.getZ(), 0.20);
+        double x = inputUtil.deadzoneAxis(r.input.controller.getLeftX(), 0.20);
+        double y = inputUtil.deadzoneAxis(-r.input.controller.getLeftY(), 0.20);
+        double z = inputUtil.deadzoneAxis(r.input.controller.getRightX(), 0.20);
+        r.drive.pidController.target += Robot.dt * z * 60;
 
-        driveUtil.setPowerMechanum(r.drive, x, -y, z, 0.5);
+        double PIDOut = -r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
+        driveUtil.setPowerMechanum(r.drive, x, y, PIDOut, 0.4);
 
         if (r.input.controller.getAButton()) { r.brakes.brakeSolenoid.set(Value.kForward); }
         else { r.brakes.brakeSolenoid.set(Value.kReverse);}
@@ -55,11 +59,11 @@ public class TestingBehaviour {
 
         //if (r.input.controller.getXButton()){ r.telescope.liftMotor.set(.2); }
         //else { r.telescope.liftMotor.set(0); }
-        r.telescope.liftMotor.set(r.input.controller.getRightY());
+        r.telescope.liftMotor.set(r.input.controller.getRightTriggerAxis() - r.input.controller.getLeftTriggerAxis());
         
         //if (r.input.controller.getYButton()){ r.telescope.retractMotor.set(.5); }
         //else {r.telescope.retractMotor.set(0); }
-        r.telescope.retractMotor.set(r.input.controller.getLeftY());
+        r.telescope.retractMotor.set((r.input.controller.getStartButtonPressed()?1:0) - (r.input.controller.getBackButtonPressed()?1:0));
 
        
 

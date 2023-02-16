@@ -79,7 +79,7 @@ public class TestingBehaviour {
        
         //TURRET
         double flymer = inputUtil.deadzoneAxis(r.input.controllerMech.getRightTriggerAxis() - 
-                                               r.input.controllerMech.getLeftTriggerAxis(), .1)/2.7;
+                                               r.input.controllerMech.getLeftTriggerAxis(), .1)/5;
         turretUtil.run(r.turret, flymer);
         
                         

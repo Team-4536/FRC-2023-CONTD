@@ -7,11 +7,10 @@ import frc.robot.controllers.PIDController;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.gyroUtil;
 import frc.robot.functions.visionUtil;
-import frc.robot.Constants.VisionInfo;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoStages {
 
@@ -41,7 +40,7 @@ public class AutoStages {
 
         int pip = 0;
         PIDController anglePID = new PIDController(0.04, 0.0004, -0.01);
-        PIDController xPID = new PIDController(0.35, 0.01, -0.1);
+        PIDController xPID = new PIDController(0.35, 0.005, -0.2);
         PIDController yPID = new PIDController(0.07, 0.006, -0.04);
 
         double wantedDistance = 24;
@@ -92,7 +91,6 @@ public class AutoStages {
 
             boolean horizError = Math.abs(goal.x - visionUtil.horizontalOffset(r.vision.getArea(), r.vision.getX())) <= .65;
             boolean verticalError = Math.abs(goal.y - visionUtil.distanceFrom(r.vision.getArea())) <= 2.5;
-            
             boolean motorSpeed = yPID.prevErr - (goal.y - visionUtil.distanceFrom(r.vision.getArea())) <= .15;
 
             telemetryUtil.put("h", horizError, Tabs.DEBUG);

@@ -71,7 +71,8 @@ public class telemetryUtil {
 
         DRIVER("SmartDashboard"),
         LIMELIGHT("Limelight"),
-        DEBUG("Debug");
+        DEBUG("Debug"),
+        ROBOT("Robot Info");
 
         String name;
         NetworkTable table;

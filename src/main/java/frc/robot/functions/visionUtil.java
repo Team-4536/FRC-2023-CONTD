@@ -2,6 +2,7 @@ package frc.robot.functions;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.VisionInfo;
+import frc.robot.functions.telemetryUtil.Tabs;
 import frc.robot.subsystems.DriveData;
 import frc.robot.subsystems.GyroData;
 import frc.robot.subsystems.VisionData;
@@ -27,10 +28,10 @@ public class visionUtil {
 
         if (lol){
 
-            SmartDashboard.putNumber("fov AREA", fovAreaIn);
-            SmartDashboard.putNumber("fov HEIGHT", fovHeight);
-            SmartDashboard.putNumber("fov LENGTH", fovLength);
-            SmartDashboard.putNumber("distance FROM", distanceFrom);
+            telemetryUtil.put("fov AREA", fovAreaIn, Tabs.LIMELIGHT);
+            telemetryUtil.put("fov HEIGHT", fovHeight, Tabs.LIMELIGHT);
+            telemetryUtil.put("fov LENGTH", fovLength, Tabs.LIMELIGHT);
+            telemetryUtil.put("distance FROM", distanceFrom, Tabs.LIMELIGHT);
 
         }
 

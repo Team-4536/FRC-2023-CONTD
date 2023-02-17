@@ -35,6 +35,18 @@ public class telescopeUtil {
 
     }
 
+    public static void liftScale(TelescopeData telescope, double speed, double pScale, double nScale){
+
+        if (speed < 0){
+            telescope.liftMotor.set(speed * nScale);
+        } else if (speed > 0){
+            telescope.liftMotor.set(speed * pScale);
+        } else {
+            stopLift(telescope);
+        }
+
+    }
+
 
     
 }

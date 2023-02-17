@@ -9,6 +9,7 @@ import frc.robot.functions.driveUtil;
 import frc.robot.functions.inputUtil;
 import frc.robot.functions.pneumaticUtil;
 import frc.robot.functions.turretUtil;
+import frc.robot.functions.telescopeUtil;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 import frc.robot.subsystems.DriveData;
@@ -62,7 +63,7 @@ public class TestingBehaviour {
         r.drive.pidController.target += Robot.dt * z * 60;
 
         //double PIDOut = -r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
-        driveUtil.setPowerMechanum(r.drive, x, y, z, 0.25);
+        driveUtil.setPowerMechanum(r.drive, x, y, z, 0.17);
 
 
         //PNEUMATICS
@@ -73,7 +74,7 @@ public class TestingBehaviour {
 
 
         //ARM
-        r.telescope.liftMotor.set(-(inputUtil.deadzoneAxis(r.input.controllerMech.getRightY(), .1)/1.6));
+        telescopeUtil.liftScale(r.telescope, inputUtil.deadzoneAxis(-r.input.controllerMech.getRightY(), .1), .8, .2);
         r.telescope.retractMotor.set(inputUtil.deadzoneAxis(r.input.controllerMech.getLeftY(), .1)/1.4);
 
        

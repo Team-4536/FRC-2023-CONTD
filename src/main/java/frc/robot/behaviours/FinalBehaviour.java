@@ -49,7 +49,7 @@ public class FinalBehaviour {
 
         double strafeScalar = inputUtil.mapInput(
             r.input.controller.getRightTriggerAxis(),
-            1, 0, ControlInfo.MAX_STRAFE_OUT, ControlInfo.DEFAULT_STRAFE_OUT);
+            1, 0, ControlInfo.MAX_DRIVE_OUT, ControlInfo.DEFAULT_DRIVE_OUT);
 
 
 

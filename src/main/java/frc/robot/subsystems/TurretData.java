@@ -15,14 +15,17 @@ public class TurretData {
     public DigitalInput cwBound = new DigitalInput(Constants.CLOCKWISE_BOUND_ID);
     public DigitalInput ccwBound = new DigitalInput(Constants.COUNTERCLOCKWISE_BOUND_ID);
 
+    public TurretData() {
+        this.turretMotor.setInverted(true);
+    }
 
-        public void sendTelemetry(){
+    public void sendTelemetry(){
 
-            telemetryUtil.put("Turret Motor", turretMotor.get(), Tabs.ROBOT);
-            
-            telemetryUtil.put("Clockwise Limit Switch", cwBound.get(), Tabs.ROBOT);
-            telemetryUtil.put("Counter Clockwise Limit Switch", ccwBound.get(), Tabs.ROBOT);
+        telemetryUtil.put("Turret Motor", turretMotor.get(), Tabs.ROBOT);
+        
+        telemetryUtil.put("Clockwise Limit Switch", cwBound.get(), Tabs.ROBOT);
+        telemetryUtil.put("Counter Clockwise Limit Switch", ccwBound.get(), Tabs.ROBOT);
 
-        }
+    }
 
 }

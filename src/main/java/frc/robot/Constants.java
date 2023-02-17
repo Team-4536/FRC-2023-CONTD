@@ -19,10 +19,8 @@ public final class Constants {
         public static final double MOVEMENT_DEADZONE = 0.15;
 
         public static final double MAX_DRIVE_OUT = 0.85;
-        public static final double DEFAULT_DRIVE_OUT = 0.4;
+        public static final double DEFAULT_DRIVE_OUT = 0.1;
 
-        public static final double MAX_STRAFE_OUT = 1;
-        public static final double DEFAULT_STRAFE_OUT = 0.7;
 
 
         public static final double TURNING_DEADZONE = 0.2;
@@ -66,18 +64,18 @@ public final class Constants {
     public static final int ENCODER_TICKS_PER_REV = 360;
     public static final double ENCODER_PULSE_DISTANCE = 1/740.0;
 
-    public static final double WHEEL_DIAMETER_INCHES = 6.0;
+    public static final double WHEEL_DIAMETER_INCHES = 8.5;
     public static final double WHEEL_CIRCUMFERENCE_INCHES = Math.PI * WHEEL_DIAMETER_INCHES;
-    public static final double WHEEL_RADIUS = WHEEL_DIAMETER_INCHES;
+    public static final double WHEEL_RADIUS = WHEEL_DIAMETER_INCHES / 2.0;
 
     // FICKS
     public static final V2d FL_MOTOR_POS = new V2d(-1, 1);
     public static final V2d FR_MOTOR_POS = new V2d(1, 1);
-    public static final V2d BL_MOTOR_POS = new V2d(-1, -1);
-    public static final V2d BR_MOTOR_POS = new V2d(1, -1);
+    public static final V2d BL_MOTOR_POS = new V2d(3, 6.25);
+    public static final V2d BR_MOTOR_POS = new V2d();//new V2d(ROBOT_X_SIZE_IN- 3, -1);
 
-    public static final double ROBOT_X_SIZE_IN = 24;
-    public static final double ROBOT_Y_SIZE_IN = 30.33333333;
+    public static final double ROBOT_X_SIZE_IN = 27;
+    public static final double ROBOT_Y_SIZE_IN = 32.25;
 
     public static final int CONTROLLER_PORT = 0;
     public static final int CONTROLLER_MECH_PORT = 2;

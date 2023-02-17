@@ -14,6 +14,7 @@ import frc.robot.behaviours.AutoBehaviours;
 import frc.robot.behaviours.BehaviourUtil;
 import frc.robot.behaviours.FinalBehaviour;
 import frc.robot.behaviours.TestingBehaviour;
+import frc.robot.behaviours.Week0Behaviour;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.subsystems.DriveData;
 import frc.robot.subsystems.GyroData;
@@ -40,7 +41,7 @@ public class Robot extends TimedRobot {
     public static Consumer<Robot> ROBOT_PER_FUNC = NULL_FUNC;
 
     public static Consumer<Robot> TELEOP_INIT_FUNC = FinalBehaviour.teleOpInit;
-    public static Consumer<Robot> TELEOP_PER_FUNC = TestingBehaviour.systemTest;
+    public static Consumer<Robot> TELEOP_PER_FUNC = Week0Behaviour.periodic;
 
     //public static Consumer<Robot> AUTO_INIT_FUNC = AutoBehaviours.alignTagInit;
     //public static Consumer<Robot> AUTO_PER_FUNC = AutoBehaviours.autoPeriodic;

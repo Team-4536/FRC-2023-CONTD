@@ -72,7 +72,7 @@ public class telemetryUtil {
         DRIVER("SmartDashboard"),
         LIMELIGHT("Limelight"),
         DEBUG("Debug"),
-        ROBOT("Robot Info");
+        ROBOT("RobotInfo");
 
         String name;
         NetworkTable table;

@@ -9,7 +9,7 @@ import frc.robot.functions.telemetryUtil.Tabs;
 
 public class DriveData {
 
-    public static boolean joystickDrive = true;
+    public static boolean joystickDrive = false;
 
     public PIDController pidController = new PIDController(0.08, 0.01, 0);
 

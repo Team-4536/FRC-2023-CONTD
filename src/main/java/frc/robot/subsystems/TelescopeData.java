@@ -15,8 +15,8 @@ public class TelescopeData {
     public CANSparkMax liftMotor = new CANSparkMax(MechanismInfo.ARM_LIFT_ID, MechanismInfo.ARM_MOTOR_TYPE);
     public CANSparkMax retractMotor = new CANSparkMax(MechanismInfo.ARM_RETRACT_ID, MechanismInfo.ARM_MOTOR_TYPE);
 
-    public Encoder liftEncoder = new Encoder(9, 8);
-    public Encoder retractEncoder = new Encoder(7, 6);
+    public Encoder liftEncoder = new Encoder(2, 3);
+    public Encoder retractEncoder = new Encoder(0, 1);
 
     public DigitalInput upBound = new DigitalInput(Constants.UP_BOUND_ID);
     public DigitalInput lowBound = new DigitalInput(Constants.LOW_BOUND_ID);

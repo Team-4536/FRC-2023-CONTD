@@ -49,7 +49,7 @@ public class TestingBehaviour {
         //DRIVE 
         double x = inputUtil.deadzoneAxis(r.input.controller.getLeftX(), 0.20);
         double y = inputUtil.deadzoneAxis(-r.input.controller.getLeftY(), 0.20);
-        double z = inputUtil.deadzoneAxis(r.input.controller.getRightX(), 0.20);
+        double z = inputUtil.deadzoneAxis(r.input.controller.getRightX(), 0.20) * .6;
 
         if (DriveData.joystickDrive){
 
@@ -61,8 +61,8 @@ public class TestingBehaviour {
 
         r.drive.pidController.target += Robot.dt * z * 60;
 
-        double PIDOut = -r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
-        driveUtil.setPowerMechanum(r.drive, x, y, PIDOut, 0.4);
+        //double PIDOut = -r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
+        driveUtil.setPowerMechanum(r.drive, x, y, z, 0.25);
 
 
         //PNEUMATICS
@@ -73,15 +73,15 @@ public class TestingBehaviour {
 
 
         //ARM
-        r.telescope.liftMotor.set(inputUtil.deadzoneAxis(r.input.controllerMech.getRightY(), .1)/2.3);
+        r.telescope.liftMotor.set(-(inputUtil.deadzoneAxis(r.input.controllerMech.getRightY(), .1)/1.6));
         r.telescope.retractMotor.set(inputUtil.deadzoneAxis(r.input.controllerMech.getLeftY(), .1)/1.4);
 
        
         //TURRET
         double flymer = inputUtil.deadzoneAxis(r.input.controllerMech.getRightTriggerAxis() - 
-                                               r.input.controllerMech.getLeftTriggerAxis(), .1)/5;
+                                               r.input.controllerMech.getLeftTriggerAxis(), .1)/8;
         turretUtil.run(r.turret, flymer);
-        
+
                         
         
 

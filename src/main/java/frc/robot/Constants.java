@@ -51,11 +51,11 @@ public final class Constants {
     public static final int ARM_SOLENOID_FORWARD_PORT = 7;
     public static final int ARM_SOLENOID_REVERSE_PORT = 5;
 
-    public static final int UP_BOUND_ID = 2;
-    public static final int LOW_BOUND_ID  =3;
+    public static final int UP_BOUND_ID = 6;
+    public static final int LOW_BOUND_ID  =4;
 
-    public static final int CLOCKWISE_BOUND_ID = 1;
-    public static final int COUNTERCLOCKWISE_BOUND_ID = 0;
+    public static final int CLOCKWISE_BOUND_ID = 5;
+    public static final int COUNTERCLOCKWISE_BOUND_ID = 7;
 
     public static final boolean DRIVE_FRONT_LEFT_FLIPPED = !true;
     public static final boolean DRIVE_FRONT_RIGHT_FLIPPED = true;

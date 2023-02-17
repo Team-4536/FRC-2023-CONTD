@@ -15,7 +15,6 @@ import frc.robot.functions.telemetryUtil.Tabs;
 import frc.robot.subsystems.DriveData;
 import frc.robot.subsystems.IntakeData;
 import frc.robot.subsystems.PneumaticData;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 
 public class TestingBehaviour {
@@ -49,7 +48,7 @@ public class TestingBehaviour {
 
         //DRIVE 
         double x = inputUtil.deadzoneAxis(r.input.controller.getLeftX(), 0.20);
-        double y = inputUtil.deadzoneAxis(-r.input.controller.getLeftY(), 0.20);
+        double y = inputUtil.deadzoneAxis(-r.input.controller.getLeftY(), 0.20) * .5;
         double z = inputUtil.deadzoneAxis(r.input.controller.getRightX(), 0.20) * .6;
 
         if (DriveData.joystickDrive){
@@ -63,7 +62,7 @@ public class TestingBehaviour {
         r.drive.pidController.target += Robot.dt * z * 60;
 
         //double PIDOut = -r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
-        driveUtil.setPowerMechanum(r.drive, x, y, z, 0.17);
+        driveUtil.setPowerMechanum(r.drive, x, y, z, 0.22);
 
 
         //PNEUMATICS

@@ -9,7 +9,6 @@ import frc.robot.functions.gyroUtil;
 import frc.robot.functions.visionUtil;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 

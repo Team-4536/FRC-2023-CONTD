@@ -6,9 +6,11 @@ import java.util.function.Consumer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.V2d;
+import frc.robot.functions.driveUtil;
 import frc.robot.stages.AutoStages;
 import frc.robot.stages.Stage;
 import frc.robot.stages.goToPosition;
+import frc.robot.stages.AutoStages.Flymer;
 
 public class AutoBehaviours {
 
@@ -64,4 +66,22 @@ public class AutoBehaviours {
 
         stages.add(new goToPosition(new V2d(0, 0), r));
     };
+
+    public static Consumer<Robot> initWeek0 = r -> {
+        
+        Robot.flymer.reset();
+        Robot.flymer.start();
+
+    };
+
+    public static Consumer<Robot> periodicWeek0 = r -> {
+        
+        if (Robot.flymer.get() < 5){
+
+            driveUtil.setPowerUniform(r.drive, -.3);
+        }
+        
+    };
+
 }
+

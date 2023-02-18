@@ -10,6 +10,7 @@ import java.time.Instant;
 import java.util.function.Consumer;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.behaviours.AutoBehaviours;
 import frc.robot.behaviours.BehaviourUtil;
 import frc.robot.behaviours.FinalBehaviour;
@@ -46,8 +47,8 @@ public class Robot extends TimedRobot {
     //public static Consumer<Robot> AUTO_INIT_FUNC = AutoBehaviours.alignTagInit;
     //public static Consumer<Robot> AUTO_PER_FUNC = AutoBehaviours.autoPeriodic;
 
-    public static Consumer<Robot> AUTO_INIT_FUNC = AutoBehaviours.alignTagTrigInit;
-    public static Consumer<Robot> AUTO_PER_FUNC = AutoBehaviours.autoPeriodic;
+    public static Consumer<Robot> AUTO_INIT_FUNC = AutoBehaviours.initWeek0;
+    public static Consumer<Robot> AUTO_PER_FUNC = AutoBehaviours.periodicWeek0;
 
     public static Consumer<Robot> TEST_INIT_FUNC = TestingBehaviour.encoderInit;
     public static Consumer<Robot> TEST_PER_FUNC = TestingBehaviour.encoderPeriodic;
@@ -64,6 +65,8 @@ public class Robot extends TimedRobot {
     public static Instant prevtime;
     public static double dt;
     public static double timeSinceInit;
+
+    public static Timer flymer;
 
     public DriveData drive;
     public InputData input;

@@ -47,8 +47,11 @@ public class Robot extends TimedRobot {
     //public static Consumer<Robot> AUTO_INIT_FUNC = AutoBehaviours.alignTagInit;
     //public static Consumer<Robot> AUTO_PER_FUNC = AutoBehaviours.autoPeriodic;
 
-    public static Consumer<Robot> AUTO_INIT_FUNC = AutoBehaviours.initWeek0;
-    public static Consumer<Robot> AUTO_PER_FUNC = AutoBehaviours.periodicWeek0;
+    // public static Consumer<Robot> AUTO_INIT_FUNC = AutoBehaviours.initWeek0;
+    // public static Consumer<Robot> AUTO_PER_FUNC = AutoBehaviours.periodicWeek0;
+
+    public static Consumer<Robot> AUTO_INIT_FUNC = NULL_FUNC;
+    public static Consumer<Robot> AUTO_PER_FUNC = NULL_FUNC;
 
     public static Consumer<Robot> TEST_INIT_FUNC = TestingBehaviour.encoderInit;
     public static Consumer<Robot> TEST_PER_FUNC = TestingBehaviour.encoderPeriodic;
@@ -66,7 +69,7 @@ public class Robot extends TimedRobot {
     public static double dt;
     public static double timeSinceInit;
 
-    public static Timer flymer;
+    public static Timer flymer = new Timer();
 
     public DriveData drive;
     public InputData input;
@@ -101,6 +104,9 @@ public class Robot extends TimedRobot {
         this.brakes = new PneumaticData();
         this.grabber = new IntakeData();
 
+
+        this.vision.pipelineTag(1);
+
         ROBOT_INIT_FUNC.accept(this);
     }
 
@@ -112,6 +118,8 @@ public class Robot extends TimedRobot {
         dt = Duration.between(prevtime, Instant.now()).toNanos() * (1.0/Constants.NANOS_PER_SECOND);
         timeSinceInit = Duration.between(startTime, Instant.now()).toNanos() * (1.0/Constants.NANOS_PER_SECOND);
         prevtime = Instant.now();
+
+        vision.pipelineTag(1);
 
         telemetryUtil.grabChoosers();
 

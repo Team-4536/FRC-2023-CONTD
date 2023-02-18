@@ -18,7 +18,7 @@ public final class Constants {
 
         public static final double MOVEMENT_DEADZONE = 0.15;
 
-        public static final double MAX_DRIVE_OUT = 0.85;
+        public static final double MAX_DRIVE_OUT = 0.9;
         public static final double DEFAULT_DRIVE_OUT = 0.1;
 
 

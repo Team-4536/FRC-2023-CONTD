@@ -11,6 +11,8 @@ import frc.robot.stages.AutoStages;
 import frc.robot.stages.Stage;
 import frc.robot.stages.goToPosition;
 import frc.robot.stages.AutoStages.Flymer;
+import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.telemetryUtil.Tabs;
 
 public class AutoBehaviours {
 
@@ -67,20 +69,43 @@ public class AutoBehaviours {
         stages.add(new goToPosition(new V2d(0, 0), r));
     };
 
+
+    public static double start = Robot.timeSinceInit;
+    public static boolean firstFrame = true;
     public static Consumer<Robot> initWeek0 = r -> {
         
-        Robot.flymer.reset();
-        Robot.flymer.start();
-
     };
 
     public static Consumer<Robot> periodicWeek0 = r -> {
-        
-        if (Robot.flymer.get() < 5){
+
+
+        if(firstFrame) {
+
+            start = Robot.timeSinceInit;
+           
+            Robot.flymer.start();
+            Robot.flymer.reset();
+            telemetryUtil.debugLog("W0 Auto initialized", Tabs.ROBOT);
+
+            firstFrame = false;
+        }
+
+
+        telemetryUtil.put("W0 start", start, Tabs.ROBOT);
+        telemetryUtil.put("W0 time", Robot.timeSinceInit, Tabs.ROBOT);
+        telemetryUtil.put("W0 Flymer time", Robot.timeSinceInit, Tabs.ROBOT);
+
+        if ((Robot.timeSinceInit - start) < 5){
 
             driveUtil.setPowerUniform(r.drive, -.3);
+            telemetryUtil.put("W0 Auto on", true, Tabs.ROBOT);
+            return;
         }
-        
+        else {
+
+            telemetryUtil.put("W0 Auto on", false, Tabs.ROBOT);
+            driveUtil.stop(r.drive);
+        }
     };
 
 }

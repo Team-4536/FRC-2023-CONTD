@@ -20,7 +20,7 @@ public abstract class Week0Behaviour {
 
         //DRIVE 
         double x = inputUtil.deadzoneAxis(r.input.controller.getLeftX(), 0.20);
-        double y = inputUtil.deadzoneAxis(-r.input.controller.getLeftY(), 0.20) * .5;
+        double y = inputUtil.deadzoneAxis(-r.input.controller.getLeftY(), 0.20);
         double z = inputUtil.deadzoneAxis(r.input.controller.getRightX(), 0.20) * .2;
 
         //  true is joystick, false is controller
@@ -54,7 +54,7 @@ public abstract class Week0Behaviour {
 
 
         //ARM
-        telescopeUtil.liftScale(r.telescope, inputUtil.deadzoneAxis(-r.input.controllerMech.getRightY(), .1), .8, .2);
+        telescopeUtil.liftScale(r.telescope, inputUtil.deadzoneAxis(-r.input.controllerMech.getRightY(), .1), .8, .35);
         r.telescope.retractMotor.set(inputUtil.deadzoneAxis(r.input.controllerMech.getLeftY(), .1)/1.4);
 
        

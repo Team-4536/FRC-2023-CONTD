@@ -28,7 +28,7 @@ public abstract class Week0Behaviour {
         double t = z;
 
         telemetryUtil.put("Turning mode is PID", !r.input.controller.getRightBumper(), Tabs.DEBUG);
-        if(!r.input.controller.getRightBumper() || true) {
+        if(!r.input.controller.getRightBumper() && false) {
 
             z = inputUtil.deadzoneAxis(r.input.controller.getRightX(), 0.20);
             r.drive.pidController.target += Robot.dt * z * 60;

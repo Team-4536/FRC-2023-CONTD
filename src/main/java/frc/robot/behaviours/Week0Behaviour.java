@@ -27,18 +27,22 @@ public abstract class Week0Behaviour {
 
         double t = z;
 
-        telemetryUtil.put("Turning mode is PID", !r.input.controller.getRightBumper(), Tabs.DEBUG);
-        if(!r.input.controller.getRightBumper() && false) {
+        boolean usePID = !r.input.controller.getRightBumper() && false;
+        telemetryUtil.put("Turning mode is PID", usePID, Tabs.DEBUG);
+        if(usePID) {
 
-            z = inputUtil.deadzoneAxis(r.input.controller.getRightX(), 0.20);
-            r.drive.pidController.target += Robot.dt * z * 60;
+            t = inputUtil.deadzoneAxis(r.input.controller.getRightX(), 0.20);
+            r.drive.pidController.target += Robot.dt * t * 60;
             telemetryUtil.put("TargetAngle", r.drive.pidController.target, Tabs.DEBUG);
             double PIDOut = r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
             if(PIDOut > 0.2) { PIDOut = 0.2f; }
             if(PIDOut < -0.2) { PIDOut = -0.2f; }
             telemetryUtil.put("PIDOut", PIDOut, Tabs.DEBUG);
+        }
+        else {
 
             r.drive.pidController.integral = 0;
+            r.drive.pidController.target = r.gyro.globGyroscope.getAngle();
         }
 
 
@@ -47,7 +51,7 @@ public abstract class Week0Behaviour {
 
 
 
-        driveUtil.setPowerMechanum(r.drive, x * driveScalar, y * driveScalar, z, .8f);
+        driveUtil.setPowerMechanum(r.drive, x * driveScalar, y * driveScalar, t, .8f);
 
 
         //PNEUMATICS

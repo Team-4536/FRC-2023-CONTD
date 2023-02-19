@@ -21,7 +21,7 @@ public abstract class Week0Behaviour {
         //DRIVE 
         double x = inputUtil.deadzoneAxis(r.input.controller.getLeftX(), 0.20);
         double y = inputUtil.deadzoneAxis(-r.input.controller.getLeftY(), 0.20);
-        double z = inputUtil.deadzoneAxis(r.input.controller.getRightX(), 0.20) * .2;
+        double z = inputUtil.deadzoneAxis(r.input.controller.getRightX(), 0.20) * .3;
 
         //  true is joystick, false is controller
         if (false){
@@ -59,8 +59,7 @@ public abstract class Week0Behaviour {
 
        
         //TURRET
-        double flymer = inputUtil.deadzoneAxis(r.input.controllerMech.getRightTriggerAxis() - 
-                                               r.input.controllerMech.getLeftTriggerAxis(), .1)/8;
+        double flymer = inputUtil.deadzoneAxis(r.input.controllerMech.getRightX(), .2)/8;
         turretUtil.run(r.turret, flymer);
 
                         

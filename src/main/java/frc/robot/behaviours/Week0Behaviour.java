@@ -10,9 +10,11 @@ import frc.robot.functions.inputUtil;
 import frc.robot.functions.pneumaticUtil;
 import frc.robot.functions.telescopeUtil;
 import frc.robot.functions.turretUtil;
+import frc.robot.functions.telemetryUtil.Tabs;
 import frc.robot.subsystems.DriveData;
 import frc.robot.subsystems.IntakeData;
 import frc.robot.subsystems.PneumaticData;
+import frc.robot.functions.telemetryUtil;
 
 public abstract class Week0Behaviour {
     
@@ -23,32 +25,26 @@ public abstract class Week0Behaviour {
         double y = inputUtil.deadzoneAxis(-r.input.controller.getLeftY(), 0.20);
         double z = inputUtil.deadzoneAxis(r.input.controller.getRightX(), 0.20) * .3;
 
-        //  true is joystick, false is controller
-        if (false){
-
-            x = inputUtil.deadzoneAxis(r.input.joystick.getX(), 0.20);
-            y = inputUtil.deadzoneAxis(-r.input.joystick.getY(), 0.20);
-            z = inputUtil.deadzoneAxis(r.input.joystick.getZ(), 0.20);
-
-        }
 
         r.drive.pidController.target += Robot.dt * z * 60;
+        telemetryUtil.put("TargetAngle", r.drive.pidController.target, Tabs.DEBUG);
 
 
 
         double driveScalar = inputUtil.mapInput(
             r.input.controller.getRightTriggerAxis(), 1, 0, Constants.ControlInfo.MAX_DRIVE_OUT, Constants.ControlInfo.DEFAULT_DRIVE_OUT);
 
-        //double PIDOut = r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
-        // if(PIDOut > 0.2) { PIDOut = 0.2f; }
-        // if(PIDOut < -0.2) { PIDOut = -0.2f; }
+        double PIDOut = r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
+        if(PIDOut > 0.2) { PIDOut = 0.2f; }
+        if(PIDOut < -0.2) { PIDOut = -0.2f; }
+        telemetryUtil.put("PIDOut", PIDOut, Tabs.DEBUG);
 
-        driveUtil.setPowerMechanum(r.drive, x * driveScalar, y * driveScalar, z, .8f);
+        driveUtil.setPowerMechanum(r.drive, x * driveScalar, y * driveScalar, PIDOut, .8f);
 
 
         //PNEUMATICS
         if (r.input.controllerMech.getAButtonPressed()){ IntakeData.status = !IntakeData.status; }
-        if (r.input.controllerMech.getBButtonPressed()){ PneumaticData.status = !PneumaticData.status; }
+        if (r.input.controller.getLeftBumperPressed()){ PneumaticData.status = !PneumaticData.status; }
         pneumaticUtil.runCondition(r.brakes, PneumaticData.status);
         armUtil.runCondition(r.grabber, IntakeData.status);
 
@@ -61,8 +57,6 @@ public abstract class Week0Behaviour {
         //TURRET
         double flymer = inputUtil.deadzoneAxis(r.input.controllerMech.getRightX(), .2)/8;
         turretUtil.run(r.turret, flymer);
-
-                        
         
 
 

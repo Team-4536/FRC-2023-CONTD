@@ -11,7 +11,7 @@ public class DriveData {
 
     public static boolean joystickDrive = false;
 
-    public PIDController pidController = new PIDController(0.08, 0.01, 0);
+    public PIDController pidController = new PIDController(0.004, 0.001, -0.001);
 
     public CANSparkMax frontLeftDrive;
     public CANSparkMax frontRightDrive;

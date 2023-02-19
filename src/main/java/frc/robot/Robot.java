@@ -17,6 +17,7 @@ import frc.robot.behaviours.FinalBehaviour;
 import frc.robot.behaviours.TestingBehaviour;
 import frc.robot.behaviours.Week0Behaviour;
 import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.armUtil;
 import frc.robot.subsystems.DriveData;
 import frc.robot.subsystems.GyroData;
 import frc.robot.subsystems.InputData;
@@ -106,6 +107,10 @@ public class Robot extends TimedRobot {
 
 
         this.vision.pipelineTag(1);
+        
+
+        // RUNS GRABBER CLOSED, BE CAREFUL LOL
+        armUtil.runCondition(grabber, IntakeData.status);
 
         ROBOT_INIT_FUNC.accept(this);
     }

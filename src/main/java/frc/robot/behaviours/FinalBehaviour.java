@@ -57,13 +57,13 @@ public class FinalBehaviour {
             input.x * strafeScalar,
             input.y * driveScalar,
             PIDOut,
-            0.5); 
+            0.5);
 
             r.drive.backLeftDrive.set(.5);
 
             //driveUtil.setPowerUniform(r.drive, .5);
-            
-            // end of drive stuff :)
+
+        // end of drive stuff :)
 
 
 
@@ -82,8 +82,6 @@ public class FinalBehaviour {
         r.gyro.globGyroscope.reset();
         r.drive.pidController.target = r.gyro.globGyroscope.getAngle();
         startAngle = r.drive.pidController.target;
-        
-
 
     };
 }

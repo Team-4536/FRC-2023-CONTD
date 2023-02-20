@@ -11,16 +11,15 @@ import frc.robot.functions.pneumaticUtil;
 import frc.robot.functions.telescopeUtil;
 import frc.robot.functions.turretUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
-import frc.robot.subsystems.DriveData;
 import frc.robot.subsystems.IntakeData;
 import frc.robot.subsystems.PneumaticData;
 import frc.robot.functions.telemetryUtil;
 
 public abstract class Week0Behaviour {
-    
+
     public static Consumer<Robot> periodic = r -> {
 
-        //DRIVE 
+        //DRIVE
         double x = inputUtil.deadzoneAxis(r.input.controller.getLeftX(), 0.20);
         double y = inputUtil.deadzoneAxis(-r.input.controller.getLeftY(), 0.20);
         double z = inputUtil.deadzoneAxis(r.input.controller.getRightX(), 0.20) * .3;
@@ -65,12 +64,9 @@ public abstract class Week0Behaviour {
         telescopeUtil.liftScale(r.telescope, inputUtil.deadzoneAxis(-r.input.controllerMech.getRightY(), .1), .8, .35);
         r.telescope.retractMotor.set(inputUtil.deadzoneAxis(r.input.controllerMech.getLeftY(), .1)/1.4);
 
-       
         //TURRET
         double flymer = inputUtil.deadzoneAxis(r.input.controllerMech.getRightX(), .2)/8;
         turretUtil.run(r.turret, flymer);
-        
-
 
     };
 }

@@ -46,7 +46,7 @@ public class TestingBehaviour {
     public static PIDController armPID = new PIDController(0.001, 0.0f, 0.0f);
     public static Consumer<Robot> systemTest = r -> {
 
-        //DRIVE 
+        //DRIVE
         double x = inputUtil.deadzoneAxis(r.input.controller.getLeftX(), 0.20);
         double y = inputUtil.deadzoneAxis(-r.input.controller.getLeftY(), 0.20) * .5;
         double z = inputUtil.deadzoneAxis(r.input.controller.getRightX(), 0.20) * .6;
@@ -76,14 +76,11 @@ public class TestingBehaviour {
         telescopeUtil.liftScale(r.telescope, inputUtil.deadzoneAxis(-r.input.controllerMech.getRightY(), .1), .8, .2);
         r.telescope.retractMotor.set(inputUtil.deadzoneAxis(r.input.controllerMech.getLeftY(), .1)/1.4);
 
-       
         //TURRET
         double flymer = inputUtil.deadzoneAxis(r.input.controllerMech.getRightTriggerAxis() - 
                                                r.input.controllerMech.getLeftTriggerAxis(), .1)/8;
         turretUtil.run(r.turret, flymer);
 
-                        
-        
 
 
     };

@@ -7,7 +7,6 @@ import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 
 public class PneumaticData {
-    
     public static PneumaticsControlModule pcm = new PneumaticsControlModule(Constants.PCM_ID_PORT);
 
     public static boolean status = false;
@@ -20,7 +19,5 @@ public class PneumaticData {
 
         telemetryUtil.put("Brake is Extended", brakeSolenoid.get() == DoubleSolenoid.Value.kForward,Tabs.ROBOT);
 
-        
     }
-    
 }

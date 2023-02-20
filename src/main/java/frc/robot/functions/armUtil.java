@@ -7,19 +7,16 @@ public class armUtil {
 
     public static void toggleSolenoid(IntakeData pData){
 
-        
         pData.armSolenoid.toggle();
-        
     }
 
     public static void retractAll(IntakeData pData){
-        
+
         pData.armSolenoid.set(Value.kReverse);
 
     }
 
     public static void extendAll(IntakeData pData){
-        
         pData.armSolenoid.set(Value.kForward);
 
     }
@@ -30,5 +27,4 @@ public class armUtil {
         else {pData.armSolenoid.set(Value.kReverse);}
 
     }
-    
 }

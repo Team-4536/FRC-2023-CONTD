@@ -10,7 +10,6 @@ import frc.robot.functions.driveUtil;
 import frc.robot.stages.AutoStages;
 import frc.robot.stages.Stage;
 import frc.robot.stages.goToPosition;
-import frc.robot.stages.AutoStages.Flymer;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 
@@ -73,7 +72,6 @@ public class AutoBehaviours {
     public static double start = Robot.timeSinceInit;
     public static boolean firstFrame = true;
     public static Consumer<Robot> initWeek0 = r -> {
-        
     };
 
     public static Consumer<Robot> periodicWeek0 = r -> {
@@ -82,7 +80,7 @@ public class AutoBehaviours {
         if(firstFrame) {
 
             start = Robot.timeSinceInit;
-           
+
             Robot.flymer.start();
             Robot.flymer.reset();
             telemetryUtil.debugLog("W0 Auto initialized", Tabs.ROBOT);

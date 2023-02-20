@@ -45,15 +45,13 @@ public class AutoStages {
 
         double wantedDistance = 24;
 
-        public goToAprilTagTrig(int p, double d) { 
+        public goToAprilTagTrig(int p, double d) {
 
-            this.pip = p; 
+            this.pip = p;
             this.wantedDistance = d;
-            
+
         }
 
-        
-        
 
         @Override public boolean run(Robot r) {
 
@@ -91,7 +89,7 @@ public class AutoStages {
 
             boolean horizError = Math.abs(goal.x - visionUtil.horizontalOffset(r.vision.getArea(), r.vision.getX())) <= .65;
             boolean verticalError = Math.abs(goal.y - visionUtil.distanceFrom(r.vision.getArea())) <= 2.5;
-            
+
             boolean motorSpeed = yPID.prevErr - (goal.y - visionUtil.distanceFrom(r.vision.getArea())) <= .15;
 
             telemetryUtil.put("h", horizError, Tabs.DEBUG);
@@ -110,10 +108,9 @@ public class AutoStages {
         @Override public void init(){
             flymer.start();
         }
-        
 
         @Override public boolean run(Robot r) {
-        
+
             return flymer.get() > 0.5f;
         }
 

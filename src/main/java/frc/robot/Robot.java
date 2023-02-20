@@ -11,7 +11,6 @@ import java.util.function.Consumer;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.behaviours.AutoBehaviours;
 import frc.robot.behaviours.BehaviourUtil;
 import frc.robot.behaviours.FinalBehaviour;
 import frc.robot.behaviours.TestingBehaviour;
@@ -60,7 +59,6 @@ public class Robot extends TimedRobot {
     public static Consumer<Robot> DISABLED_INIT_FUNC = BehaviourUtil.stopDrive;
     public static Consumer<Robot> DISABLED_PER_FUNC = BehaviourUtil.stopDrive;
 
-    
     //#endregion
 
 
@@ -107,7 +105,6 @@ public class Robot extends TimedRobot {
 
 
         this.vision.pipelineTag(1);
-        
 
         // RUNS GRABBER CLOSED, BE CAREFUL LOL
         armUtil.runCondition(grabber, IntakeData.status);

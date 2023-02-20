@@ -20,5 +20,5 @@ public class IntakeData {
         telemetryUtil.put("Arm is Extended", armSolenoid.get() == DoubleSolenoid.Value.kForward,Tabs.ROBOT); 
 
     }
-    
+
 }

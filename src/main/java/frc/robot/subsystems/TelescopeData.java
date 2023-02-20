@@ -34,5 +34,5 @@ public class TelescopeData {
         telemetryUtil.put("Lower Limit", lowBound.get(), Tabs.ROBOT);
 
     }
-    
+
 }

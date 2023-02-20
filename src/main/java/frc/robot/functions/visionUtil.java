@@ -34,5 +34,5 @@ public class visionUtil {
         return (distanceFrom(tArea)*Math.tan(Math.toRadians(tX)));
 
     }
-    
+
 }

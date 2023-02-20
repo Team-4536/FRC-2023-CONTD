@@ -24,7 +24,7 @@ public class DriveData {
     public RelativeEncoder BREncoder;
 
     public DriveData() {
-        
+
         this.frontLeftDrive = new CANSparkMax(Constants.DRIVE_FRONT_LEFT_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
         this.frontRightDrive = new CANSparkMax(Constants.DRIVE_FRONT_RIGHT_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
         this.backLeftDrive = new CANSparkMax(Constants.DRIVE_BACK_LEFT_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -52,7 +52,6 @@ public class DriveData {
         //FLEncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
 
     }
-    
 
 
     public void sendTelemetry() {

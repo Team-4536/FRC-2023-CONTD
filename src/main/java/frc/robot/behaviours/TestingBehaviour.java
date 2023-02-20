@@ -4,24 +4,13 @@ import java.util.function.Consumer;
 
 import frc.robot.Robot;
 import frc.robot.controllers.PIDController;
-import frc.robot.functions.armUtil;
 import frc.robot.functions.driveUtil;
-import frc.robot.functions.inputUtil;
-import frc.robot.functions.pneumaticUtil;
-import frc.robot.functions.turretUtil;
-import frc.robot.functions.telescopeUtil;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
-import frc.robot.subsystems.DriveData;
-import frc.robot.subsystems.IntakeData;
-import frc.robot.subsystems.PneumaticData;
 
 
 public class TestingBehaviour {
 
-
-    // static PositionData p = new PositionData(null, null);
-    // static Field2d f = new Field2d();
 
     public static Consumer<Robot> encoderPeriodic = r -> {
 
@@ -44,6 +33,10 @@ public class TestingBehaviour {
     };
 
     public static PIDController armPID = new PIDController(0.001, 0.0f, 0.0f);
+
+
+
+    /*
     public static Consumer<Robot> systemTest = r -> {
 
         //DRIVE
@@ -83,7 +76,8 @@ public class TestingBehaviour {
 
 
 
-    };
+    }
+    */
 
 
 }

@@ -11,7 +11,7 @@ public class goToPosition extends Stage {
     public V2d targetPos = new V2d();
 
     public goToPosition(V2d t, Robot r) {
-        this.targetPos = t; 
+        this.targetPos = t;
         r.drive.pidController.reset();
     }
 

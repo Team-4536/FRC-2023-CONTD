@@ -3,17 +3,19 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import frc.robot.Constants;
-import frc.robot.Constants.MechanismInfo;
+import frc.robot.constants.Hardware;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 
 public class TurretData {
 
-    public CANSparkMax turretMotor = new CANSparkMax(MechanismInfo.TURRET_ID, MechanismInfo.TURRET_MOTOR_TYPE);
+    public CANSparkMax turretMotor = new CANSparkMax(Hardware.TURRET_ID, Hardware.TURRET_MOTOR_TYPE);
 
-    public DigitalInput cwBound = new DigitalInput(Constants.CLOCKWISE_BOUND_ID);
-    public DigitalInput ccwBound = new DigitalInput(Constants.COUNTERCLOCKWISE_BOUND_ID);
+    public DigitalInput cwBound = new DigitalInput(Hardware.CLOCKWISE_BOUND_ID);
+    public DigitalInput ccwBound = new DigitalInput(Hardware.COUNTERCLOCKWISE_BOUND_ID);
+
+
+
 
     public TurretData() {
         this.turretMotor.setInverted(true);

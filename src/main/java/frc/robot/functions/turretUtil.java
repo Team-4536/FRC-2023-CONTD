@@ -12,7 +12,6 @@ public class turretUtil {
     public static void stopTurretMotor(TurretData tdata){
 
         tdata.turretMotor.stopMotor();
-
     }
 
     public static void run(TurretData tdata, double speed){

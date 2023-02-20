@@ -19,6 +19,7 @@ public final class AutoData {
 
     public void sendTelemetry() {
         telemetryUtil.put("Auto running", this.autoRunning, Tabs.DRIVER);
+        telemetryUtil.put("Stage progress", this.stage + "/" + this.stages.size(), Tabs.ROBOT);
     }
 
 

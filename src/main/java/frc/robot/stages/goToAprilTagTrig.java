@@ -2,8 +2,8 @@ package frc.robot.stages;
 
 import frc.robot.Robot;
 import frc.robot.V2d;
-import frc.robot.constants.Constants;
 import frc.robot.constants.Hardware;
+import frc.robot.constants.VisionConstants;
 import frc.robot.controllers.PIDController;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.telemetryUtil;
@@ -33,8 +33,8 @@ public final class goToAprilTagTrig extends Stage {
         r.vision.pipelineTag(this.pip);
 
         V2d goal = new V2d(
-            Constants.VisionInfo.CX_FROM_CENTER - (Hardware.ROBOT_X_SIZE_IN/2),
-            wantedDistance + Hardware.ROBOT_Y_SIZE_IN - Constants.VisionInfo.CY_FROM_CENTER
+            VisionConstants.CX_FROM_CENTER - (Hardware.ROBOT_X_SIZE_IN/2),
+            wantedDistance + Hardware.ROBOT_Y_SIZE_IN - VisionConstants.CY_FROM_CENTER
             );
 
         xPID.target = goal.x;

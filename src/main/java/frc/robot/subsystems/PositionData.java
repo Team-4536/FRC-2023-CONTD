@@ -69,8 +69,8 @@ public class PositionData {
 
     public void sendTelemetry() {
 
-        telemetryUtil.put("Pos Estimate X", pose.getX(), Tabs.DEBUG);
-        telemetryUtil.put("Pos Estimate Y", pose.getY(), Tabs.DEBUG);
-        telemetryUtil.put("Pos Estimate T", pose.getRotation().getDegrees(), Tabs.DEBUG);
+        telemetryUtil.put("Pos Estimate X", pose.getX(), Tabs.ROBOT);
+        telemetryUtil.put("Pos Estimate Y", pose.getY(), Tabs.ROBOT);
+        telemetryUtil.put("Pos Estimate T", pose.getRotation().getDegrees(), Tabs.ROBOT);
     }
 }

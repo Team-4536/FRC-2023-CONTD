@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import java.util.ArrayList;
 
 import frc.robot.Robot;
+import frc.robot.functions.robotUtil;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 import frc.robot.stages.Stage;
@@ -34,14 +35,14 @@ public final class AutoData {
 
     public void update(Robot r) {
 
-        if(stages.size() == 0) { return; }
-        if(stage == -1) { stage++; stages.get(0).init(); }
-
-
-        if(stage == stages.size()) {
-            Robot.DISABLE_FUNC.accept(r);
+        if(stages.size() == 0 || stage == stages.size() ) {
+            robotUtil.stopRobot(r);
+            autoRunning = false;
             return;
         }
+
+        if(stage == -1) { stage++; stages.get(0).init(); }
+
 
         Boolean stageFinished = stages.get(stage).run(r);
         if(stageFinished) {

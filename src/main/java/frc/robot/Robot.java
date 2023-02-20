@@ -47,10 +47,8 @@ public class Robot extends TimedRobot {
 
     public static Consumer<Robot> AUTO_INIT_FUNC = NULL_FUNC;
 
-    public static Consumer<Robot> TEST_INIT_FUNC = TestingBehaviour.encoderInit;
-    public static Consumer<Robot> TEST_PER_FUNC = TestingBehaviour.encoderPeriodic;
-
-    public static Consumer<Robot> DISABLE_FUNC = r -> { robotUtil.stopRobot(r); };
+    public static Consumer<Robot> TEST_INIT_FUNC = NULL_FUNC;
+    public static Consumer<Robot> TEST_PER_FUNC = NULL_FUNC;
 
     //#endregion
 
@@ -63,7 +61,6 @@ public class Robot extends TimedRobot {
 
 
 
-    public static Timer flymer = new Timer();
     public DriveData drive;
     public InputData input;
     public VisionData vision;
@@ -157,7 +154,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousExit() {
         autoData.autoRunning = false;
-        DISABLE_FUNC.accept(this);
+        robotUtil.stopRobot(this);
     }
 
 
@@ -178,9 +175,9 @@ public class Robot extends TimedRobot {
 
 
     @Override
-    public void disabledInit() { DISABLE_FUNC.accept(this);  }
+    public void disabledInit() { robotUtil.stopRobot(this); }
     @Override
-    public void disabledPeriodic() { DISABLE_FUNC.accept(this);  }
+    public void disabledPeriodic() { robotUtil.stopRobot(this); }
 
 
 

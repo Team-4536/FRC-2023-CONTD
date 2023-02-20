@@ -7,24 +7,24 @@ public class armUtil {
 
     public static void toggleSolenoid(IntakeData pData){
 
-        pData.armSolenoid.toggle();
+        pData.grabberSolenoid.toggle();
     }
 
     public static void retractAll(IntakeData pData){
 
-        pData.armSolenoid.set(Value.kReverse);
+        pData.grabberSolenoid.set(Value.kReverse);
 
     }
 
     public static void extendAll(IntakeData pData){
-        pData.armSolenoid.set(Value.kForward);
+        pData.grabberSolenoid.set(Value.kForward);
 
     }
 
     public static void runCondition(IntakeData pData, boolean forwardCondition){
 
-        if(forwardCondition){pData.armSolenoid.set(Value.kForward);}
-        else {pData.armSolenoid.set(Value.kReverse);}
+        if(forwardCondition){pData.grabberSolenoid.set(Value.kForward);}
+        else {pData.grabberSolenoid.set(Value.kReverse);}
 
     }
 }

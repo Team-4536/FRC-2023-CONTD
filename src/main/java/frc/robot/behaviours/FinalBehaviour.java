@@ -82,7 +82,7 @@ public class FinalBehaviour {
     @Hidden
     public static Consumer<Robot> teleOpInit = r -> {
 
-        Robot.DISABLE_FUNC.accept(r);
+        robotUtil.stopRobot(r);
         r.gyro.globGyroscope.reset();
         r.drive.pidController.target = r.gyro.globGyroscope.getAngle();
     };

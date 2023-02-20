@@ -12,7 +12,7 @@ public class IntakeData {
 
     public static boolean status = true;
 
-    public DoubleSolenoid armSolenoid = pcm.makeDoubleSolenoid(Hardware.GRABBER_SOLENOID_FORWARD_PORT,
+    public DoubleSolenoid grabberSolenoid = pcm.makeDoubleSolenoid(Hardware.GRABBER_SOLENOID_FORWARD_PORT,
         Hardware.GRABBER_SOLENOID_REVERSE_PORT);
 
 
@@ -20,7 +20,7 @@ public class IntakeData {
 
 
     public void sendTelemetry(){
-        telemetryUtil.put("Arm is Extended", armSolenoid.get() == DoubleSolenoid.Value.kForward,Tabs.ROBOT);
+        telemetryUtil.put("Grabber is extended", grabberSolenoid.get() == DoubleSolenoid.Value.kForward,Tabs.ROBOT);
     }
 
 }

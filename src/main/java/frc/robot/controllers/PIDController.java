@@ -37,4 +37,10 @@ public class PIDController {
 
         return out;
     }
+
+    public void reset() {
+        this.integral = 0;
+        this.target = 0;
+        this.prevErr = 0;
+    }
 }

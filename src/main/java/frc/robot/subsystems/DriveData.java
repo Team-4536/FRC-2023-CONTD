@@ -2,16 +2,17 @@ package frc.robot.subsystems;
 
 
 import com.revrobotics.*;
-import frc.robot.Constants;
+
 import frc.robot.controllers.PIDController;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
+import frc.robot.constants.Hardware;
 
 public class DriveData {
 
     public static boolean joystickDrive = false;
 
-    public PIDController pidController = new PIDController(0.08, 0.01, 0);
+    public PIDController pidController = new PIDController(0.01, 0.001, -0.001);
 
     public CANSparkMax frontLeftDrive;
     public CANSparkMax frontRightDrive;
@@ -24,18 +25,18 @@ public class DriveData {
     public RelativeEncoder BREncoder;
 
     public DriveData() {
-        
-        this.frontLeftDrive = new CANSparkMax(Constants.DRIVE_FRONT_LEFT_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
-        this.frontRightDrive = new CANSparkMax(Constants.DRIVE_FRONT_RIGHT_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
-        this.backLeftDrive = new CANSparkMax(Constants.DRIVE_BACK_LEFT_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
-        this.backRightDrive = new CANSparkMax(Constants.DRIVE_BACK_RIGHT_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
 
-        this.frontLeftDrive.setInverted(Constants.DRIVE_FRONT_LEFT_FLIPPED);
-        this.frontRightDrive.setInverted(Constants.DRIVE_FRONT_RIGHT_FLIPPED);
-        this.backLeftDrive.setInverted(Constants.DRIVE_BACK_LEFT_FLIPPED);
-        this.backRightDrive.setInverted(Constants.DRIVE_BACK_RIGHT_FLIPPED);
+        this.frontLeftDrive = new CANSparkMax(Hardware.DRIVE_FRONT_LEFT_PORT, Hardware.DRIVE_MOTOR_TYPE);
+        this.frontRightDrive = new CANSparkMax(Hardware.DRIVE_FRONT_RIGHT_PORT, Hardware.DRIVE_MOTOR_TYPE);
+        this.backLeftDrive = new CANSparkMax(Hardware.DRIVE_BACK_LEFT_PORT, Hardware.DRIVE_MOTOR_TYPE);
+        this.backRightDrive = new CANSparkMax(Hardware.DRIVE_BACK_RIGHT_PORT, Hardware.DRIVE_MOTOR_TYPE);
 
-        //ChannelA is the one with 3 wires channelB is the one with 1 wire(TRUE)
+        this.frontLeftDrive.setInverted(Hardware.DRIVE_FRONT_LEFT_FLIPPED);
+        this.frontRightDrive.setInverted(Hardware.DRIVE_FRONT_RIGHT_FLIPPED);
+        this.backLeftDrive.setInverted(Hardware.DRIVE_BACK_LEFT_FLIPPED);
+        this.backRightDrive.setInverted(Hardware.DRIVE_BACK_RIGHT_FLIPPED);
+
+        // ChannelA is the one with 3 wires channelB is the one with 1 wire(TRUE)
         FLEncoder = frontLeftDrive.getEncoder();
         FREncoder = frontRightDrive.getEncoder();
         BLEncoder = backLeftDrive.getEncoder();
@@ -47,12 +48,7 @@ public class DriveData {
         FREncoder.setPositionConversionFactor(1);
 
         //BREncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
-        //BLEncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
-        //FREncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
-        //FLEncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
-
     }
-    
 
 
     public void sendTelemetry() {

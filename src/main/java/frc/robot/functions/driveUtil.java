@@ -1,7 +1,6 @@
 package frc.robot.functions;
 
 import frc.robot.subsystems.DriveData;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public final class driveUtil {
 
@@ -50,8 +49,6 @@ public final class driveUtil {
         for (int i = 0; i < speeds.length; i++){
             speeds[i] = speeds[i] * scale;
         }
-
-        SmartDashboard.putNumber("scale", scale);
 
         drive.frontLeftDrive.set(speeds[0]);
         drive.frontRightDrive.set(speeds[1]);

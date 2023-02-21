@@ -1,29 +1,17 @@
 package frc.robot.functions;
 
-import frc.robot.Constants.VisionInfo;
-import frc.robot.functions.telemetryUtil.Tabs;
+import frc.robot.constants.VisionConstants;
 
 public class visionUtil {
 
     public static double distanceFrom(double tArea){
 
-        double fovAreaIn = (100/tArea) * VisionInfo.TAG_SIZE_IN2;
+        double fovAreaIn = (100/tArea) * VisionConstants.TAG_SIZE_IN2;
 
-        double fovHeight = Math.sqrt(fovAreaIn/VisionInfo.LIMELIGHT_FOV_ASPECT);
-        double fovLength = fovHeight * VisionInfo.LIMELIGHT_FOV_ASPECT;
+        double fovHeight = Math.sqrt(fovAreaIn/VisionConstants.LIMELIGHT_FOV_ASPECT);
+        // double fovLength = fovHeight * VisionConstants.LIMELIGHT_FOV_ASPECT;
 
-        double distanceFrom = (fovHeight/2)/Math.tan(Math.toRadians(VisionInfo.LIME_TOP_LIM_DEGREE));
-
-        boolean lol = false;
-
-        if (lol){
-
-            telemetryUtil.put("fov AREA", fovAreaIn, Tabs.LIMELIGHT);
-            telemetryUtil.put("fov HEIGHT", fovHeight, Tabs.LIMELIGHT);
-            telemetryUtil.put("fov LENGTH", fovLength, Tabs.LIMELIGHT);
-            telemetryUtil.put("distance FROM", distanceFrom, Tabs.LIMELIGHT);
-
-        }
+        double distanceFrom = (fovHeight/2)/Math.tan(Math.toRadians(VisionConstants.LIME_TOP_LIM_DEGREE));
 
         return distanceFrom;
 
@@ -34,5 +22,5 @@ public class visionUtil {
         return (distanceFrom(tArea)*Math.tan(Math.toRadians(tX)));
 
     }
-    
+
 }

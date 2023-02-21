@@ -7,13 +7,11 @@ public class turretUtil {
     public static void runTurretMotor(TurretData tdata, double speed){
 
         tdata.turretMotor.set(speed);
-    
     }
 
     public static void stopTurretMotor(TurretData tdata){
 
         tdata.turretMotor.stopMotor();
-
     }
 
     public static void run(TurretData tdata, double speed){
@@ -31,9 +29,7 @@ public class turretUtil {
         } else {
 
             tdata.turretMotor.set(speed);
-            
         }
-        
     }
 
 }

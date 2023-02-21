@@ -24,7 +24,7 @@ public class PositionData {
     public Pose2d pose = new Pose2d();
 
     MecanumDriveKinematics m_kinematics = new MecanumDriveKinematics(
-        m_frontLeftLocation.minus(center), m_frontRightLocation.minus(center), 
+        m_frontLeftLocation.minus(center), m_frontRightLocation.minus(center),
         m_backLeftLocation.minus(center), m_backRightLocation.minus(center)
     );
 
@@ -69,9 +69,8 @@ public class PositionData {
 
     public void sendTelemetry() {
 
-        // SmartDashboard.putData("Field", f);
-        telemetryUtil.put("Estimate X", pose.getX(), Tabs.DEBUG);
-        telemetryUtil.put("Estimate Y", pose.getY(), Tabs.DEBUG);
-        telemetryUtil.put("Estimate T", pose.getRotation().getDegrees(), Tabs.DEBUG);
+        telemetryUtil.put("Pos Estimate X", pose.getX(), Tabs.ROBOT);
+        telemetryUtil.put("Pos Estimate Y", pose.getY(), Tabs.ROBOT);
+        telemetryUtil.put("Pos Estimate T", pose.getRotation().getDegrees(), Tabs.ROBOT);
     }
 }

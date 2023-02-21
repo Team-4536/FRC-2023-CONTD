@@ -67,12 +67,15 @@ public class telemetryUtil {
 
 
 
+
+
+
     public enum Tabs {
 
         DRIVER("SmartDashboard"),
         LIMELIGHT("Limelight"),
         DEBUG("Debug"),
-        ROBOT("Robot Info");
+        ROBOT("RobotInfo");
 
         String name;
         NetworkTable table;

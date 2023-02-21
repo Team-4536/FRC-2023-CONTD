@@ -4,28 +4,31 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.subsystems.PneumaticData;
 
 public class pneumaticUtil {
-    
 
 
-    public void toggleSolenoid(PneumaticData pData){
+    public static void toggleSolenoid(PneumaticData pData){
 
-        
-            pData.breakSolenoid.toggle();
-        
+        pData.brakeSolenoid.toggle();
     }
 
-    public void retractAll(PneumaticData pData){
-        
-        pData.breakSolenoid.set(Value.kReverse);
+    public static void retractAll(PneumaticData pData){
+
+        pData.brakeSolenoid.set(Value.kReverse);
 
     }
 
-    public void extendAll(PneumaticData pData){
-        
-        pData.breakSolenoid.set(Value.kForward);
+    public static void extendAll(PneumaticData pData){
+
+        pData.brakeSolenoid.set(Value.kForward);
 
     }
-    
+
+    public static void runCondition(PneumaticData pData, boolean forwardCondition){
+
+        if(forwardCondition){pData.brakeSolenoid.set(Value.kForward);}
+        else {pData.brakeSolenoid.set(Value.kReverse);}
 
     }
+
+}
 

@@ -1,5 +1,7 @@
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+
 public class V2d {
     public double x;
     public double y;
@@ -7,6 +9,7 @@ public class V2d {
 
     public V2d() { }
     public V2d(double _x, double _y) { this.x = _x; this.y = _y; }
+    public V2d(Pose2d p) { this.x = p.getX(); this.y = p.getY(); }
 
     public V2d add(V2d b) {
         return new V2d(this.x + b.x, this.y + b.y); }

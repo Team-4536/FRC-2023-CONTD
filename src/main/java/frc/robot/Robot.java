@@ -10,14 +10,20 @@ import java.time.Instant;
 import java.util.function.Consumer;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import frc.robot.behaviours.AutoBehaviours;
-import frc.robot.behaviours.BehaviourUtil;
 import frc.robot.behaviours.FinalBehaviour;
-import frc.robot.behaviours.TestingBehaviour;
+import frc.robot.constants.Constants;
 import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.armUtil;
+import frc.robot.functions.robotUtil;
+import frc.robot.subsystems.AutoData;
 import frc.robot.subsystems.DriveData;
 import frc.robot.subsystems.GyroData;
 import frc.robot.subsystems.InputData;
+import frc.robot.subsystems.PositionData;
+import frc.robot.subsystems.IntakeData;
+import frc.robot.subsystems.PneumaticData;
+import frc.robot.subsystems.TelescopeData;
+import frc.robot.subsystems.TurretData;
 import frc.robot.subsystems.VisionData;
 
 /**
@@ -35,21 +41,13 @@ public class Robot extends TimedRobot {
     public static Consumer<Robot> ROBOT_PER_FUNC = NULL_FUNC;
 
     public static Consumer<Robot> TELEOP_INIT_FUNC = FinalBehaviour.teleOpInit;
-    public static Consumer<Robot> TELEOP_PER_FUNC = FinalBehaviour.teleOpPeriodic;
+    public static Consumer<Robot> TELEOP_PER_FUNC = FinalBehaviour.periodic;
 
-    //public static Consumer<Robot> AUTO_INIT_FUNC = AutoBehaviours.alignTagInit;
-    //public static Consumer<Robot> AUTO_PER_FUNC = AutoBehaviours.autoPeriodic;
+    public static Consumer<Robot> AUTO_INIT_FUNC = NULL_FUNC;
 
-    public static Consumer<Robot> AUTO_INIT_FUNC = AutoBehaviours.alignTagTrigInit;
-    public static Consumer<Robot> AUTO_PER_FUNC = AutoBehaviours.autoPeriodic;
+    public static Consumer<Robot> TEST_INIT_FUNC = NULL_FUNC;
+    public static Consumer<Robot> TEST_PER_FUNC = NULL_FUNC;
 
-    public static Consumer<Robot> TEST_INIT_FUNC = TestingBehaviour.encoderInit;
-    public static Consumer<Robot> TEST_PER_FUNC = TestingBehaviour.encoderPeriodic;
-
-    public static Consumer<Robot> DISABLED_INIT_FUNC = BehaviourUtil.stopDrive;
-    public static Consumer<Robot> DISABLED_PER_FUNC = BehaviourUtil.stopDrive;
-
-    
     //#endregion
 
 
@@ -59,12 +57,18 @@ public class Robot extends TimedRobot {
     public static double dt;
     public static double timeSinceInit;
 
+
+
     public DriveData drive;
     public InputData input;
     public VisionData vision;
     public GyroData gyro;
-
-
+    public PositionData positionData;
+    public TurretData turret;
+    public TelescopeData telescope;
+    public PneumaticData brakes;
+    public IntakeData grabber;
+    public AutoData autoData;
 
 
 
@@ -83,6 +87,18 @@ public class Robot extends TimedRobot {
         this.input = new InputData();
         this.vision = new VisionData();
         this.gyro = new GyroData();
+        this.positionData = new PositionData(gyro, drive);
+        this.turret = new TurretData();
+        this.telescope = new TelescopeData();
+        this.brakes = new PneumaticData();
+        this.grabber = new IntakeData();
+        this.autoData = new AutoData();
+
+
+        this.vision.pipelineTag(1);
+
+        // RUNS GRABBER CLOSED, BE CAREFUL LOL
+        armUtil.runCondition(grabber, IntakeData.status);
 
         ROBOT_INIT_FUNC.accept(this);
     }
@@ -96,12 +112,20 @@ public class Robot extends TimedRobot {
         timeSinceInit = Duration.between(startTime, Instant.now()).toNanos() * (1.0/Constants.NANOS_PER_SECOND);
         prevtime = Instant.now();
 
+        vision.pipelineTag(1);
+
         telemetryUtil.grabChoosers();
 
         this.drive.sendTelemetry();
         this.input.sendTelemetry();
         this.gyro.sendTelemetry();
         this.vision.sendTelemetry();
+        this.positionData.sendTelemetry();
+        this.turret.sendTelemetry();
+        this.telescope.sendTelemetry();
+        this.brakes.sendTelemetry();
+        this.grabber.sendTelemetry();
+        this.autoData.sendTelemetry();
 
         ROBOT_PER_FUNC.accept(this);
     }
@@ -109,13 +133,27 @@ public class Robot extends TimedRobot {
 
 
 
-    // runs once when autos start
+
+
+
+
     @Override
-    public void autonomousInit() { AUTO_INIT_FUNC.accept(this);  }
+    public void autonomousInit() {
+        this.autoData.reset(this);
+        autoData.autoRunning = true;
+        Robot.AUTO_INIT_FUNC.accept(this);
+    }
 
-    // runs repeatedly during autos
     @Override
-    public void autonomousPeriodic() { AUTO_PER_FUNC.accept(this); }
+    public void autonomousPeriodic() {
+        autoData.update(this);
+    }
+
+    @Override
+    public void autonomousExit() {
+        autoData.autoRunning = false;
+        robotUtil.stopRobot(this);
+    }
 
 
 
@@ -124,11 +162,8 @@ public class Robot extends TimedRobot {
 
 
 
-    // runs once on teleop start
     @Override
     public void teleopInit() {  TELEOP_INIT_FUNC.accept(this); }
-
-    // runs repeatedly during teleop
     @Override
     public void teleopPeriodic() { TELEOP_PER_FUNC.accept(this);  }
 
@@ -137,14 +172,10 @@ public class Robot extends TimedRobot {
 
 
 
-    // when you stop the robot, this gets called
     @Override
-    public void disabledInit() { DISABLED_INIT_FUNC.accept(this);  }
-
-    // while the robot is disabled, this is repeatedly running
-    // no driving in here
+    public void disabledInit() { robotUtil.stopRobot(this); }
     @Override
-    public void disabledPeriodic() { DISABLED_PER_FUNC.accept(this);  }
+    public void disabledPeriodic() { robotUtil.stopRobot(this); }
 
 
 
@@ -153,12 +184,8 @@ public class Robot extends TimedRobot {
 
 
 
-    // runs once at the begining of test mode
-    // intended for testing unvalidaded code
     @Override
     public void testInit() { TEST_INIT_FUNC.accept(this); }
-
-    // runs repeatedly during test mode
     @Override
     public void testPeriodic() { TEST_PER_FUNC.accept(this); }
 }

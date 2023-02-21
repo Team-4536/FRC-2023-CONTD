@@ -1,57 +1,54 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import edu.wpi.first.wpilibj.Encoder;
-import frc.robot.Constants;
+import com.revrobotics.*;
+
 import frc.robot.controllers.PIDController;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
+import frc.robot.constants.Hardware;
 
 public class DriveData {
 
-    public PIDController pidController = new PIDController(0.08, 0.01, 0);
+    public static boolean joystickDrive = false;
 
-    public WPI_VictorSPX frontLeftDrive;
-    public WPI_VictorSPX frontRightDrive;
-    public WPI_VictorSPX backLeftDrive;
-    public WPI_VictorSPX backRightDrive;
+    public PIDController pidController = new PIDController(0.01, 0.001, -0.001);
 
-    public Encoder FLEncoder;
-    public Encoder FREncoder;
-    public Encoder BLEncoder;
-    public Encoder BREncoder;
+    public CANSparkMax frontLeftDrive;
+    public CANSparkMax frontRightDrive;
+    public CANSparkMax backLeftDrive;
+    public CANSparkMax backRightDrive;
+
+    public RelativeEncoder FLEncoder;
+    public RelativeEncoder FREncoder;
+    public RelativeEncoder BLEncoder;
+    public RelativeEncoder BREncoder;
 
     public DriveData() {
-        
-        this.frontLeftDrive = new WPI_VictorSPX(Constants.DRIVE_FRONT_LEFT_PORT);
-        this.frontRightDrive = new WPI_VictorSPX(Constants.DRIVE_FRONT_RIGHT_PORT);
-        this.backLeftDrive = new WPI_VictorSPX(Constants.DRIVE_BACK_LEFT_PORT);
-        this.backRightDrive = new WPI_VictorSPX(Constants.DRIVE_BACK_RIGHT_PORT);
 
-        this.frontLeftDrive.setInverted(Constants.DRIVE_FRONT_LEFT_FLIPPED);
-        this.frontRightDrive.setInverted(Constants.DRIVE_FRONT_RIGHT_FLIPPED);
-        this.backLeftDrive.setInverted(Constants.DRIVE_BACK_LEFT_FLIPPED);
-        this.backRightDrive.setInverted(Constants.DRIVE_BACK_RIGHT_FLIPPED);
+        this.frontLeftDrive = new CANSparkMax(Hardware.DRIVE_FRONT_LEFT_PORT, Hardware.DRIVE_MOTOR_TYPE);
+        this.frontRightDrive = new CANSparkMax(Hardware.DRIVE_FRONT_RIGHT_PORT, Hardware.DRIVE_MOTOR_TYPE);
+        this.backLeftDrive = new CANSparkMax(Hardware.DRIVE_BACK_LEFT_PORT, Hardware.DRIVE_MOTOR_TYPE);
+        this.backRightDrive = new CANSparkMax(Hardware.DRIVE_BACK_RIGHT_PORT, Hardware.DRIVE_MOTOR_TYPE);
 
-        //ChannelA is the one with 3 wires channelB is the one with 1 wire(TRUE)
-        FLEncoder = new Encoder(6, 7);
-        FREncoder = new Encoder(4, 5);
-        BLEncoder = new Encoder(0, 1);
-        BREncoder = new Encoder(2, 3);
+        this.frontLeftDrive.setInverted(Hardware.DRIVE_FRONT_LEFT_FLIPPED);
+        this.frontRightDrive.setInverted(Hardware.DRIVE_FRONT_RIGHT_FLIPPED);
+        this.backLeftDrive.setInverted(Hardware.DRIVE_BACK_LEFT_FLIPPED);
+        this.backRightDrive.setInverted(Hardware.DRIVE_BACK_RIGHT_FLIPPED);
 
-        BREncoder.setReverseDirection(false);
-        FLEncoder.setReverseDirection(true);
-        BLEncoder.setReverseDirection(true);
-        FREncoder.setReverseDirection(false);
+        // ChannelA is the one with 3 wires channelB is the one with 1 wire(TRUE)
+        FLEncoder = frontLeftDrive.getEncoder();
+        FREncoder = frontRightDrive.getEncoder();
+        BLEncoder = backLeftDrive.getEncoder();
+        BREncoder = backRightDrive.getEncoder();
 
-        BREncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
-        BLEncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
-        FREncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
-        FLEncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
+        BREncoder.setPositionConversionFactor(1);
+        FLEncoder.setPositionConversionFactor(1);
+        BLEncoder.setPositionConversionFactor(1);
+        FREncoder.setPositionConversionFactor(1);
 
+        //BREncoder.setDistancePerPulse(Constants.ENCODER_PULSE_DISTANCE);
     }
-    
 
 
     public void sendTelemetry() {
@@ -61,10 +58,10 @@ public class DriveData {
         telemetryUtil.put("BL Pwr", backLeftDrive.get(), Tabs.ROBOT);
         telemetryUtil.put("BR Pwr", backRightDrive.get(), Tabs.ROBOT);
 
-        telemetryUtil.put("BLeft Encoder", BLEncoder.get(), Tabs.ROBOT);
-        telemetryUtil.put("BRight Encoder", BREncoder.get(), Tabs.ROBOT);
-        telemetryUtil.put("FLeft Encoder", FLEncoder.get(), Tabs.ROBOT);
-        telemetryUtil.put("FRight Encoder", FREncoder.get(), Tabs.ROBOT);
+        telemetryUtil.put("BLeft Encoder", BLEncoder.getPosition(), Tabs.ROBOT);
+        telemetryUtil.put("BRight Encoder", BREncoder.getPosition(), Tabs.ROBOT);
+        telemetryUtil.put("FLeft Encoder", FLEncoder.getPosition(), Tabs.ROBOT);
+        telemetryUtil.put("FRight Encoder", FREncoder.getPosition(), Tabs.ROBOT);
 
     }
 }

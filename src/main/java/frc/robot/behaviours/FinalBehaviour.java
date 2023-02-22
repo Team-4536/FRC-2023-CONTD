@@ -50,8 +50,8 @@ public class FinalBehaviour {
             inputUtil.deadzoneAxis(
                 -r.input.controllerMech.getRightY(),
                 ControlSettings.CONTROLLER_STICK_DEADZONE),
-            .8,
-            .35);
+            .4,
+            .125);
 
         r.telescope.retractMotor.set(
             inputUtil.deadzoneAxis(

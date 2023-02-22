@@ -1,5 +1,7 @@
 package frc.robot.functions;
 
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+
 import frc.robot.subsystems.TelescopeData;
 
 public class telescopeUtil {
@@ -43,6 +45,28 @@ public class telescopeUtil {
             telescope.liftMotor.set(speed * pScale);
         } else {
             stopLift(telescope);
+        }
+
+    }
+
+    public static void limitSwitchCheck(TelescopeData tData, double speed, double pScale, double nScale){
+
+        double pPow = speed * pScale;
+        double nPow = speed * nScale;
+
+        if (tData.upBound.get() && speed > 0)
+        {tData.liftMotor.set(0);} 
+        else if (tData.lowBound.get() && speed < 0)
+        {tData.liftMotor.set(0);} 
+        else {
+            
+            if (speed > 0){
+                tData.liftMotor.set(pPow);
+            }
+            if (speed < 0){
+                tData.liftMotor.set(nPow);
+            }
+            
         }
 
     }

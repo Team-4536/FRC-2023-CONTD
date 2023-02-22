@@ -85,6 +85,9 @@ public class FinalBehaviour {
         robotUtil.stopRobot(r);
         r.gyro.globGyroscope.reset();
         r.drive.pidController.target = r.gyro.globGyroscope.getAngle();
+        r.telescope.liftEncoder.setPosition(100);
+        r.telescope.retractEncoder.setPosition(100);
+
     };
 }
 

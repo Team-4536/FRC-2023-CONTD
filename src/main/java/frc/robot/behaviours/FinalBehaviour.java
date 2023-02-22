@@ -60,6 +60,8 @@ public class FinalBehaviour {
             ) * ControlSettings.RETRACTION_MULT
         );
 
+        //r.IntakeData.grabberSolenoid.set(robAldrich.calculate())
+
 
         //TURRET ==================================================================================================
 

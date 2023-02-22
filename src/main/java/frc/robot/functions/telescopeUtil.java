@@ -63,8 +63,11 @@ public class telescopeUtil {
             if (speed > 0){
                 tData.liftMotor.set(pPow);
             }
-            if (speed < 0){
+            else if (speed < 0){
                 tData.liftMotor.set(nPow);
+            } 
+            else {
+                tData.liftMotor.set(0);
             }
             
         }

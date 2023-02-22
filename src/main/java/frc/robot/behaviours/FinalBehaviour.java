@@ -45,13 +45,13 @@ public class FinalBehaviour {
 
         //ARM ==================================================================================================
 
-        telescopeUtil.liftScale(
+        telescopeUtil.limitSwitchCheck(
             r.telescope,
             inputUtil.deadzoneAxis(
                 -r.input.controllerMech.getRightY(),
                 ControlSettings.CONTROLLER_STICK_DEADZONE),
-            .4,
-            .125);
+            .625,
+            .2);
 
         r.telescope.retractMotor.set(
             inputUtil.deadzoneAxis(

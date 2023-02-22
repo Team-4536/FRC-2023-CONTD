@@ -8,6 +8,9 @@ import frc.robot.functions.driveUtil;
 import frc.robot.subsystems.IntakeData;
 import frc.robot.subsystems.PneumaticData;
 import frc.robot.constants.ControlSettings;
+import frc.robot.controllers.PIDController;
+import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.telemetryUtil.Tabs;
 import frc.robot.functions.*;
 
 
@@ -16,7 +19,8 @@ public class FinalBehaviour {
 
 
 
-
+    public static PIDController liftPID = new PIDController(0.4, 0.1, 0);
+    public static PIDController drivePID = new PIDController(0.005, 0.0, 0.0);
     public static Consumer<Robot> periodic = r -> {
 
         //DRIVE =========================================================================================================
@@ -29,7 +33,18 @@ public class FinalBehaviour {
         double driveScalar = inputUtil.mapInput(
             r.input.controller.getRightTriggerAxis(), 1, 0, ControlSettings.MAX_DRIVE_OUT, ControlSettings.DEFAULT_DRIVE_OUT);
 
-        driveUtil.setPowerMechanum(r.drive, x * driveScalar, y * driveScalar, z * ControlSettings.TURNING_MULT, .8f);
+        drivePID.target += z * 30 * Robot.dt;
+        double drivePIDOut = drivePID.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
+        telemetryUtil.put("Drive PID out", drivePIDOut, Tabs.DEBUG);
+        telemetryUtil.put("Drive PID target", drivePID.target, Tabs.DEBUG);
+        telemetryUtil.put("Currernt Angle", r.gyro.globGyroscope.getAngle(), Tabs.DEBUG);
+
+        //double pwr = drivePIDOut * (r.input.controllerMech.getRightBumper()?1:0);
+        double pwr = drivePIDOut;
+        if(pwr > 0.1) { pwr = 0.1; }
+        if(pwr < -0.1) { pwr = -0.1; }
+        pwr = pwr * (r.input.controllerMech.getRightBumper()?1:0);
+        driveUtil.setPowerMechanum(r.drive, x * driveScalar, y * driveScalar, pwr, .8f);
 
 
 
@@ -45,13 +60,22 @@ public class FinalBehaviour {
 
         //ARM ==================================================================================================
 
-        telescopeUtil.limitSwitchCheck(
-            r.telescope,
-            inputUtil.deadzoneAxis(
-                -r.input.controllerMech.getRightY(),
-                ControlSettings.CONTROLLER_STICK_DEADZONE),
-            .625,
-            .2);
+        // telescopeUtil.limitSwitchCheck(
+        //     r.telescope,
+        //     inputUtil.deadzoneAxis(
+        //         -r.input.controllerMech.getRightY(),
+        //         ControlSettings.CONTROLLER_STICK_DEADZONE),
+        //     .625,
+        //     .2);
+
+        liftPID.target += inputUtil.deadzoneAxis(r.input.controllerMech.getRightY(), 0.1) * Robot.dt;
+
+        double PIDOut = -liftPID.tick(r.telescope.liftVal(), Robot.dt, false);
+        r.telescope.liftMotor.set(PIDOut * (r.input.controllerMech.getRightBumper()?1:0));
+        telemetryUtil.put("PID out", PIDOut, Tabs.DEBUG);
+        telemetryUtil.put("PID target", liftPID.target, Tabs.DEBUG);
+        
+        
 
         r.telescope.retractMotor.set(
             inputUtil.deadzoneAxis(
@@ -87,6 +111,8 @@ public class FinalBehaviour {
         r.drive.pidController.target = r.gyro.globGyroscope.getAngle();
         r.telescope.liftEncoder.setPosition(100);
         r.telescope.retractEncoder.setPosition(100);
+
+        liftPID.target = r.telescope.liftVal();
 
     };
 }

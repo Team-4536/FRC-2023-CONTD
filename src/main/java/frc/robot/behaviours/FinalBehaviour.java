@@ -34,16 +34,17 @@ public class FinalBehaviour {
             r.input.controller.getRightTriggerAxis(), 1, 0, ControlSettings.MAX_DRIVE_OUT, ControlSettings.DEFAULT_DRIVE_OUT);
 
         drivePID.target += z * 30 * Robot.dt;
-        double drivePIDOut = drivePID.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
+        drivePID.target = gyroUtil.wrapAngle(drivePID.target);
+
+        double drivePIDOut = drivePID.tick(gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle()), Robot.dt, true);
         telemetryUtil.put("Drive PID out", drivePIDOut, Tabs.DEBUG);
         telemetryUtil.put("Drive PID target", drivePID.target, Tabs.DEBUG);
         telemetryUtil.put("Currernt Angle", r.gyro.globGyroscope.getAngle(), Tabs.DEBUG);
 
-        //double pwr = drivePIDOut * (r.input.controllerMech.getRightBumper()?1:0);
         double pwr = drivePIDOut;
         if(pwr > 0.1) { pwr = 0.1; }
         if(pwr < -0.1) { pwr = -0.1; }
-        pwr = pwr * (r.input.controllerMech.getRightBumper()?1:0);
+        pwr = pwr * (r.input.controller.getRightBumper()?1:0);
         driveUtil.setPowerMechanum(r.drive, x * driveScalar, y * driveScalar, pwr, .8f);
 
 

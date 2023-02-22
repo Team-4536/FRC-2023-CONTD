@@ -49,30 +49,31 @@ public class telescopeUtil {
 
     }
 
-    public static void limitSwitchCheck(TelescopeData tData, double speed, double pScale, double nScale){
+    /*limit thin
+     * 
+      double pPow = PIDOut * pScale;
+        double nPow = PIDOut * nScale;
 
-        double pPow = speed * pScale;
-        double nPow = speed * nScale;
-
-        if (tData.upBound.get() && speed > 0)
-        {tData.liftMotor.set(0);} 
-        else if (tData.lowBound.get() && speed < 0)
-        {tData.liftMotor.set(0);} 
+        if (r.telescope.upBound.get() && PIDOut > 0)
+        {r.telescope.liftMotor.set(0);} 
+        else if (r.telescope.lowBound.get() && PIDOut < 0)
+        {r.telescope.liftMotor.set(0);} 
         else {
             
             if (speed > 0){
-                tData.liftMotor.set(pPow);
+                r.telescope.liftMotor.set(pPow);
             }
             else if (speed < 0){
-                tData.liftMotor.set(nPow);
+                r.telescope.liftMotor.set(nPow);
             } 
             else {
-                tData.liftMotor.set(0);
+                r.telescope.liftMotor.set(0);
             }
             
         }
-
-    }
-
+     * 
+     * 
+     * 
+     */
 
 }

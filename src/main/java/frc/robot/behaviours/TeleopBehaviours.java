@@ -10,6 +10,7 @@ import frc.robot.functions.inputUtil;
 import frc.robot.functions.pneumaticUtil;
 import frc.robot.functions.robotUtil;
 import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.telescopeUtil;
 import frc.robot.functions.turretUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 
@@ -28,6 +29,8 @@ public class TeleopBehaviours {
         r.gyro.globGyroscope.reset();
         driveUtil.pid.target = r.gyro.globGyroscope.getAngle();
         liftPID.target = r.telescope.liftVal();
+
+        telemetryUtil.debugLog("LOG", Tabs.DEBUG);
     };
 
 

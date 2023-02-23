@@ -13,8 +13,8 @@ import frc.robot.functions.telemetryUtil.Tabs;
 public final class goToAprilTagTrig extends Stage {
 
     int pip = 0;
-    PIDController xPID = new PIDController(0.35, 0.005, -0.2);
-    PIDController yPID = new PIDController(0.07, 0.006, -0.04);
+    PIDController xPID = new PIDController(0.001, 0.000, 0);
+    PIDController yPID = new PIDController(0.001, 0.000, 0);
 
     double wantedDistance = 24;
 
@@ -53,8 +53,8 @@ public final class goToAprilTagTrig extends Stage {
                 visionUtil.distanceFrom(r.vision.getArea())
             );
 
-            xMove = xPID.tick(out.x, Robot.dt, false);
-            yMove = yPID.tick(out.y, Robot.dt, false);
+            xMove = xPID.tick(-out.x, Robot.dt, false);
+            yMove = yPID.tick(-out.y, Robot.dt, false);
         }
 
 

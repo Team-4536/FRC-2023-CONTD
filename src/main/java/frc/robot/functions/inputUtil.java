@@ -32,6 +32,6 @@ public class inputUtil {
     }
 
     public static double deadzoneStick(double x) {
-        return deadzoneAxis(x, ControlSettings.CONTROLLER_STICK_DEADZONE);
+        return deadzoneAxis(x, ControlSettings.MOVEMENT_DEADZONE);
     }
 }

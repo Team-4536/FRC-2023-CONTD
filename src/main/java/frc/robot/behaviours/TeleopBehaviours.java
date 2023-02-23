@@ -40,7 +40,7 @@ public class TeleopBehaviours {
 
         double x = inputUtil.deadzoneStick(r.input.driveController.getLeftX());
         double y = inputUtil.deadzoneStick(-r.input.driveController.getLeftY());
-        double z = inputUtil.deadzoneStick(r.input.driveController.getRightX());
+        double z = inputUtil.deadzoneAxis(r.input.driveController.getRightX(), ControlSettings.TURNING_DEADZONE);
 
 
         double driveScalar = inputUtil.mapInput(
@@ -55,7 +55,7 @@ public class TeleopBehaviours {
 
         double x = inputUtil.deadzoneStick(r.input.driveController.getLeftX());
         double y = inputUtil.deadzoneStick(-r.input.driveController.getLeftY());
-        double z = inputUtil.deadzoneStick(r.input.driveController.getRightX());
+        double z = inputUtil.deadzoneAxis(r.input.driveController.getRightX(), ControlSettings.TURNING_DEADZONE);
 
         double driveScalar = inputUtil.mapInput(
             r.input.driveController.getRightTriggerAxis(), 1, 0, ControlSettings.MAX_DRIVE_OUT, ControlSettings.DEFAULT_DRIVE_OUT);
@@ -85,7 +85,7 @@ public class TeleopBehaviours {
         r.telescope.retractMotor.set(
             inputUtil.deadzoneAxis(
                 r.input.armController.getLeftY(),
-                ControlSettings.CONTROLLER_STICK_DEADZONE
+                ControlSettings.MOVEMENT_DEADZONE
             ) * ControlSettings.RETRACTION_MULT
         );
     };

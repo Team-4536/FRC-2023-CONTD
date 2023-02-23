@@ -17,19 +17,12 @@ public class turretUtil {
     public static void run(TurretData tdata, double speed){
 
         if (tdata.ccwBound.get()){
-
             if (speed < 0) { speed = 0; }
-            tdata.turretMotor.set(speed);
 
         } else if (tdata.cwBound.get()){
+            if (speed > 0) { speed = 0;} }
 
-            if (speed > 0) { speed = 0;}
-            tdata.turretMotor.set(speed);
-
-        } else {
-
-            tdata.turretMotor.set(speed);
-        }
+        tdata.turretMotor.set(speed);
     }
 
 }

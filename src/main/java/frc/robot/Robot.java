@@ -8,12 +8,12 @@ package frc.robot;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.function.Consumer;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.behaviours.AutoBehaviours;
-import frc.robot.behaviours.FinalBehaviour;
+import frc.robot.behaviours.TeleopBehaviours;
 import frc.robot.constants.Constants;
 import frc.robot.functions.pneumaticUtil;
 import frc.robot.functions.robotUtil;
@@ -43,8 +43,9 @@ public class Robot extends TimedRobot {
     public static Consumer<Robot> ROBOT_INIT_FUNC = NULL_FUNC;
     public static Consumer<Robot> ROBOT_PER_FUNC = NULL_FUNC;
 
-    public static Consumer<Robot> TELEOP_INIT_FUNC = FinalBehaviour.teleOpInit;
-    public static List<Consumer<Robot>> TELEOP_PER_FUNCS = List.of(NULL_FUNC, NULL_FUNC, NULL_FUNC, NULL_FUNC, NULL_FUNC);
+    public static Consumer<Robot> TELEOP_INIT_FUNC = NULL_FUNC;
+    public static ArrayList<Consumer<Robot>> TELEOP_PER_FUNCS =
+        new ArrayList<>( Arrays.asList(NULL_FUNC, NULL_FUNC, NULL_FUNC, NULL_FUNC, NULL_FUNC));
 
     public static Consumer<Robot> AUTO_INIT_FUNC = NULL_FUNC;
 
@@ -92,12 +93,14 @@ public class Robot extends TimedRobot {
 
 
         telemetryUtil.makeChooser("Auto Init", x -> { Robot.AUTO_INIT_FUNC = x; }, "nothing", AutoBehaviours.class);
-        telemetryUtil.makeChooser("Teleop Init", x -> { Robot.TELEOP_INIT_FUNC = x; }, "nothing", FinalBehaviour.class);
-        telemetryUtil.makeChooser("TeleOp Per 0", x -> { Robot.TELEOP_PER_FUNCS.set(0, x); }, "nothing", FinalBehaviour.class);
-        telemetryUtil.makeChooser("TeleOp Per 1", x -> { Robot.TELEOP_PER_FUNCS.set(1, x); }, "nothing", FinalBehaviour.class);
-        telemetryUtil.makeChooser("TeleOp Per 2", x -> { Robot.TELEOP_PER_FUNCS.set(2, x); }, "nothing", FinalBehaviour.class);
-        telemetryUtil.makeChooser("TeleOp Per 3", x -> { Robot.TELEOP_PER_FUNCS.set(3, x); }, "nothing", FinalBehaviour.class);
-        telemetryUtil.makeChooser("TeleOp Per 4", x -> { Robot.TELEOP_PER_FUNCS.set(4, x); }, "nothing", FinalBehaviour.class);
+        telemetryUtil.makeChooser("Teleop Init", x -> { Robot.TELEOP_INIT_FUNC = x; }, "nothing", TeleopBehaviours.class);
+        telemetryUtil.makeChooser("TeleOp Per 0", x -> { Robot.TELEOP_PER_FUNCS.set(0, x); }, "nothing", TeleopBehaviours.class);
+        telemetryUtil.makeChooser("TeleOp Per 1", x -> { Robot.TELEOP_PER_FUNCS.set(1, x); }, "nothing", TeleopBehaviours.class);
+        telemetryUtil.makeChooser("TeleOp Per 2", x -> { Robot.TELEOP_PER_FUNCS.set(2, x); }, "nothing", TeleopBehaviours.class);
+        telemetryUtil.makeChooser("TeleOp Per 3", x -> { Robot.TELEOP_PER_FUNCS.set(3, x); }, "nothing", TeleopBehaviours.class);
+        telemetryUtil.makeChooser("TeleOp Per 4", x -> { Robot.TELEOP_PER_FUNCS.set(4, x); }, "nothing", TeleopBehaviours.class);
+
+
 
         this.drive = new DriveData();
         this.input = new InputData();

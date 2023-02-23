@@ -56,5 +56,14 @@ public class DriveData {
         telemetryUtil.put("FL Encoder", FLEncoder.getPosition(), Tabs.ROBOT);
         telemetryUtil.put("FR Encoder", FREncoder.getPosition(), Tabs.ROBOT);
 
+        telemetryUtil.put("FL temp", FLDrive.getMotorTemperature(), Tabs.ROBOT);
+        telemetryUtil.put("FR temp", FRDrive.getMotorTemperature(), Tabs.ROBOT);
+        telemetryUtil.put("BL temp", BLDrive.getMotorTemperature(), Tabs.ROBOT);
+        telemetryUtil.put("BR temp", BRDrive.getMotorTemperature(), Tabs.ROBOT);
+
+        telemetryUtil.put("FL Volts", FLDrive.getBusVoltage() > 5.5, Tabs.ROBOT);
+        telemetryUtil.put("FR Volts", FRDrive.getBusVoltage() > 5.5, Tabs.ROBOT);
+        telemetryUtil.put("BL Volts", BLDrive.getBusVoltage() > 5.5, Tabs.ROBOT);
+        telemetryUtil.put("BR Volts", BRDrive.getBusVoltage() > 5.5, Tabs.ROBOT);
     }
 }

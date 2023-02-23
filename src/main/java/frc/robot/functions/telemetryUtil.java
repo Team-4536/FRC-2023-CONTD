@@ -185,6 +185,7 @@ public class telemetryUtil {
                     continue;
                 }
 
+
                 int idx = s.indexOf(".");
                 Class<?> c = Class.forName("frc.robot.behaviours." + s.substring(0,idx));
                 Field f = c.getField(s.substring(idx+1));

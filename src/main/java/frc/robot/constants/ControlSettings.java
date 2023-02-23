@@ -8,7 +8,14 @@ public class ControlSettings {
 
     public static final double CONTROLLER_STICK_DEADZONE = 0.2;
 
+
+
     public static final double TURNING_SPEED = 30;
+
+    public static final double TURNING_MULT = 0.1;
+
+    public static final double LIFT_MULT = 0.6;
+
 
     public static final double TURRET_MULT = 1.0 / 8;
     public static final double RETRACTION_MULT = 1.0 / 1.4;

@@ -5,8 +5,6 @@ import java.util.function.Consumer;
 
 import frc.robot.Robot;
 import frc.robot.functions.driveUtil;
-import frc.robot.subsystems.IntakeData;
-import frc.robot.subsystems.PneumaticData;
 import frc.robot.constants.ControlSettings;
 import frc.robot.controllers.PIDController;
 import frc.robot.functions.telemetryUtil;
@@ -18,8 +16,22 @@ import frc.robot.functions.*;
 public class FinalBehaviour {
 
 
-
     public static PIDController liftPID = new PIDController(0.4, 0.1, 0);
+
+    @Hidden
+    public static Consumer<Robot> teleOpInit = r -> {
+
+        robotUtil.stopRobot(r);
+        r.gyro.globGyroscope.reset();
+        driveUtil.pid.target = r.gyro.globGyroscope.getAngle();
+        r.telescope.liftEncoder.setPosition(100);
+        r.telescope.retractEncoder.setPosition(100);
+
+        liftPID.target = r.telescope.liftVal();
+    };
+
+
+
     public static Consumer<Robot> periodic = r -> {
 
         //DRIVE =========================================================================================================
@@ -50,8 +62,10 @@ public class FinalBehaviour {
 
 
 
-        //ARM ==================================================================================================
 
+
+
+        //ARM ==================================================================================================
 
         liftPID.target += inputUtil.deadzoneAxis(
             r.input.armController.getRightY(),
@@ -62,6 +76,8 @@ public class FinalBehaviour {
         telemetryUtil.put("Arm PID out", PIDOut, Tabs.DEBUG);
         telemetryUtil.put("Arm PID target", liftPID.target, Tabs.DEBUG);
 
+
+
         r.telescope.retractMotor.set(
             inputUtil.deadzoneAxis(
                 r.input.armController.getLeftY(),
@@ -70,8 +86,6 @@ public class FinalBehaviour {
         );
 
 
-        //TURRET ==================================================================================================
-
         double flymer = inputUtil.deadzoneAxis(
             r.input.armController.getRightX(),
             ControlSettings.CONTROLLER_STICK_DEADZONE
@@ -79,26 +93,4 @@ public class FinalBehaviour {
 
         turretUtil.run(r.turret, flymer);
     };
-
-
-
-
-
-
-
-
-
-    @Hidden
-    public static Consumer<Robot> teleOpInit = r -> {
-
-        robotUtil.stopRobot(r);
-        r.gyro.globGyroscope.reset();
-        driveUtil.pid.target = r.gyro.globGyroscope.getAngle();
-        r.telescope.liftEncoder.setPosition(100);
-        r.telescope.retractEncoder.setPosition(100);
-
-        liftPID.target = r.telescope.liftVal();
-
-    };
 }
-

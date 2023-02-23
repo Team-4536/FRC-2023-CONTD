@@ -8,13 +8,19 @@ import frc.robot.functions.telemetryUtil.Tabs;
 public class GyroData {
 
     public final AHRS globGyroscope = new AHRS();
-    public final AHRS localGyroscope = new AHRS();
+
+    public double getYaw() {
+        return this.globGyroscope.getAngle();
+    }
 
     public void sendTelemetry(){
 
-        telemetryUtil.put("Global Angle", globGyroscope.getAngle(), Tabs.ROBOT);
-        telemetryUtil.put("Local Angle", localGyroscope.getAngle(), Tabs.ROBOT);
+        telemetryUtil.put("Angle", globGyroscope.getAngle(), Tabs.ROBOT);
 
+    }
+
+    public void init() {
+        globGyroscope.reset();
     }
 
 }

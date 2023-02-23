@@ -13,7 +13,6 @@ import frc.robot.functions.telemetryUtil.Tabs;
 public final class goToAprilTagTrig extends Stage {
 
     int pip = 0;
-    PIDController anglePID = new PIDController(0.04, 0.0004, -0.01);
     PIDController xPID = new PIDController(0.35, 0.005, -0.2);
     PIDController yPID = new PIDController(0.07, 0.006, -0.04);
 
@@ -42,6 +41,8 @@ public final class goToAprilTagTrig extends Stage {
 
 
 
+        double xMove = 0;
+        double yMove = 0;
 
         if(r.vision.getTargets()) {
 
@@ -52,22 +53,16 @@ public final class goToAprilTagTrig extends Stage {
                 visionUtil.distanceFrom(r.vision.getArea())
             );
 
-            driveUtil.setPowerMechanum(r.drive,
-            xPID.tick(out.x, Robot.dt, false),
-            yPID.tick(out.y, Robot.dt, false),
-            -anglePID.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true),
-            0.4);
-
-        }
-        else {
-            driveUtil.stop(r.drive);
-            driveUtil.setPowerMechanum(r.drive,
-            0,
-            0,
-            anglePID.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true),
-            0.4);
+            xMove = xPID.tick(out.x, Robot.dt, false);
+            yMove = yPID.tick(out.y, Robot.dt, false);
         }
 
+
+        driveUtil.setPowerMechPID(
+            r,
+            xMove,
+            yMove,
+            0.4);
 
 
 
@@ -80,9 +75,9 @@ public final class goToAprilTagTrig extends Stage {
 
         boolean motorSpeed = yPID.prevErr - (goal.y - visionUtil.distanceFrom(r.vision.getArea())) <= .15;
 
-        telemetryUtil.put("Horizontal Err", horizError, Tabs.DEBUG);
-        telemetryUtil.put("Vertical Err", verticalError, Tabs.DEBUG);
-        telemetryUtil.put("Motor Speed", motorSpeed, Tabs.DEBUG);
+        telemetryUtil.put("Tag Horizontal Err", horizError, Tabs.DEBUG);
+        telemetryUtil.put("Tag Vertical Err", verticalError, Tabs.DEBUG);
+        telemetryUtil.put("Tag Motor Speed", motorSpeed, Tabs.DEBUG);
 
         return (motorSpeed && horizError && verticalError);
     }

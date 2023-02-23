@@ -20,67 +20,51 @@ public class FinalBehaviour {
 
 
     public static PIDController liftPID = new PIDController(0.4, 0.1, 0);
-    public static PIDController drivePID = new PIDController(0.005, 0.0, 0.0);
     public static Consumer<Robot> periodic = r -> {
 
         //DRIVE =========================================================================================================
 
-        double x = inputUtil.deadzoneAxis(r.input.controller.getLeftX(), ControlSettings.CONTROLLER_STICK_DEADZONE);
-        double y = inputUtil.deadzoneAxis(-r.input.controller.getLeftY(), ControlSettings.CONTROLLER_STICK_DEADZONE);
-        double z = inputUtil.deadzoneAxis(r.input.controller.getRightX(), ControlSettings.CONTROLLER_STICK_DEADZONE);
+        double x = inputUtil.deadzoneAxis(r.input.driveController.getLeftX(), ControlSettings.CONTROLLER_STICK_DEADZONE);
+        double y = inputUtil.deadzoneAxis(-r.input.driveController.getLeftY(), ControlSettings.CONTROLLER_STICK_DEADZONE);
+        double z = inputUtil.deadzoneAxis(r.input.driveController.getRightX(), ControlSettings.CONTROLLER_STICK_DEADZONE);
 
 
         double driveScalar = inputUtil.mapInput(
-            r.input.controller.getRightTriggerAxis(), 1, 0, ControlSettings.MAX_DRIVE_OUT, ControlSettings.DEFAULT_DRIVE_OUT);
+            r.input.driveController.getRightTriggerAxis(), 1, 0, ControlSettings.MAX_DRIVE_OUT, ControlSettings.DEFAULT_DRIVE_OUT);
 
-        drivePID.target += z * 30 * Robot.dt;
-        drivePID.target = gyroUtil.wrapAngle(drivePID.target);
-
-        double drivePIDOut = drivePID.tick(gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle()), Robot.dt, true);
-        telemetryUtil.put("Drive PID out", drivePIDOut, Tabs.DEBUG);
-        telemetryUtil.put("Drive PID target", drivePID.target, Tabs.DEBUG);
-        telemetryUtil.put("Currernt Angle", r.gyro.globGyroscope.getAngle(), Tabs.DEBUG);
-
-        double pwr = drivePIDOut;
-        if(pwr > 0.1) { pwr = 0.1; }
-        if(pwr < -0.1) { pwr = -0.1; }
-        pwr = pwr * (r.input.controller.getRightBumper()?1:0);
-        driveUtil.setPowerMechanum(r.drive, x * driveScalar, y * driveScalar, pwr, .8f);
+        driveUtil.pid.target += z * ControlSettings.TURNING_SPEED * Robot.dt;
+        driveUtil.setPowerMechPID(r, x * driveScalar, y * driveScalar, 0.8);
+        telemetryUtil.put("Drive PID target", driveUtil.pid.target, Tabs.ROBOT);
 
 
 
 
         //PNEUMATICS ==================================================================================================
 
-        if (r.input.controllerMech.getAButtonPressed()){ IntakeData.status = !IntakeData.status; }
-        armUtil.runCondition(r.grabber, IntakeData.status);
-        if (r.input.controller.getLeftBumperPressed()){ PneumaticData.status = !PneumaticData.status; }
-        pneumaticUtil.runCondition(r.brakes, PneumaticData.status);
+        if (r.input.armController.getAButtonPressed()){
+            pneumaticUtil.toggleSolenoid(r.grabber.grabberSolenoid); }
+
+        if (r.input.driveController.getLeftBumperPressed()){
+            pneumaticUtil.toggleSolenoid(r.brakes.brakeSolenoid); }
+
 
 
 
         //ARM ==================================================================================================
 
-        // telescopeUtil.limitSwitchCheck(
-        //     r.telescope,
-        //     inputUtil.deadzoneAxis(
-        //         -r.input.controllerMech.getRightY(),
-        //         ControlSettings.CONTROLLER_STICK_DEADZONE),
-        //     .625,
-        //     .2);
 
-        liftPID.target += inputUtil.deadzoneAxis(r.input.controllerMech.getRightY(), 0.1) * Robot.dt;
+        liftPID.target += inputUtil.deadzoneAxis(
+            r.input.armController.getRightY(),
+            ControlSettings.CONTROLLER_STICK_DEADZONE) * Robot.dt;
 
         double PIDOut = -liftPID.tick(r.telescope.liftVal(), Robot.dt, false);
-        r.telescope.liftMotor.set(PIDOut * (r.input.controllerMech.getRightBumper()?1:0));
-        telemetryUtil.put("PID out", PIDOut, Tabs.DEBUG);
-        telemetryUtil.put("PID target", liftPID.target, Tabs.DEBUG);
-        
-        
+        r.telescope.liftMotor.set(PIDOut * (r.input.armController.getRightBumper()?1:0));
+        telemetryUtil.put("Arm PID out", PIDOut, Tabs.DEBUG);
+        telemetryUtil.put("Arm PID target", liftPID.target, Tabs.DEBUG);
 
         r.telescope.retractMotor.set(
             inputUtil.deadzoneAxis(
-                r.input.controllerMech.getLeftY(),
+                r.input.armController.getLeftY(),
                 ControlSettings.CONTROLLER_STICK_DEADZONE
             ) * ControlSettings.RETRACTION_MULT
         );
@@ -89,7 +73,7 @@ public class FinalBehaviour {
         //TURRET ==================================================================================================
 
         double flymer = inputUtil.deadzoneAxis(
-            r.input.controllerMech.getRightX(),
+            r.input.armController.getRightX(),
             ControlSettings.CONTROLLER_STICK_DEADZONE
         ) * ControlSettings.TURRET_MULT;
 
@@ -109,7 +93,7 @@ public class FinalBehaviour {
 
         robotUtil.stopRobot(r);
         r.gyro.globGyroscope.reset();
-        r.drive.pidController.target = r.gyro.globGyroscope.getAngle();
+        driveUtil.pid.target = r.gyro.globGyroscope.getAngle();
         r.telescope.liftEncoder.setPosition(100);
         r.telescope.retractEncoder.setPosition(100);
 
@@ -118,26 +102,3 @@ public class FinalBehaviour {
     };
 }
 
-
-// PID SHIT FOR LATER USE, KINDA BROKEN, WORTH TESTING
-
-        /*
-        boolean usePID = !r.input.controller.getRightBumper() && false;
-        telemetryUtil.put("Turning mode is PID", usePID, Tabs.DEBUG);
-
-        if(usePID) {
-
-            t = inputUtil.deadzoneAxis(r.input.controller.getRightX(), 0.20);
-            r.drive.pidController.target += Robot.dt * t * 60;
-            telemetryUtil.put("TargetAngle", r.drive.pidController.target, Tabs.DEBUG);
-            double PIDOut = r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
-            if(PIDOut > 0.2) { PIDOut = 0.2f; }
-            if(PIDOut < -0.2) { PIDOut = -0.2f; }
-            telemetryUtil.put("PIDOut", PIDOut, Tabs.DEBUG);
-        }
-        else {
-
-            r.drive.pidController.integral = 0;
-            r.drive.pidController.target = r.gyro.globGyroscope.getAngle();
-        }
-        */

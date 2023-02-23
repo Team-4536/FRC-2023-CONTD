@@ -12,9 +12,9 @@ import java.util.function.Consumer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.behaviours.FinalBehaviour;
 import frc.robot.constants.Constants;
-import frc.robot.functions.telemetryUtil;
-import frc.robot.functions.armUtil;
+import frc.robot.functions.pneumaticUtil;
 import frc.robot.functions.robotUtil;
+import frc.robot.functions.telemetryUtil;
 import frc.robot.subsystems.AutoData;
 import frc.robot.subsystems.DriveData;
 import frc.robot.subsystems.GyroData;
@@ -59,6 +59,10 @@ public class Robot extends TimedRobot {
 
 
 
+    public static Robot instance;
+
+
+
     public DriveData drive;
     public InputData input;
     public VisionData vision;
@@ -78,6 +82,8 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
 
+        instance = this;
+
         startTime = Instant.now();
         prevtime = Instant.now();
 
@@ -96,9 +102,7 @@ public class Robot extends TimedRobot {
 
 
         this.vision.pipelineTag(1);
-
-        // RUNS GRABBER CLOSED, BE CAREFUL LOL
-        armUtil.runCondition(grabber, IntakeData.status);
+        pneumaticUtil.runSolenoid(grabber.grabberSolenoid, true);
 
         ROBOT_INIT_FUNC.accept(this);
     }

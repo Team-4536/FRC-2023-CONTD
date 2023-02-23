@@ -17,20 +17,20 @@ public class VisionConstants {
 
     public static final double TAG_SIZE_IN2 = 36;
 
-    public static final double GRID_TAG_HEIGHT_INCHES = 15.25;
-    public static final double SUBSTATION_TAG_HEIGHT_INCHES = 24.375;
+    public static final double SUBSTATION_TAG_HEIGHT_INCHES = 27.375;
+    public static final double GRID_TAG_HEIGHT_INCHES = 18.25;
 
     public static final double GRID_RRTAPE_HEIGHT_INCHES = 23.5;
 
-    public static final double APRIL_TAG_COMMUNITY_HIGHT = 18.25;
 
 
 
 
 
-
-    public static final double CY_FROM_CENTER = 7.75;
-    public static final double CX_FROM_CENTER = 5.333333333333;
-    public static final double CZ_FROM_CENTER = 16;
+    // measurements in inches of the distance of the camera on the xyz coordinate plane from the ground
+    // DIRECTLY BELOW THE BACK LEFT corner of the robot
+    public static final double CY_FROM_CENTER = 30.0;
+    public static final double CX_FROM_CENTER = 8.0;
+    public static final double CZ_FROM_CENTER = 8.25;
 
 }

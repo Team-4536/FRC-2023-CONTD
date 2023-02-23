@@ -3,15 +3,10 @@ package frc.robot.behaviours;
 import java.util.function.Consumer;
 
 import frc.robot.Robot;
-import frc.robot.constants.ControlSettings;
-import frc.robot.controllers.PIDController;
+import frc.robot.behaviours.subsystem.LiftBehaviors;
 import frc.robot.functions.driveUtil;
-import frc.robot.functions.inputUtil;
-import frc.robot.functions.pneumaticUtil;
 import frc.robot.functions.robotUtil;
 import frc.robot.functions.telemetryUtil;
-import frc.robot.functions.telescopeUtil;
-import frc.robot.functions.turretUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 import frc.robot.V2d;
 
@@ -19,7 +14,6 @@ public class TeleopBehaviours {
 
 
     // this burns my eyes
-    public static PIDController liftPID = new PIDController(0.4, 0.01, 0);
     public static Consumer<Robot> teleOpInit = r -> {
 
         robotUtil.stopRobot(r);
@@ -29,7 +23,7 @@ public class TeleopBehaviours {
 
         r.gyro.globGyroscope.reset();
         driveUtil.pid.target = r.gyro.globGyroscope.getAngle();
-        liftPID.target = r.telescope.liftVal();
+        LiftBehaviors.liftPID.target = r.telescope.liftVal();
 
         telemetryUtil.debugLog("LOG", Tabs.DEBUG);
     };

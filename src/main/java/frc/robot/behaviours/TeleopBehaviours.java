@@ -13,6 +13,7 @@ import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telescopeUtil;
 import frc.robot.functions.turretUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
+import frc.robot.V2d;
 
 public class TeleopBehaviours {
 
@@ -49,6 +50,63 @@ public class TeleopBehaviours {
         driveUtil.pid.target += z * ControlSettings.TURNING_SPEED * Robot.dt;
         driveUtil.setPowerMechPID(r, x * driveScalar, y * driveScalar, 0.8);
         telemetryUtil.put("Drive PID target", driveUtil.pid.target, Tabs.ROBOT);
+    };
+
+    public static final Consumer<Robot> absoluteDrive = r -> {
+
+        double x = inputUtil.deadzoneStick(r.input.driveController.getLeftX());
+        double y = inputUtil.deadzoneStick(-r.input.driveController.getLeftY());
+        double z = inputUtil.deadzoneStick(r.input.driveController.getRightX());
+
+        double driveScalar = inputUtil.mapInput(
+            r.input.driveController.getRightTriggerAxis(), 1, 0, ControlSettings.MAX_DRIVE_OUT, ControlSettings.DEFAULT_DRIVE_OUT);
+
+        V2d flymer = new V2d(x * driveScalar, y * driveScalar);
+        flymer = flymer.rotateDegrees(r.gyro.getYaw());
+
+        driveUtil.pid.target += z * ControlSettings.TURNING_SPEED * Robot.dt;
+        driveUtil.setPowerMechPID(r, flymer.x *= 1.25, flymer.y, 0.8);
+        telemetryUtil.put("Drive PID target", driveUtil.pid.target, Tabs.ROBOT);
+
+        if(r.input.driveController.getPOV() != -1){
+            driveUtil.pid.target = r.input.driveController.getPOV();
+        }
+
+    };
+
+
+    public static boolean PIDisActive = false;
+    public static final Consumer<Robot> driveMechDpad = r -> {
+
+        double x = inputUtil.deadzoneStick(r.input.driveController.getLeftX());
+        double y = inputUtil.deadzoneStick(-r.input.driveController.getLeftY());
+        double z = inputUtil.deadzoneStick(r.input.driveController.getRightX());
+
+
+        double driveScalar = inputUtil.mapInput(
+            r.input.driveController.getRightTriggerAxis(), 1, 0, ControlSettings.MAX_DRIVE_OUT, ControlSettings.DEFAULT_DRIVE_OUT);
+
+
+        if(PIDisActive){
+
+            if(driveUtil.pid.target == 180){
+                x *= -1;
+                y *= -1;
+            }
+
+            driveUtil.setPowerMechPID(r, x * driveScalar, y * driveScalar, 0.8);
+            if(z != 0){
+                PIDisActive = false;
+            }
+        } else{
+            driveUtil.setPowerMechanum(r.drive, x * driveScalar, y * driveScalar, z * ControlSettings.TURNING_MULT, 0.8);
+        
+        }
+
+        if(r.input.driveController.getPOV() != -1){
+            PIDisActive = true;
+            driveUtil.pid.target = r.input.driveController.getPOV();
+        }
     };
 
     public static final Consumer<Robot> driveMech  = r -> {

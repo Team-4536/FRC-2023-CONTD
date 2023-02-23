@@ -1,6 +1,7 @@
 package frc.robot.functions;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
@@ -14,8 +15,7 @@ import edu.wpi.first.networktables.StringPublisher;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.behaviours.AutoBehaviours;
-import frc.robot.behaviours.Hidden;
+import frc.robot.behaviours.annotations.Hidden;
 
 
 
@@ -27,11 +27,11 @@ class DashFuncChooser {
     String name;
     Consumer<Consumer<Robot>> setTarget;
 
-    public DashFuncChooser() { };
-    public DashFuncChooser(SendableChooser<String> c, String n, Consumer<Consumer<Robot>> t) {
-        this.chooser = c;
+    public DashFuncChooser(String n, Consumer<Consumer<Robot>> t) {
+        this.chooser = new SendableChooser<String>();
         this.name = n;
-        this.setTarget = t; };
+        this.setTarget = t;
+    };
 }
 
 
@@ -75,6 +75,7 @@ public class telemetryUtil {
         DRIVER("SmartDashboard"),
         LIMELIGHT("Limelight"),
         DEBUG("Debug"),
+        CONFIG("Config"),
         ROBOT("RobotInfo");
 
         String name;
@@ -134,34 +135,39 @@ public class telemetryUtil {
 
 
 
-    public static final List<DashFuncChooser> funcChoosers = List.of(
-        new DashFuncChooser(new SendableChooser<String>(), "Auto Init", x -> { Robot.AUTO_INIT_FUNC = x; })
-    );
+    public static final List<DashFuncChooser> funcChoosers = new ArrayList<>();
 
 
-    public static void initChoosers() {
+    public static void makeChooser(String name, Consumer<Consumer<Robot>> applyFunc, String defaultOpt, Class<?> loadClass) {
+
+        DashFuncChooser d = new DashFuncChooser(name, applyFunc);
+        SmartDashboard.putData(d.name, d.chooser);
+
+        funcChoosers.add(d);
 
 
-        for(DashFuncChooser d : funcChoosers) {
+        d.chooser.setDefaultOption(defaultOpt, defaultOpt);
 
-            SmartDashboard.putData(d.name, d.chooser);
-            d.chooser.setDefaultOption("nothing", "");
+        try{
 
-            Class<?> c = AutoBehaviours.class;
-            for(Field m : c.getDeclaredFields()){
+            for(Field m : loadClass.getDeclaredFields()){
 
                 if(m.getType().isAssignableFrom(Consumer.class)){
 
                     if(m.getAnnotation(Hidden.class) != null) {
                         continue; }
 
-                    String name = c.getSimpleName() + "." + m.getName();
-                    d.chooser.addOption(name, name);
+                    String optName = loadClass.getSimpleName() + "." + m.getName();
+                    if(optName.equals(defaultOpt)) { continue; }
+
+                    d.chooser.addOption(optName, optName);
                 }
             }
+
         }
-
-
+        catch (Exception e) {
+            telemetryUtil.logError("Making chooser failed: " + e.toString(), Tabs.DRIVER);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -173,10 +179,11 @@ public class telemetryUtil {
 
                 String s = d.chooser.getSelected();
 
-                if(s.equals("")) {
+                if(s.equals("nothing")) {
                     d.setTarget.accept( r -> { } );
                     continue;
                 }
+
 
                 int idx = s.indexOf(".");
                 Class<?> c = Class.forName("frc.robot.behaviours." + s.substring(0,idx));

@@ -1,5 +1,7 @@
 package frc.robot.functions;
 
+import frc.robot.constants.ControlSettings;
+
 public class inputUtil {
 
     public static double mapInput(double input, double inputHigh, double inputLow, double outHigh, double outLow) {
@@ -29,4 +31,7 @@ public class inputUtil {
 
     }
 
+    public static double deadzoneStick(double x) {
+        return deadzoneAxis(x, ControlSettings.MOVEMENT_DEADZONE);
+    }
 }

@@ -29,11 +29,18 @@ public class TelescopeData {
 
     public void sendTelemetry(){
 
+        telemetryUtil.put("Lift temp", liftMotor.getMotorTemperature(), Tabs.ROBOT);
+        telemetryUtil.put("Retraction temp", retractMotor.getMotorTemperature(), Tabs.ROBOT);
+
+        telemetryUtil.put("Lift Volts", liftMotor.getBusVoltage(), Tabs.ROBOT);
+        telemetryUtil.put("Retraction Volts", retractMotor.getBusVoltage(), Tabs.ROBOT);
+
         telemetryUtil.put("Lift Power", liftMotor.get(), Tabs.ROBOT);
         telemetryUtil.put("Retract Power", retractMotor.get(), Tabs.ROBOT);
 
         telemetryUtil.put("Lift Encoder", liftVal(), Tabs.ROBOT);
         telemetryUtil.put("Retract encoder", retractVal(), Tabs.ROBOT);
+
 
         telemetryUtil.put("Upper Limit", upBound.get(), Tabs.ROBOT);
         telemetryUtil.put("Lower Limit", lowBound.get(), Tabs.ROBOT);

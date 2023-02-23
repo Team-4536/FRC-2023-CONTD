@@ -12,7 +12,11 @@ public class goToPosition extends Stage {
 
     public goToPosition(V2d t, Robot r) {
         this.targetPos = t;
-        r.drive.pidController.reset();
+    }
+
+    @Override public void init() {
+        driveUtil.pid.reset();
+        driveUtil.pid.target = Robot.instance.gyro.getYaw();
     }
 
     @Override
@@ -23,8 +27,7 @@ public class goToPosition extends Stage {
         telemetryUtil.put("Position Error X", error.x, Tabs.DEBUG);
         telemetryUtil.put("Position Error Y", error.y, Tabs.DEBUG);
 
-        double a = -r.drive.pidController.tick(r.gyro.globGyroscope.getAngle(), Robot.dt, true);
-        driveUtil.setPowerMechanum(r.drive, -error.x, -error.y, a, 0.05);
+        driveUtil.setPowerMechPID(r, -error.x, -error.y, 0.05);
 
         return false;
 

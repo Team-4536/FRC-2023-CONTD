@@ -1,7 +1,5 @@
 package frc.robot.functions;
 
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
-
 import frc.robot.subsystems.TelescopeData;
 
 public class telescopeUtil {

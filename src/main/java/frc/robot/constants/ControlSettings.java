@@ -7,7 +7,8 @@ public class ControlSettings {
     public static final double DEFAULT_DRIVE_OUT = 0.1;
 
 
-    public static final double CONTROLLER_STICK_DEADZONE = 0.2;
+    public static final double TURNING_DEADZONE = 0.1;
+    public static final double MOVEMENT_DEADZONE = 0.2;
 
     public static final double TURNING_MULT = 0.3;
     public static final double TURRET_MULT = 1.0 / 8;

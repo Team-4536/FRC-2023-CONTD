@@ -15,7 +15,6 @@ import edu.wpi.first.networktables.StringPublisher;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.behaviours.AutoBehaviours;
 import frc.robot.behaviours.annotations.Hidden;
 
 

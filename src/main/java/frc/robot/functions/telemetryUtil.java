@@ -186,7 +186,14 @@ public class telemetryUtil {
 
 
                 int idx = s.indexOf(".");
-                Class<?> c = Class.forName("frc.robot.behaviours." + s.substring(0,idx));
+                Class<?> c;
+
+                try {
+                    c = Class.forName("frc.robot.behaviours." + s.substring(0,idx));
+                } catch(Exception e) {
+                    c = Class.forName("frc.robot.behaviours.subsystem." + s.substring(0,idx));
+                }
+                
                 Field f = c.getField(s.substring(idx+1));
 
                 if(f.get(null) instanceof Consumer<?>) {

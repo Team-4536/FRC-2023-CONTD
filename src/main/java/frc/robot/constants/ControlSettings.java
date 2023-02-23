@@ -14,7 +14,7 @@ public class ControlSettings {
 
     public static final double TURNING_MULT = 0.1;
 
-    public static final double LIFT_MULT = 0.6;
+    public static final double LIFT_MULT = 0.1;
 
 
     public static final double TURRET_MULT = 1.0 / 8;

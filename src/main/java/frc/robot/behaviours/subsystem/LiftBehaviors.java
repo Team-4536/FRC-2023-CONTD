@@ -28,7 +28,7 @@ public class LiftBehaviors {
 
     public static final Consumer<Robot> controlLiftUnbounded = r -> {
 
-        double pwr = inputUtil.deadzoneStick(r.input.armController.getRightY())
+        double pwr = inputUtil.deadzoneStick(-r.input.armController.getRightY())
             * ControlSettings.LIFT_MULT;
 
         r.telescope.liftMotor.set(pwr);

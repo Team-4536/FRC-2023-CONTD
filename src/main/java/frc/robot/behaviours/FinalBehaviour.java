@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 
 
 import frc.robot.Robot;
+import frc.robot.behaviours.annotations.Hidden;
 import frc.robot.functions.driveUtil;
 import frc.robot.constants.ControlSettings;
 import frc.robot.controllers.PIDController;

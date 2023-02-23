@@ -1,4 +1,4 @@
-package frc.robot.behaviours;
+package frc.robot.behaviours.annotations;
 
 import java.lang.annotation.*;
 

@@ -14,6 +14,11 @@ import java.util.function.Consumer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.behaviours.AutoBehaviours;
 import frc.robot.behaviours.TeleopBehaviours;
+import frc.robot.behaviours.subsystem.DriveBehaviors;
+import frc.robot.behaviours.subsystem.LiftBehaviors;
+import frc.robot.behaviours.subsystem.PneumaticBehaviors;
+import frc.robot.behaviours.subsystem.RetractionBehaviors;
+import frc.robot.behaviours.subsystem.TurretBehaviors;
 import frc.robot.constants.Constants;
 import frc.robot.functions.pneumaticUtil;
 import frc.robot.functions.robotUtil;
@@ -22,9 +27,9 @@ import frc.robot.subsystems.AutoData;
 import frc.robot.subsystems.DriveData;
 import frc.robot.subsystems.GyroData;
 import frc.robot.subsystems.InputData;
-import frc.robot.subsystems.PositionData;
 import frc.robot.subsystems.IntakeData;
 import frc.robot.subsystems.PneumaticData;
+import frc.robot.subsystems.PositionData;
 import frc.robot.subsystems.TelescopeData;
 import frc.robot.subsystems.TurretData;
 import frc.robot.subsystems.VisionData;
@@ -93,12 +98,12 @@ public class Robot extends TimedRobot {
 
 
         telemetryUtil.makeChooser("Auto Init", x -> { Robot.AUTO_INIT_FUNC = x; }, "nothing", AutoBehaviours.class);
-        telemetryUtil.makeChooser("Teleop Init", x -> { Robot.TELEOP_INIT_FUNC = x; }, "nothing", TeleopBehaviours.class);
-        telemetryUtil.makeChooser("TeleOp Per 0", x -> { Robot.TELEOP_PER_FUNCS.set(0, x); }, "nothing", TeleopBehaviours.class);
-        telemetryUtil.makeChooser("TeleOp Per 1", x -> { Robot.TELEOP_PER_FUNCS.set(1, x); }, "nothing", TeleopBehaviours.class);
-        telemetryUtil.makeChooser("TeleOp Per 2", x -> { Robot.TELEOP_PER_FUNCS.set(2, x); }, "nothing", TeleopBehaviours.class);
-        telemetryUtil.makeChooser("TeleOp Per 3", x -> { Robot.TELEOP_PER_FUNCS.set(3, x); }, "nothing", TeleopBehaviours.class);
-        telemetryUtil.makeChooser("TeleOp Per 4", x -> { Robot.TELEOP_PER_FUNCS.set(4, x); }, "nothing", TeleopBehaviours.class);
+        telemetryUtil.makeChooser("Teleop Init", x -> { Robot.TELEOP_INIT_FUNC = x; }, "TeleopBehaviors.teleOpInit", TeleopBehaviours.class);
+        telemetryUtil.makeChooser("DRIVE TeleOp", x -> { Robot.TELEOP_PER_FUNCS.set(0, x); }, "DriveBehaviors.driveMech", DriveBehaviors.class);
+        telemetryUtil.makeChooser("LIFT TeleOp", x -> { Robot.TELEOP_PER_FUNCS.set(1, x); }, "LiftBehaviors.controlLiftUnbounded", LiftBehaviors.class);
+        telemetryUtil.makeChooser("PNEUMATIC TeleOp", x -> { Robot.TELEOP_PER_FUNCS.set(2, x); }, "PneumaticBehaviors.controlPneumatics", PneumaticBehaviors.class);
+        telemetryUtil.makeChooser("RETRACTION TeleOp", x -> { Robot.TELEOP_PER_FUNCS.set(3, x); }, "RetractionBehaviors.controlRetractionUnbounded", RetractionBehaviors.class);
+        telemetryUtil.makeChooser("TURRET TeleOp", x -> { Robot.TELEOP_PER_FUNCS.set(4, x); }, "TurretBehaviors.controlTurretBounded", TurretBehaviors.class);
 
 
 

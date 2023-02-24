@@ -98,7 +98,7 @@ public class Robot extends TimedRobot {
 
 
         telemetryUtil.makeChooser("Auto Init", x -> { Robot.AUTO_INIT_FUNC = x; }, "nothing", AutoBehaviours.class);
-        telemetryUtil.makeChooser("Teleop Init", x -> { Robot.TELEOP_INIT_FUNC = x; }, "TeleopBehaviors.teleOpInit", TeleopBehaviours.class);
+        telemetryUtil.makeChooser("Teleop Init", x -> { Robot.TELEOP_INIT_FUNC = x; }, "TeleopBehaviours.teleOpInit", TeleopBehaviours.class);
         telemetryUtil.makeChooser("DRIVE TeleOp", x -> { Robot.TELEOP_PER_FUNCS.set(0, x); }, "DriveBehaviors.driveMech", DriveBehaviors.class);
         telemetryUtil.makeChooser("LIFT TeleOp", x -> { Robot.TELEOP_PER_FUNCS.set(1, x); }, "LiftBehaviors.controlLiftUnbounded", LiftBehaviors.class);
         telemetryUtil.makeChooser("PNEUMATIC TeleOp", x -> { Robot.TELEOP_PER_FUNCS.set(2, x); }, "PneumaticBehaviors.controlPneumatics", PneumaticBehaviors.class);
@@ -187,7 +187,10 @@ public class Robot extends TimedRobot {
 
 
     @Override
-    public void teleopInit() {  TELEOP_INIT_FUNC.accept(this); }
+    public void teleopInit() {
+        TELEOP_INIT_FUNC.accept(this);
+    }
+
     @Override
     public void teleopPeriodic() {
         for(Consumer<Robot> c : TELEOP_PER_FUNCS) {

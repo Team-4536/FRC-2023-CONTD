@@ -12,7 +12,7 @@ import frc.robot.functions.telemetryUtil.Tabs;
 
 public class RetractionBehaviors {
 
-    public static PIDController retractPID = new PIDController(.5, .01, 0);
+    public static PIDController retractPID = new PIDController(.5, .015, 0);
 
     public static final Consumer<Robot> controlRetractionUnbounded = r -> {
 

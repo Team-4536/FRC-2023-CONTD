@@ -24,11 +24,25 @@ public class AutoBehaviours {
     public static Consumer<Robot> goToPosition0Init =
         r -> { r.autoData.stages.add(new goToPosition(new V2d(0, 0))); };
 
-    public static Consumer<Robot> testAuto =
+    public static Consumer<Robot> testTimedAuto =
         r -> { r.autoData.stages.add(new moveTimed(1, new V2d(0, .14), .5));
                r.autoData.stages.add(new timedPause(.5));
                r.autoData.stages.add(new moveTimed(1, new V2d(0, -.14), .5)); };
 
+    public static Consumer<Robot> testOdometryAuto =
+        r -> {
+
+            TeleopBehaviours.teleOpInit.accept(r);
+            r.positionData.reInit();
+            r.autoData.stages.add(new goToPosition(new V2d(1, 0)));
+            r.autoData.stages.add(new timedPause(0.5));
+            // r.autoData.stages.add(new goToPosition(new V2d(0, -1)));
+            // r.autoData.stages.add(new timedPause(0.5));
+            // r.autoData.stages.add(new goToPosition(new V2d(0, 0)));
+            // r.autoData.stages.add(new timedPause(0.5));
+            // r.autoData.stages.add(new goToPosition(new V2d(1, -1)));
+            };
+            
     public static Consumer<Robot> retractAuto =
         r -> { r.telescope.retractEncoder.setPosition(100);
                r.autoData.stages.add(new grab(false));

@@ -2,6 +2,7 @@ package frc.robot.stages;
 
 import frc.robot.Robot;
 import frc.robot.V2d;
+import frc.robot.controllers.PIDController;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
@@ -9,9 +10,14 @@ import frc.robot.functions.telemetryUtil.Tabs;
 public class goToPosition extends Stage {
 
     public V2d targetPos = new V2d();
+    public V2d lastErr = new V2d();
+
+    PIDController xpid = new PIDController(0.15, 0.01, 0.1);
+    PIDController ypid = new PIDController(0.15, 0.01, 0.1);
 
     public goToPosition(V2d t) {
         this.targetPos = t;
+        this.lastErr = this.targetPos;
     }
 
     @Override public void init() {
@@ -22,22 +28,39 @@ public class goToPosition extends Stage {
     @Override
     public boolean run(Robot r) {
 
-
-        V2d error = new V2d(r.positionData.pose).sub(targetPos);
-        double temp = error.x;
-        error.x = error.y;
-        error.y = temp;
+        V2d pos = new V2d(r.positionData.pose);
+        V2d error = pos.sub(targetPos);
 
         telemetryUtil.put("Position Error X", error.x, Tabs.DEBUG);
         telemetryUtil.put("Position Error Y", error.y, Tabs.DEBUG);
 
-        if(error.x > 1.0f) { error.x = 1.0f; }
-        if(error.x < -1.0f) { error.x = -1.0f; }
+        if(error.length() < 0.1) {
+            if(this.lastErr.sub(error).length() < 0.1) { 
+                return true; }
+        }
+        this.lastErr = error;
 
-        if(error.y > 1.0f) { error.y = 1.0f; }
-        if(error.y < -1.0f) { error.y = -1.0f; }
+        error.y *= -1;
+        error = error.rotateDegrees(-90 - r.gyro.getYaw());
+        V2d m = new V2d(
+            xpid.tick(error.x, Robot.dt, false), 
+            ypid.tick(error.y, Robot.dt, false)
+            );
 
-        driveUtil.setPowerMechPID(r, error.x, -error.y, 0.01);
+        final double c = 0.1;
+        if(m.x > c) { m.x = c; }
+        if(m.x < -c) { m.x = -c; }
+
+        if(m.y > c) { m.y = c; }
+        if(m.y < -c) { m.y = -c; }
+
+        m.y *= -1;
+
+        telemetryUtil.put("M.X", m.x, Tabs.DEBUG);
+        telemetryUtil.put("M.Y", m.y, Tabs.DEBUG);
+
+        driveUtil.setPowerMechPID(r, m.x, m.y, 0.8);
+        //driveUtil.setPowerMechPID(r, 0, 0, 0.5);
 
         return false;
 

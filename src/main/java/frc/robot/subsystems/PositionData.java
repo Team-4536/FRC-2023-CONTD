@@ -33,12 +33,31 @@ public class PositionData {
 
 
     public PositionData(GyroData gyro, DriveData drive) {
+        
+        this.pose = new Pose2d(new Translation2d(), new Rotation2d(0));
+
         m_odometry = new MecanumDriveOdometry(
             m_kinematics,
             gyro.globGyroscope.getRotation2d(),
             new MecanumDriveWheelPositions(
                 drive.FLEncoder.getPosition(), drive.FREncoder.getPosition(),
                 drive.BLEncoder.getPosition(), drive.BREncoder.getPosition()
+            ),
+            this.pose
+            );
+    }
+
+    public void reInit() {
+        Robot r = Robot.instance;
+
+        this.pose = new Pose2d(new Translation2d(), new Rotation2d(0));
+
+        m_odometry = new MecanumDriveOdometry(
+            m_kinematics,
+            r.gyro.globGyroscope.getRotation2d(),
+            new MecanumDriveWheelPositions(
+                r.drive.FLEncoder.getPosition(), r.drive.FREncoder.getPosition(),
+                r.drive.BLEncoder.getPosition(), r.drive.BREncoder.getPosition()
             ),
             this.pose
             );

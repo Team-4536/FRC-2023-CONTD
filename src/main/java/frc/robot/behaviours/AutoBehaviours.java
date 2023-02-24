@@ -34,11 +34,11 @@ public class AutoBehaviours {
             r.positionData.reInit();
             r.autoData.stages.add(new goToPosition(new V2d(1, 0)));
             r.autoData.stages.add(new timedPause(0.5));
-            r.autoData.stages.add(new goToPosition(new V2d(0, -1)));
-            r.autoData.stages.add(new timedPause(0.5));
-            r.autoData.stages.add(new goToPosition(new V2d(0, 0)));
-            r.autoData.stages.add(new timedPause(0.5));
-            r.autoData.stages.add(new goToPosition(new V2d(1, -1)));
+            // r.autoData.stages.add(new goToPosition(new V2d(0, -1)));
+            // r.autoData.stages.add(new timedPause(0.5));
+            // r.autoData.stages.add(new goToPosition(new V2d(0, 0)));
+            // r.autoData.stages.add(new timedPause(0.5));
+            // r.autoData.stages.add(new goToPosition(new V2d(1, -1)));
             };
 }
 

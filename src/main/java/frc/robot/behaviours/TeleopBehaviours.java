@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 
 import frc.robot.Robot;
 import frc.robot.behaviours.subsystem.LiftBehaviors;
+import frc.robot.behaviours.subsystem.RetractionBehaviors;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.robotUtil;
 import frc.robot.functions.telemetryUtil;
@@ -23,6 +24,7 @@ public class TeleopBehaviours {
         r.gyro.globGyroscope.reset();
         driveUtil.pid.target = r.gyro.globGyroscope.getAngle();
         LiftBehaviors.liftPID.target = r.telescope.liftVal();
+        RetractionBehaviors.retractPID.target = r.telescope.retractVal();
 
         telemetryUtil.debugLog("LOG", Tabs.DEBUG);
     };

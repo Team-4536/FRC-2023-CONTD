@@ -22,9 +22,22 @@ public class AutoBehaviours {
     public static Consumer<Robot> goToPosition0Init =
         r -> { r.autoData.stages.add(new goToPosition(new V2d(0, 0))); };
 
-    public static Consumer<Robot> testAuto =
+    public static Consumer<Robot> testTimedAuto =
         r -> { r.autoData.stages.add(new moveTimed(1, new V2d(0, .14), .5));
                r.autoData.stages.add(new timedPause(.5));
                r.autoData.stages.add(new moveTimed(1, new V2d(0, -.14), .5)); };
+
+    public static Consumer<Robot> testOdometryAuto =
+        r -> {
+            r.autoData.stages.add(new goToPosition(new V2d(0, 0)));
+            r.autoData.stages.add(new timedPause(0.5));
+            r.autoData.stages.add(new goToPosition(new V2d(0, 0.5)));
+            r.autoData.stages.add(new timedPause(0.5));
+            r.autoData.stages.add(new goToPosition(new V2d(0.5, 0.5)));
+            r.autoData.stages.add(new timedPause(0.5));
+            r.autoData.stages.add(new goToPosition(new V2d(0.5, 0)));
+            r.autoData.stages.add(new timedPause(0.5));
+            r.autoData.stages.add(new goToPosition(new V2d(0, 0)));
+            };
 }
 

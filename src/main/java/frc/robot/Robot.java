@@ -149,6 +149,8 @@ public class Robot extends TimedRobot {
         this.grabber.sendTelemetry();
         this.autoData.sendTelemetry();
 
+        this.positionData.update();
+
         ROBOT_PER_FUNC.accept(this);
     }
 
@@ -185,7 +187,10 @@ public class Robot extends TimedRobot {
 
 
     @Override
-    public void teleopInit() {  TELEOP_INIT_FUNC.accept(this); }
+    public void teleopInit() {
+        TELEOP_INIT_FUNC.accept(this);
+    }
+
     @Override
     public void teleopPeriodic() {
         for(Consumer<Robot> c : TELEOP_PER_FUNCS) {

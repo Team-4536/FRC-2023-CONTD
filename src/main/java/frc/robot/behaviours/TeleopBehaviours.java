@@ -7,8 +7,6 @@ import frc.robot.behaviours.subsystem.LiftBehaviors;
 import frc.robot.behaviours.subsystem.RetractionBehaviors;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.robotUtil;
-import frc.robot.functions.telemetryUtil;
-import frc.robot.functions.telemetryUtil.Tabs;
 
 public class TeleopBehaviours {
 
@@ -24,11 +22,21 @@ public class TeleopBehaviours {
         r.gyro.globGyroscope.reset();
         driveUtil.pid.target = r.gyro.globGyroscope.getAngle();
         LiftBehaviors.liftPID.target = r.telescope.liftVal();
+        
         RetractionBehaviors.retractPID.target = r.telescope.retractVal();
 
         RetractionBehaviors.retractPID.reset();
+        
+        r.drive.FLEncoder.setPosition(0);
+        r.drive.FREncoder.setPosition(0);
+        r.drive.BLEncoder.setPosition(0);
+        r.drive.BREncoder.setPosition(0);
+    };
 
-        telemetryUtil.debugLog("LOG", Tabs.DEBUG);
+    public static Consumer<Robot> reInitOnButtonPress = r -> {
+
+        if(r.input.driveController.getLeftBumperPressed()) {
+            teleOpInit.accept(r); }
     };
 
 }

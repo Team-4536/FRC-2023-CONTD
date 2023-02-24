@@ -4,19 +4,27 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
 import frc.robot.functions.robotUtil;
 
-public final class Flymer extends Stage {
+public final class timedPause extends Stage {
 
     Timer flymer = new Timer();
 
+    double rtime;
+
+    public timedPause(double time){
+
+        rtime = time;
+
+    }
 
 
     @Override public void init(){
+        flymer.reset();
         flymer.start(); }
 
 
     @Override public boolean run(Robot r) {
         robotUtil.stopRobot(r);
-        return flymer.get() > 0.5f;
+        return flymer.get() > rtime;
     }
 
 }

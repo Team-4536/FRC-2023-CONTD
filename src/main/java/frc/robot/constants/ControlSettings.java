@@ -38,10 +38,10 @@ public class ControlSettings {
     public static final double LIFT_ENCODER_MINIMUM = 0;
     public static final double LIFT_ENCODER_MAXIMUM = 11;
 
-    public static final double LIFT_PID_USER_MULTIPLIER = .27;
+    public static final double LIFT_PID_USER_MULTIPLIER = .1;
 
     public static final double LIFT_MOTOR_MAX_OUTPUT = 5.4/7.0;
 
-    public static final double LIFT_PID_SETPOINT_COMPOUND_COEFFICIENT = 2.6;
-    
+    public static final double LIFT_PID_SETPOINT_COMPOUND_COEFFICIENT = 1.5;
+
 }

@@ -16,9 +16,17 @@ public class LiftBehaviors {
 
     public static final Consumer<Robot> controlLiftUnboundedPID = r -> {
 
-        liftPID.target += inputUtil.deadzoneStick(r.input.armController.getRightY()) * Robot.dt;
+        liftPID.target += inputUtil.deadzoneStick(r.input.armController.getRightY()) * Robot.dt * ControlSettings.LIFT_PID_SETPOINT_COMPOUND_COEFFICIENT;
+
+        if (liftPID.target < ControlSettings.LIFT_ENCODER_MINIMUM){ liftPID.target = ControlSettings.LIFT_ENCODER_MINIMUM; }
+        if (liftPID.target > ControlSettings.LIFT_ENCODER_MAXIMUM){ liftPID.target = ControlSettings.LIFT_ENCODER_MAXIMUM; }
 
         double PIDOut = -liftPID.tick(r.telescope.liftVal(), Robot.dt, false);
+
+        telemetryUtil.put(" lift pid raw output", PIDOut, Tabs.DEBUG);
+
+        if (Math.abs(PIDOut) > ControlSettings.LIFT_MOTOR_MAX_OUTPUT) { PIDOut = PIDOut * (ControlSettings.LIFT_MOTOR_MAX_OUTPUT/Math.abs(PIDOut)); }
+
         telemetryUtil.put("Arm PID out", PIDOut, Tabs.DEBUG);
         telemetryUtil.put("Arm PID target", liftPID.target, Tabs.DEBUG);
 

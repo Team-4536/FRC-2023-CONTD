@@ -149,6 +149,8 @@ public class Robot extends TimedRobot {
         this.grabber.sendTelemetry();
         this.autoData.sendTelemetry();
 
+        this.positionData.update();
+
         ROBOT_PER_FUNC.accept(this);
     }
 

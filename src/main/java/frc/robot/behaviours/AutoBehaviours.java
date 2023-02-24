@@ -20,7 +20,7 @@ public class AutoBehaviours {
         r -> { r.autoData.stages.add(new goToAprilTagTrig(3, 24)); };
 
     public static Consumer<Robot> goToPosition0Init =
-        r -> { r.autoData.stages.add(new goToPosition(new V2d(0, 0), r)); };
+        r -> { r.autoData.stages.add(new goToPosition(new V2d(0, 0))); };
 
     public static Consumer<Robot> testAuto =
         r -> { r.autoData.stages.add(new moveTimed(1, new V2d(0, .14), .5));

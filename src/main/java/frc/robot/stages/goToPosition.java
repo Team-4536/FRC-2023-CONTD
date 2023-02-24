@@ -10,7 +10,7 @@ public class goToPosition extends Stage {
 
     public V2d targetPos = new V2d();
 
-    public goToPosition(V2d t, Robot r) {
+    public goToPosition(V2d t) {
         this.targetPos = t;
     }
 
@@ -24,10 +24,20 @@ public class goToPosition extends Stage {
 
 
         V2d error = new V2d(r.positionData.pose).sub(targetPos);
+        double temp = error.x;
+        error.x = error.y;
+        error.y = temp;
+
         telemetryUtil.put("Position Error X", error.x, Tabs.DEBUG);
         telemetryUtil.put("Position Error Y", error.y, Tabs.DEBUG);
 
-        driveUtil.setPowerMechPID(r, -error.x, -error.y, 0.05);
+        if(error.x > 1.0f) { error.x = 1.0f; }
+        if(error.x < -1.0f) { error.x = -1.0f; }
+
+        if(error.y > 1.0f) { error.y = 1.0f; }
+        if(error.y < -1.0f) { error.y = -1.0f; }
+
+        driveUtil.setPowerMechPID(r, error.x, -error.y, 0.01);
 
         return false;
 

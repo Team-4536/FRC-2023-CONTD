@@ -6,6 +6,8 @@ import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import frc.robot.Robot;
+import frc.robot.constants.Hardware;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 
@@ -14,18 +16,14 @@ public class PositionData {
 
     static Field2d f = new Field2d();
 
-    public Translation2d center = new Translation2d(38.85/100, 30.25 / 100);
-    public Translation2d m_backRightLocation = new Translation2d(13.0/100, 7.75/100);
-    public Translation2d m_frontRightLocation = new Translation2d(64.7/100, 7.75/100);
-    public Translation2d m_backLeftLocation = new Translation2d(13.0/100, 53.25/100);
-    public Translation2d m_frontLeftLocation = new Translation2d(64.5/100, 53.25/100);
-
     //                      start loc
     public Pose2d pose = new Pose2d();
 
     MecanumDriveKinematics m_kinematics = new MecanumDriveKinematics(
-        m_frontLeftLocation.minus(center), m_frontRightLocation.minus(center),
-        m_backLeftLocation.minus(center), m_backRightLocation.minus(center)
+        new Translation2d(Hardware.FL_MOTOR_POS.x, Hardware.FL_MOTOR_POS.y),
+        new Translation2d(Hardware.FR_MOTOR_POS.x, Hardware.FR_MOTOR_POS.y),
+        new Translation2d(Hardware.BL_MOTOR_POS.x, Hardware.BL_MOTOR_POS.y),
+        new Translation2d(Hardware.BR_MOTOR_POS.x, Hardware.BR_MOTOR_POS.y)
     );
 
     MecanumDriveOdometry m_odometry;
@@ -40,8 +38,7 @@ public class PositionData {
             gyro.globGyroscope.getRotation2d(),
             new MecanumDriveWheelPositions(
                 drive.FLEncoder.getPosition(), drive.FREncoder.getPosition(),
-                //drive.BLEncoder.getPosition(), drive.BREncoder.getPosition()
-                1,1
+                drive.BLEncoder.getPosition(), drive.BREncoder.getPosition()
             ),
             this.pose
             );
@@ -49,16 +46,18 @@ public class PositionData {
 
 
 
-    public void update(DriveData drive, GyroData gyro) {
+    public void update() {
+        Robot r = Robot.instance;
+
+
         // Get my wheel positions
         var wheelPositions = new MecanumDriveWheelPositions(
-                drive.FLEncoder.getPosition(), drive.FREncoder.getPosition(),
-                //drive.BLEncoder.getPosition(), drive.BREncoder.getPosition()
-                1,1
+                r.drive.FLEncoder.getPosition(), r.drive.FREncoder.getPosition(),
+                r.drive.BLEncoder.getPosition(), r.drive.BREncoder.getPosition()
             );
 
         // Get the rotation of the robot from the gyro.
-        var gyroAngle = gyro.globGyroscope.getRotation2d().unaryMinus();
+        var gyroAngle = r.gyro.globGyroscope.getRotation2d().unaryMinus();
 
         // Update the pose
         this.pose = m_odometry.update(gyroAngle, wheelPositions);

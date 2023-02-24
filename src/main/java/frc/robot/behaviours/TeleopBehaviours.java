@@ -6,8 +6,6 @@ import frc.robot.Robot;
 import frc.robot.behaviours.subsystem.LiftBehaviors;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.robotUtil;
-import frc.robot.functions.telemetryUtil;
-import frc.robot.functions.telemetryUtil.Tabs;
 
 public class TeleopBehaviours {
 
@@ -24,7 +22,10 @@ public class TeleopBehaviours {
         driveUtil.pid.target = r.gyro.globGyroscope.getAngle();
         LiftBehaviors.liftPID.target = r.telescope.liftVal();
 
-        telemetryUtil.debugLog("LOG", Tabs.DEBUG);
+        r.drive.FLEncoder.setPosition(0);
+        r.drive.FREncoder.setPosition(0);
+        r.drive.BLEncoder.setPosition(0);
+        r.drive.BREncoder.setPosition(0);
     };
 
 }

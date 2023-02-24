@@ -37,10 +37,10 @@ public class DriveData {
         BLEncoder = BLDrive.getEncoder();
         BREncoder = BRDrive.getEncoder();
 
-        BREncoder.setPositionConversionFactor(1);
-        FLEncoder.setPositionConversionFactor(1);
-        BLEncoder.setPositionConversionFactor(1);
-        FREncoder.setPositionConversionFactor(1);
+        BREncoder.setPositionConversionFactor(Hardware.ENCODER_CONVERSION);
+        FLEncoder.setPositionConversionFactor(Hardware.ENCODER_CONVERSION);
+        BLEncoder.setPositionConversionFactor(Hardware.ENCODER_CONVERSION);
+        FREncoder.setPositionConversionFactor(Hardware.ENCODER_CONVERSION);
     }
 
 
@@ -51,19 +51,19 @@ public class DriveData {
         telemetryUtil.put("BL Pwr", BLDrive.get(), Tabs.ROBOT);
         telemetryUtil.put("BR Pwr", BRDrive.get(), Tabs.ROBOT);
 
-        telemetryUtil.put("BL Encoder", BLEncoder.getPosition(), Tabs.ROBOT);
-        telemetryUtil.put("BR Encoder", BREncoder.getPosition(), Tabs.ROBOT);
-        telemetryUtil.put("FL Encoder", FLEncoder.getPosition(), Tabs.ROBOT);
-        telemetryUtil.put("FR Encoder", FREncoder.getPosition(), Tabs.ROBOT);
+        telemetryUtil.put("BL Distance", BLEncoder.getPosition(), Tabs.ROBOT);
+        telemetryUtil.put("BR Distance", BREncoder.getPosition(), Tabs.ROBOT);
+        telemetryUtil.put("FL Distance", FLEncoder.getPosition(), Tabs.ROBOT);
+        telemetryUtil.put("FR Distance", FREncoder.getPosition(), Tabs.ROBOT);
 
         telemetryUtil.put("FL temp", FLDrive.getMotorTemperature(), Tabs.ROBOT);
         telemetryUtil.put("FR temp", FRDrive.getMotorTemperature(), Tabs.ROBOT);
         telemetryUtil.put("BL temp", BLDrive.getMotorTemperature(), Tabs.ROBOT);
         telemetryUtil.put("BR temp", BRDrive.getMotorTemperature(), Tabs.ROBOT);
 
-        telemetryUtil.put("FL Volts", FLDrive.getBusVoltage() > 5.5, Tabs.ROBOT);
-        telemetryUtil.put("FR Volts", FRDrive.getBusVoltage() > 5.5, Tabs.ROBOT);
-        telemetryUtil.put("BL Volts", BLDrive.getBusVoltage() > 5.5, Tabs.ROBOT);
-        telemetryUtil.put("BR Volts", BRDrive.getBusVoltage() > 5.5, Tabs.ROBOT);
+        telemetryUtil.put("FL Volts", FLDrive.getBusVoltage(), Tabs.ROBOT);
+        telemetryUtil.put("FR Volts", FRDrive.getBusVoltage(), Tabs.ROBOT);
+        telemetryUtil.put("BL Volts", BLDrive.getBusVoltage(), Tabs.ROBOT);
+        telemetryUtil.put("BR Volts", BRDrive.getBusVoltage(), Tabs.ROBOT);
     }
 }

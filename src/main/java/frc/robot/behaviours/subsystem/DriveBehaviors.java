@@ -77,15 +77,12 @@ public class DriveBehaviors {
         double driveScalar = inputUtil.mapInput(
             r.input.driveController.getRightTriggerAxis(), 1, 0, ControlSettings.MAX_DRIVE_OUT, ControlSettings.DEFAULT_DRIVE_OUT);
 
-
         if(PIDisActive){
 
-            if(driveUtil.pid.target == 180){
-                x *= -1;
-                y *= -1;
-            }
+            V2d flymer = new V2d(x * driveScalar, y * driveScalar);
+            flymer = flymer.rotateDegrees(r.gyro.getYaw());
 
-            driveUtil.setPowerMechPID(r, x * driveScalar, y * driveScalar, 0.8);
+            driveUtil.setPowerMechPID(r, flymer.x, flymer.y, 0.8);
             if(z != 0){
                 PIDisActive = false;
             }

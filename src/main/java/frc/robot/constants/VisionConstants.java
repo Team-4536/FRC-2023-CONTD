@@ -9,7 +9,7 @@ public class VisionConstants {
     public static final double LIME_RIGHT_LIM_DEGREE = 29.8;
     public static final double LIME_LEFT_LIM_DEGREE = -LIME_RIGHT_LIM_DEGREE;
 
-    public static final double LIMELIGHT_FOV_ASPECT = Math.sin(Math.toRadians(27))/Math.sin(Math.toRadians(20.5));
+    public static final double LIMELIGHT_FOV_ASPECT = Math.sin(Math.toRadians(LIME_RIGHT_LIM_DEGREE))/Math.sin(Math.toRadians(LIME_TOP_LIM_DEGREE));
 
 
 

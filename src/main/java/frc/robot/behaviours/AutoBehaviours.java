@@ -8,7 +8,9 @@ import frc.robot.stages.timedPause;
 import frc.robot.stages.goToAngle;
 import frc.robot.stages.goToAprilTagTrig;
 import frc.robot.stages.goToPosition;
+import frc.robot.stages.grab;
 import frc.robot.stages.moveTimed;
+import frc.robot.stages.retractToPosition;
 
 public class AutoBehaviours {
 
@@ -40,5 +42,14 @@ public class AutoBehaviours {
             // r.autoData.stages.add(new timedPause(0.5));
             // r.autoData.stages.add(new goToPosition(new V2d(1, -1)));
             };
+            
+    public static Consumer<Robot> retractAuto =
+        r -> { r.telescope.retractEncoder.setPosition(100);
+               r.autoData.stages.add(new grab(false));
+               r.autoData.stages.add(new retractToPosition(8, .05));
+               r.autoData.stages.add(new grab(true));
+               r.autoData.stages.add(new timedPause(1));
+               r.autoData.stages.add(new retractToPosition(0, .03)); };
+
 }
 

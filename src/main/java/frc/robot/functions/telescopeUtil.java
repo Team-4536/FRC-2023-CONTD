@@ -47,6 +47,18 @@ public class telescopeUtil {
 
     }
 
+    public static void softLimitRetract(TelescopeData telescope, double speed){
+
+        if (telescope.retractVal() <= 0 && speed > 0){
+            telescope.retractMotor.set(0);
+        } else if (telescope.retractVal() >= 11 && speed < 0){
+            telescope.retractMotor.set(0);
+        } else {
+            telescope.retractMotor.set(speed);
+        }
+
+    }
+
     /*limit thin
      * 
       double pPow = PIDOut * pScale;

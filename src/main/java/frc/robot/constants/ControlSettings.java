@@ -20,7 +20,7 @@ public class ControlSettings {
     public static final double TURRET_MULT = 1.0 / 8;
     public static final double RETRACTION_MULT = 1.0 / 1.4;
 
-
+    public static final double RETRACT_ENCODER_RANGE = 11;
 
     public static final double DRIVE_PID_CLAMP = 0.15f;
 }

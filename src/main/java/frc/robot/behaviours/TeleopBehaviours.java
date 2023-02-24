@@ -26,6 +26,8 @@ public class TeleopBehaviours {
         LiftBehaviors.liftPID.target = r.telescope.liftVal();
         RetractionBehaviors.retractPID.target = r.telescope.retractVal();
 
+        RetractionBehaviors.retractPID.reset();
+
         telemetryUtil.debugLog("LOG", Tabs.DEBUG);
     };
 

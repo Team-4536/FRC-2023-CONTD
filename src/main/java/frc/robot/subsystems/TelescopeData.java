@@ -59,4 +59,12 @@ public class TelescopeData {
 
     }
 
+    public void resetRetractEncoder(){
+        retractEncoder.setPosition(100);
+    }
+
+    public void resetLiftEncoder(){
+        liftEncoder.setPosition(100);
+    }
+
 }

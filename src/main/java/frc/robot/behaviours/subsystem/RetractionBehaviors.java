@@ -1,12 +1,10 @@
 package frc.robot.behaviours.subsystem;
 
-import java.util.ResourceBundle.Control;
 import java.util.function.Consumer;
 
 import frc.robot.controllers.PIDController;
 import frc.robot.Robot;
 import frc.robot.constants.ControlSettings;
-import frc.robot.constants.Hardware;
 import frc.robot.functions.inputUtil;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telescopeUtil;

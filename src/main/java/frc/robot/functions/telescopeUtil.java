@@ -72,6 +72,13 @@ public class telescopeUtil {
 
     }
 
+    //returns the distnace from the joint of the arm at the table to the base of the grabbing mechanism (gray plastic piece)
+    public static double armDistanceByEncoder(double encoderVal){
+
+        return (encoderVal * 3.25) + 35;
+
+    }
+
     /*limit thin
      * 
       double pPow = PIDOut * pScale;

@@ -6,6 +6,9 @@ import frc.robot.controllers.PIDController;
 import frc.robot.Robot;
 import frc.robot.constants.ControlSettings;
 import frc.robot.functions.inputUtil;
+import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.telescopeUtil;
+import frc.robot.functions.telemetryUtil.Tabs;
 
 public class RetractionBehaviors {
 
@@ -23,7 +26,16 @@ public class RetractionBehaviors {
 
     public static final Consumer<Robot> controlRetractUnboundedPID = r -> {
 
-        retractPID.target += inputUtil.deadzoneStick(r.input.armController.getLeftY()) * Robot.dt;
+        retractPID.target += -inputUtil.deadzoneStick(r.input.armController.getLeftY()) * Robot.dt * 2;
+
+        double PIDOut = -retractPID.tick(r.telescope.retractVal(), Robot.dt, false);
+
+        if (Math.abs(PIDOut) > .4) { PIDOut = PIDOut * (.4/Math.abs(PIDOut)); }
+
+        telemetryUtil.put("retract target", retractPID.target, Tabs.DEBUG);
+        telemetryUtil.put("pid output", PIDOut, Tabs.DEBUG);
+
+        telescopeUtil.softLimitRetract(r.telescope, PIDOut);
 
     };
     

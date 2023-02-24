@@ -1,10 +1,12 @@
 package frc.robot.behaviours.subsystem;
 
+import java.util.ResourceBundle.Control;
 import java.util.function.Consumer;
 
 import frc.robot.controllers.PIDController;
 import frc.robot.Robot;
 import frc.robot.constants.ControlSettings;
+import frc.robot.constants.Hardware;
 import frc.robot.functions.inputUtil;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telescopeUtil;
@@ -26,21 +28,21 @@ public class RetractionBehaviors {
 
     public static final Consumer<Robot> controlRetractUnboundedPID = r -> {
 
-        retractPID.target += -inputUtil.deadzoneStick(r.input.armController.getLeftY()) * Robot.dt * 2.6;
+        retractPID.target += -inputUtil.deadzoneStick(r.input.armController.getLeftY()) * Robot.dt * ControlSettings.RETRACT_PID_SETPOINT_COMPOUND_COEFFICIENT;
 
-        if (retractPID.target < 0){ retractPID.target = 0; }
-        if (retractPID.target > 11){ retractPID.target = 11; }
+        if (retractPID.target < ControlSettings.RETRACT_ENCODER_MINIMUM){ retractPID.target = ControlSettings.RETRACT_ENCODER_MINIMUM; }
+        if (retractPID.target > ControlSettings.RETRACT_ENCODER_MAXIMUM){ retractPID.target = ControlSettings.RETRACT_ENCODER_MAXIMUM; }
 
         double PIDOut = -retractPID.tick(r.telescope.retractVal(), Robot.dt, false);
 
         telemetryUtil.put("pid raw output", PIDOut, Tabs.DEBUG);
 
-        if (Math.abs(PIDOut) > .714) { PIDOut = PIDOut * (.714/Math.abs(PIDOut)); }
+        if (Math.abs(PIDOut) > ControlSettings.RETRACT_MOTOR_MAX_OUTPUT) { PIDOut = PIDOut * (ControlSettings.RETRACT_MOTOR_MAX_OUTPUT/Math.abs(PIDOut)); }
 
         telemetryUtil.put("retract target", retractPID.target, Tabs.DEBUG);
         telemetryUtil.put("pid output", PIDOut, Tabs.DEBUG);
 
-        PIDOut += r.input.armController.getLeftY() * .27;
+        PIDOut += r.input.armController.getLeftY() * ControlSettings.RETRACT_PID_USER_MULTIPLIER;
 
         telescopeUtil.softLimitRetract(r.telescope, PIDOut);
 

@@ -16,8 +16,8 @@ public class TeleopBehaviours {
 
         robotUtil.stopRobot(r);
 
-        r.telescope.liftEncoder.setPosition(100);
-        r.telescope.retractEncoder.setPosition(100);
+        r.telescope.resetRetractEncoder();
+        r.telescope.resetLiftEncoder();
 
         r.gyro.globGyroscope.reset();
         driveUtil.pid.target = r.gyro.globGyroscope.getAngle();

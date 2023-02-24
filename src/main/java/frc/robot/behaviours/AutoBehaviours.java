@@ -29,15 +29,16 @@ public class AutoBehaviours {
 
     public static Consumer<Robot> testOdometryAuto =
         r -> {
+
+            TeleopBehaviours.teleOpInit.accept(r);
+            r.positionData.reInit();
+            r.autoData.stages.add(new goToPosition(new V2d(1, 0)));
+            r.autoData.stages.add(new timedPause(0.5));
+            r.autoData.stages.add(new goToPosition(new V2d(0, -1)));
+            r.autoData.stages.add(new timedPause(0.5));
             r.autoData.stages.add(new goToPosition(new V2d(0, 0)));
             r.autoData.stages.add(new timedPause(0.5));
-            r.autoData.stages.add(new goToPosition(new V2d(0, 0.5)));
-            r.autoData.stages.add(new timedPause(0.5));
-            r.autoData.stages.add(new goToPosition(new V2d(0.5, 0.5)));
-            r.autoData.stages.add(new timedPause(0.5));
-            r.autoData.stages.add(new goToPosition(new V2d(0.5, 0)));
-            r.autoData.stages.add(new timedPause(0.5));
-            r.autoData.stages.add(new goToPosition(new V2d(0, 0)));
+            r.autoData.stages.add(new goToPosition(new V2d(1, -1)));
             };
 }
 

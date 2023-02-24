@@ -12,8 +12,8 @@ public class goToPosition extends Stage {
     public V2d targetPos = new V2d();
     public V2d lastErr = new V2d();
 
-    PIDController xpid = new PIDController(0.1, 0.01, 0.0);
-    PIDController ypid = new PIDController(0.1, 0.01, 0.0);
+    PIDController xpid = new PIDController(0.15, 0.01, 0.1);
+    PIDController ypid = new PIDController(0.15, 0.01, 0.1);
 
     public goToPosition(V2d t) {
         this.targetPos = t;
@@ -29,24 +29,19 @@ public class goToPosition extends Stage {
     public boolean run(Robot r) {
 
         V2d pos = new V2d(r.positionData.pose);
-
-        double temp = pos.x;
-        pos.x = pos.y;
-        pos.y = temp;
-
         V2d error = pos.sub(targetPos);
 
         telemetryUtil.put("Position Error X", error.x, Tabs.DEBUG);
         telemetryUtil.put("Position Error Y", error.y, Tabs.DEBUG);
 
-
-        if(error.length() < 0.01) {
+        if(error.length() < 0.1) {
             if(this.lastErr.sub(error).length() < 0.1) { 
                 return true; }
         }
         this.lastErr = error;
 
-
+        error.y *= -1;
+        error = error.rotateDegrees(-90 - r.gyro.getYaw());
         V2d m = new V2d(
             xpid.tick(error.x, Robot.dt, false), 
             ypid.tick(error.y, Robot.dt, false)
@@ -59,11 +54,13 @@ public class goToPosition extends Stage {
         if(m.y > c) { m.y = c; }
         if(m.y < -c) { m.y = -c; }
 
+        m.y *= -1;
+
         telemetryUtil.put("M.X", m.x, Tabs.DEBUG);
         telemetryUtil.put("M.Y", m.y, Tabs.DEBUG);
 
         driveUtil.setPowerMechPID(r, m.x, m.y, 0.8);
-        // driveUtil.setPowerMechPID(r, 0, 0, 0.5);
+        //driveUtil.setPowerMechPID(r, 0, 0, 0.5);
 
         return false;
 

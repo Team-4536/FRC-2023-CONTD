@@ -75,7 +75,6 @@ public class telemetryUtil {
         DRIVER("SmartDashboard"),
         LIMELIGHT("Limelight"),
         DEBUG("Debug"),
-        CONFIG("Config"),
         ROBOT("RobotInfo");
 
         String name;
@@ -147,6 +146,7 @@ public class telemetryUtil {
 
 
         d.chooser.setDefaultOption(defaultOpt, defaultOpt);
+        if(defaultOpt != "nothing") { d.chooser.addOption("nothing", "nothing");}
 
         try{
 

@@ -5,9 +5,11 @@ import java.util.function.Consumer;
 import frc.robot.Robot;
 import frc.robot.V2d;
 import frc.robot.constants.ControlSettings;
+import frc.robot.controllers.PIDController;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.inputUtil;
 import frc.robot.functions.telemetryUtil;
+import frc.robot.functions.gyroUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 
 public class DriveBehaviors {
@@ -41,7 +43,7 @@ public class DriveBehaviors {
 
 
 
-
+    public static PIDController pid = new PIDController(0.01, 0.0, 0.0);
 
     public static final Consumer<Robot> absoluteDrive = r -> {
 
@@ -56,7 +58,22 @@ public class DriveBehaviors {
         flymer = flymer.rotateDegrees(r.gyro.getYaw());
 
         driveUtil.pid.target += z * ControlSettings.TURNING_SPEED * Robot.dt;
-        driveUtil.setPowerMechPID(r, flymer.x *= 1.25, flymer.y, 0.8);
+
+        //snappy pid turning:
+
+        pid.target = gyroUtil.wrapAngle(pid.target);
+
+        //turning speed
+        double drivePIDOut = (0.075 * r.input.driveController.getRightX()) + pid.tick(gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle()), Robot.dt, true);
+
+        double pwr = drivePIDOut;
+        if(pwr > ControlSettings.DRIVE_PID_CLAMP) { pwr = ControlSettings.DRIVE_PID_CLAMP; }
+        if(pwr < -ControlSettings.DRIVE_PID_CLAMP) { pwr = -ControlSettings.DRIVE_PID_CLAMP; }
+
+        //move
+        driveUtil.setPowerMechanum(r.drive, flymer.x, flymer.y, pwr, 0.8);
+
+        //telemetry
         telemetryUtil.put("Drive PID target", driveUtil.pid.target, Tabs.ROBOT);
 
         if(r.input.driveController.getPOV() != -1){

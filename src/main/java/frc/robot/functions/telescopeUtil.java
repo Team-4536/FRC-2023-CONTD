@@ -1,5 +1,6 @@
 package frc.robot.functions;
 
+import frc.robot.constants.ControlSettings;
 import frc.robot.subsystems.TelescopeData;
 
 public class telescopeUtil {
@@ -49,13 +50,32 @@ public class telescopeUtil {
 
     public static void softLimitRetract(TelescopeData telescope, double speed){
 
-        if (telescope.retractVal() <= 0 && speed > 0){
+        if (telescope.retractVal() <= ControlSettings.RETRACT_ENCODER_MINIMUM && speed > 0){
             telescope.retractMotor.set(0);
-        } else if (telescope.retractVal() >= 11 && speed < 0){
+        } else if (telescope.retractVal() >= ControlSettings.RETRACT_ENCODER_MAXIMUM && speed < 0){
             telescope.retractMotor.set(0);
         } else {
             telescope.retractMotor.set(speed);
         }
+
+    }
+
+    public static void softHardLimitLift(TelescopeData telescope, double speed){
+
+        if ((telescope.liftVal() <= ControlSettings.LIFT_ENCODER_MINIMUM || telescope.upBound.get()) && speed > 0){
+            telescope.liftMotor.set(0);
+        } else if ((telescope.liftVal() >= ControlSettings.LIFT_ENCODER_MAXIMUM || telescope.lowBound.get()) && speed < 0){
+            telescope.liftMotor.set(0);
+        } else {
+            telescope.liftMotor.set(speed);
+        }
+
+    }
+
+    //returns the distnace from the joint of the arm at the table to the base of the grabbing mechanism (gray plastic piece)
+    public static double armDistanceByEncoder(double encoderVal){
+
+        return (encoderVal * 3.25) + 35;
 
     }
 

@@ -59,6 +59,18 @@ public class telescopeUtil {
 
     }
 
+    public static void softLimitLift(TelescopeData telescope, double speed){
+
+        if (telescope.liftVal() <= 0 && speed > 0){
+            telescope.liftMotor.set(0);
+        } else if (telescope.liftVal() >= 11 && speed < 0){
+            telescope.liftMotor.set(0);
+        } else {
+            telescope.liftMotor.set(speed);
+        }
+
+    }
+
     /*limit thin
      * 
       double pPow = PIDOut * pScale;

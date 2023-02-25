@@ -26,7 +26,7 @@ public final class goToAngle extends Stage {
     @Override public boolean run(Robot r) {
 
         driveUtil.pid.target = this.targetAngle;
-        driveUtil.setPowerMechPID(r, 0, 0, 1);
+        driveUtil.setPowerMechPID(r, 0, 0, 0.8);
 
         return Math.abs(gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle() - this.targetAngle)) < (this.stopRange/2);
     }

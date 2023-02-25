@@ -67,4 +67,5 @@ public class TelescopeData {
         liftEncoder.setPosition(100);
     }
 
-}
+ }
+

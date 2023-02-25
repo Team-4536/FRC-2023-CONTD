@@ -60,6 +60,7 @@ public class telescopeUtil {
 
     }
 
+
     public static void softHardLimitLift(TelescopeData telescope, double speed){
 
         if ((telescope.liftVal() <= ControlSettings.LIFT_ENCODER_MINIMUM || telescope.upBound.get()) && speed > 0){
@@ -71,6 +72,7 @@ public class telescopeUtil {
         }
 
     }
+
 
     //returns the distnace from the joint of the arm at the table to the base of the grabbing mechanism (gray plastic piece)
     public static double armDistanceByEncoder(double encoderVal){

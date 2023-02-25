@@ -27,21 +27,21 @@ public class ControlSettings {
     public static final double RETRACT_ENCODER_MINIMUM = 0;
     public static final double RETRACT_ENCODER_MAXIMUM = 11;
 
-    public static final double RETRACT_PID_USER_MULTIPLIER = .27;
+    public static final double RETRACT_PID_USER_MULTIPLIER = .44;
 
     public static final double RETRACT_MOTOR_MAX_OUTPUT = 5.0/7.0;
 
-    public static final double RETRACT_PID_SETPOINT_COMPOUND_COEFFICIENT = 2.6;
+    public static final double RETRACT_PID_SETPOINT_COMPOUND_COEFFICIENT = 3.4;
 
     // LIFT MOTOR +++++++++++++++++++++++++++++++++++++++++++++++
 
     public static final double LIFT_ENCODER_MINIMUM = 0;
-    public static final double LIFT_ENCODER_MAXIMUM = 11;
+    public static final double LIFT_ENCODER_MAXIMUM = 12.5;
 
-    public static final double LIFT_PID_USER_MULTIPLIER = .1;
+    public static final double LIFT_PID_USER_MULTIPLIER = .43;
 
     public static final double LIFT_MOTOR_MAX_OUTPUT = 5.4/7.0;
 
-    public static final double LIFT_PID_SETPOINT_COMPOUND_COEFFICIENT = 1.5;
+    public static final double LIFT_PID_SETPOINT_COMPOUND_COEFFICIENT = 6;
 
 }

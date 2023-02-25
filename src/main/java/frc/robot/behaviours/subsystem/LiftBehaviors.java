@@ -35,6 +35,10 @@ public class LiftBehaviors {
 
         telescopeUtil.softHardLimitLift(r.telescope, PIDOut);
 
+        if (r.input.armController.getXButtonPressed()){
+            liftPID.target = 6;
+        }
+
     };
 
 

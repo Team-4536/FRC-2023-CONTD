@@ -7,8 +7,7 @@ import frc.robot.subsystems.DriveData;
 
 public final class driveUtil {
 
-    public static PIDController pid = new PIDController(0.01, 0.0, 0.0);
-
+    public static PIDController pid = new PIDController(0.005, 0.0001, 0.0);
 
 
 

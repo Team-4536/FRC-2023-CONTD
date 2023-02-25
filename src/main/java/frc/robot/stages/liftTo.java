@@ -29,7 +29,7 @@ public class liftTo extends Stage {
 
         r.telescope.liftMotor.set(PIDOut);
 
-        return (Math.abs(r.telescope.retractVal() - targetPos) < stopRange);
+        return (Math.abs(r.telescope.liftVal() - targetPos) < stopRange);
     }
 
 

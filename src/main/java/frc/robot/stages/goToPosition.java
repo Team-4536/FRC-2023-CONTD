@@ -11,13 +11,15 @@ public class goToPosition extends Stage {
 
     public V2d targetPos = new V2d();
     public V2d lastErr = new V2d();
+    public double stopRange = 0;
 
-    PIDController xpid = new PIDController(0.15, 0.01, 0.1);
-    PIDController ypid = new PIDController(0.15, 0.01, 0.1);
+    PIDController xpid = new PIDController(0.25, 0.01, -0.01);
+    PIDController ypid = new PIDController(0.25, 0.01, -0.01);
 
-    public goToPosition(V2d t) {
+    public goToPosition(V2d t, double s) {
         this.targetPos = t;
         this.lastErr = this.targetPos;
+        this.stopRange = s;
     }
 
     @Override public void init() {
@@ -34,8 +36,8 @@ public class goToPosition extends Stage {
         telemetryUtil.put("Position Error X", error.x, Tabs.DEBUG);
         telemetryUtil.put("Position Error Y", error.y, Tabs.DEBUG);
 
-        if(error.length() < 0.1) {
-            if(this.lastErr.sub(error).length() < 0.1) { 
+        if(error.length() < stopRange) {
+            if(this.lastErr.sub(error).length() < 1.0) { 
                 return true; }
         }
         this.lastErr = error;

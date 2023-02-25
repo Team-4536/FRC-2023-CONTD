@@ -20,7 +20,7 @@ public class ControlSettings {
     public static final double TURRET_MULT = 1.0 / 8;
     public static final double RETRACTION_MULT = 1.0 / 1.4;
 
-    public static final double DRIVE_PID_CLAMP = 0.15f;
+    public static final double DRIVE_PID_CLAMP = 0.4f;
 
     // RETRACT MOTOR ++++++++++++++++++++++++++++++++++++++++++++
 
@@ -29,7 +29,7 @@ public class ControlSettings {
 
     public static final double RETRACT_PID_USER_MULTIPLIER = .44;
 
-    public static final double RETRACT_MOTOR_MAX_OUTPUT = 5.0/7.0;
+    public static final double RETRACT_MOTOR_MAX_OUTPUT = 4.5/7.0;
 
     public static final double RETRACT_PID_SETPOINT_COMPOUND_COEFFICIENT = 3.4;
 

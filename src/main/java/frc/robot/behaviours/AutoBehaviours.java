@@ -187,8 +187,6 @@ public class AutoBehaviours {
 
                         ArrayList<Object> args = new ArrayList<>();
                         for(int i = 0; i < argTypes.length; i++) {
-                            String sguhu = V2d.class.getName();
-
                             if     (argTypes[i].getName().equals("double")) { args.add(Double.valueOf(strArgs.get(i)).doubleValue()); }
                             else if(argTypes[i].getName().equals("boolean")) { args.add(Boolean.valueOf(strArgs.get(i)).booleanValue()); }
                             else if(argTypes[i].getName().equals("int")) { args.add(Integer.valueOf(strArgs.get(i)).intValue()); }

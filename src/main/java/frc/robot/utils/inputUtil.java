@@ -20,17 +20,6 @@ public class inputUtil {
         return r;
     }
 
-    public static double scalePoints(double low, double high, double newLow, double newHigh, double value){
-
-        double range = high - low;
-        double newRange = newHigh - newLow;
-
-        double val2 = (value - low)/(range) * newRange + newLow;
-
-        return val2;
-
-    }
-
     public static double deadzoneStick(double x) {
         return deadzoneAxis(x, ControlSettings.MOVEMENT_DEADZONE);
     }

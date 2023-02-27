@@ -1,0 +1,11 @@
+
+
+timedPause      2
+timedPause      2
+
+#set
+|timedPause     10
+timedPause      0.5
+#end
+
+timedPause      2

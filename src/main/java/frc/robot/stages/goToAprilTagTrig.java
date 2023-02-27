@@ -82,4 +82,8 @@ public final class goToAprilTagTrig extends Stage {
         return (motorSpeed && horizError && verticalError);
     }
 
+
+    @Override public void end(Robot r) {
+        driveUtil.stop(r.drive);
+    }
 }

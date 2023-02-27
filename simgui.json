@@ -23,14 +23,25 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Ungrouped/DigitalInput[4]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[5]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[6]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[7]": "Digital Input",
       "/LiveWindow/Ungrouped/Victor SPX [0]": "Motor Controller",
       "/LiveWindow/Ungrouped/Victor SPX [1]": "Motor Controller",
       "/LiveWindow/Ungrouped/Victor SPX [2]": "Motor Controller",
       "/LiveWindow/Ungrouped/Victor SPX [3]": "Motor Controller",
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
+      "/SmartDashboard/Auto File Select": "String Chooser",
       "/SmartDashboard/Auto Init": "String Chooser",
       "/SmartDashboard/Auto Periodic": "String Chooser",
+      "/SmartDashboard/Auto init": "String Chooser",
+      "/SmartDashboard/DRIVE TeleOp": "String Chooser",
       "/SmartDashboard/Field": "Field2d",
+      "/SmartDashboard/LIFT TeleOp": "String Chooser",
+      "/SmartDashboard/PNEUMATIC TeleOp": "String Chooser",
+      "/SmartDashboard/RETRACTION TeleOp": "String Chooser",
+      "/SmartDashboard/TURRET TeleOp": "String Chooser",
       "/SmartDashboard/TeleOp Per 0": "String Chooser",
       "/SmartDashboard/TeleOp Per 1": "String Chooser",
       "/SmartDashboard/TeleOp Per 2": "String Chooser",
@@ -41,32 +52,12 @@
       "/SmartDashboard/Test Periodic": "String Chooser"
     },
     "windows": {
-      "/SmartDashboard/Auto Init": {
+      "/SmartDashboard/Auto File Select": {
         "window": {
           "visible": true
         }
       },
-      "/SmartDashboard/TeleOp Per 0": {
-        "window": {
-          "visible": true
-        }
-      },
-      "/SmartDashboard/TeleOp Per 1": {
-        "window": {
-          "visible": true
-        }
-      },
-      "/SmartDashboard/TeleOp Per 2": {
-        "window": {
-          "visible": true
-        }
-      },
-      "/SmartDashboard/TeleOp Per 3": {
-        "window": {
-          "visible": true
-        }
-      },
-      "/SmartDashboard/TeleOp Per 4": {
+      "/SmartDashboard/Auto init": {
         "window": {
           "visible": true
         }
@@ -96,6 +87,9 @@
         "Ungrouped": {
           "open": true
         }
+      },
+      "RobotInfo": {
+        "open": true
       },
       "Shuffleboard": {
         "Debug": {

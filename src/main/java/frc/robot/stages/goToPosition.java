@@ -2,6 +2,7 @@ package frc.robot.stages;
 
 import frc.robot.Robot;
 import frc.robot.V2d;
+import frc.robot.constants.StageConstants;
 import frc.robot.controllers.PIDController;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.telemetryUtil;
@@ -11,15 +12,13 @@ public class goToPosition extends Stage {
 
     public V2d targetPos = new V2d();
     public V2d lastErr = new V2d();
-    public double stopRange = 0;
 
     PIDController xpid = new PIDController(0.25, 0.01, -0.01);
     PIDController ypid = new PIDController(0.25, 0.01, -0.01);
 
-    public goToPosition(V2d t, double s) {
+    public goToPosition(V2d t) {
         this.targetPos = t;
         this.lastErr = this.targetPos;
-        this.stopRange = s;
     }
 
     @Override public void init() {
@@ -36,7 +35,7 @@ public class goToPosition extends Stage {
         telemetryUtil.put("Position Error X", error.x, Tabs.DEBUG);
         telemetryUtil.put("Position Error Y", error.y, Tabs.DEBUG);
 
-        if(error.length() < stopRange) {
+        if(error.length() < StageConstants.GOTOPOS_SRANGE) {
             if(this.lastErr.sub(error).length() < 1.0) { 
                 return true; }
         }
@@ -45,11 +44,11 @@ public class goToPosition extends Stage {
         error.y *= -1;
         error = error.rotateDegrees(-90 - r.gyro.getYaw());
         V2d m = new V2d(
-            xpid.tick(error.x, Robot.dt, false), 
+            xpid.tick(error.x, Robot.dt, false),
             ypid.tick(error.y, Robot.dt, false)
             );
 
-        final double c = 0.1;
+        final double c = StageConstants.GOTOPOS_SPEED_CLAMP;
         if(m.x > c) { m.x = c; }
         if(m.x < -c) { m.x = -c; }
 
@@ -61,11 +60,14 @@ public class goToPosition extends Stage {
         telemetryUtil.put("M.X", m.x, Tabs.DEBUG);
         telemetryUtil.put("M.Y", m.y, Tabs.DEBUG);
 
-        driveUtil.setPowerMechPID(r, m.x, m.y, 0.8);
-        //driveUtil.setPowerMechPID(r, 0, 0, 0.5);
+        driveUtil.setPowerMechPID(r, m.x, m.y, StageConstants.GOTOPOS_SPEED_SCALE);
 
         return false;
+    }
 
 
+    @Override
+    public void end(Robot r) {
+        driveUtil.stop(r.drive);
     }
 }

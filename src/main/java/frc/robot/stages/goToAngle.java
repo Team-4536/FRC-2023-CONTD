@@ -1,25 +1,18 @@
 package frc.robot.stages;
 
 import frc.robot.Robot;
+import frc.robot.constants.StageConstants;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.gyroUtil;
 
 public final class goToAngle extends Stage {
 
 
-    // how to tune w/ diff jumps?
-
-    // 90
-    // public static PIDController pidController = new PIDController(0.007, 0.002, -0.05);
-    // 180
-    double targetAngle = 180;
-    double stopRange = 1;
+    double targetAngle = 0;
 
 
-
-    public goToAngle(double target, double srange) {
-        this.targetAngle = 180;
-        this.stopRange = srange;
+    public goToAngle(double target) {
+        this.targetAngle = target;
     }
 
 
@@ -28,7 +21,12 @@ public final class goToAngle extends Stage {
         driveUtil.pid.target = this.targetAngle;
         driveUtil.setPowerMechPID(r, 0, 0, 0.8);
 
-        return Math.abs(gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle() - this.targetAngle)) < (this.stopRange/2);
+        double diff = Math.abs(gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle() - this.targetAngle));
+        return diff < (StageConstants.GOTOANGLE_SRANGE/2);
+    }
+
+    @Override public void end(Robot r) {
+        driveUtil.stop(r.drive);
     }
 }
 

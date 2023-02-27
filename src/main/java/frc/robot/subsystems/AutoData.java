@@ -10,16 +10,17 @@ import frc.robot.stages.Stage;
 
 public final class AutoData {
 
-    public int stage = -1;
-    public ArrayList<Stage> stages = new ArrayList<Stage>();
+    public int setIdx = -1;
+    public ArrayList<Stage[]> sets = new ArrayList<>();
     public boolean autoRunning = false;
+
 
 
 
 
     public void sendTelemetry() {
         telemetryUtil.put("Auto running", this.autoRunning, Tabs.DRIVER);
-        telemetryUtil.put("Stage progress", this.stage + "/" + this.stages.size(), Tabs.ROBOT);
+        telemetryUtil.put("Set progress", this.setIdx + "/" + this.sets.size(), Tabs.ROBOT);
     }
 
 
@@ -27,8 +28,8 @@ public final class AutoData {
     public void reset(Robot r) {
 
         r.gyro.globGyroscope.reset();
-        stages.clear();
-        stage = -1;
+        sets.clear();
+        setIdx = -1;
     }
 
 
@@ -36,21 +37,33 @@ public final class AutoData {
 
     public void update(Robot r) {
 
-        if(stages.size() == 0 || stage == stages.size() ) {
+        if(sets.size() == 0 || setIdx == sets.size() ) {
             robotUtil.stopRobot(r);
             autoRunning = false;
             return;
         }
 
-        if(stage == -1) { stage++; stages.get(0).init(); }
+        if(setIdx == -1) {
+            setIdx++;
+            for(Stage s : sets.get(0)) { s.init(); };
+        }
 
 
-        Boolean stageFinished = stages.get(stage).run(r);
+        Boolean stageFinished = true;
+        for(Stage s : sets.get(setIdx)) {
+            if(s.requireForSet == false) { s.run(r); }
+            else if(s.run(r) == false) { stageFinished = false; }
+        }
+
+
         if(stageFinished) {
-            stage++;
 
-            if(stage != stages.size())
-                stages.get(stage).init();
+            for(Stage s : sets.get(setIdx)) { s.end(r); };
+            setIdx++;
+
+            if(setIdx != sets.size()) {
+                for(Stage s : sets.get(setIdx)) { s.init(); };
+            }
         }
 
     }

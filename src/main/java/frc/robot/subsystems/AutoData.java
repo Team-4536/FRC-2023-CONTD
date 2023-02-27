@@ -12,7 +12,7 @@ import frc.robot.stages.Stage;
 public final class AutoData {
 
     public int setIdx = -1;
-    public List<Stage[]> sets = List.of();
+    public ArrayList<Stage[]> sets = new ArrayList<>();
     public boolean autoRunning = false;
 
 
@@ -51,7 +51,7 @@ public final class AutoData {
 
 
         Boolean stageFinished = true;
-        for(Stage s : sets.get(0)) {
+        for(Stage s : sets.get(setIdx)) {
             if(s.requireForSet == false) { s.run(r); }
             else if(s.run(r) == false) { stageFinished = false; }
         }
@@ -59,11 +59,12 @@ public final class AutoData {
 
         if(stageFinished) {
 
-            for(Stage s : sets.get(0)) { s.end(r); };
+            for(Stage s : sets.get(setIdx)) { s.end(r); };
             setIdx++;
 
-            if(setIdx != sets.size())
-            for(Stage s : sets.get(0)) { s.init(); };
+            if(setIdx != sets.size()) {
+                for(Stage s : sets.get(setIdx)) { s.init(); };
+            }
         }
 
     }

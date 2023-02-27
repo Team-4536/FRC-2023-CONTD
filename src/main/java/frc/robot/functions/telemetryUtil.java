@@ -34,6 +34,25 @@ class DashFuncChooser {
     };
 }
 
+class StringChooser {
+
+    SendableChooser<String> chooser;
+    String name;
+    Consumer<String> setFunc;
+    String prev = "";
+
+    public StringChooser(String n, ArrayList<String> opts, Consumer<String> set) {
+        this.chooser = new SendableChooser<String>();
+        this.name = n;
+        this.setFunc = set;
+
+        this.chooser.setDefaultOption(opts.get(0), opts.get(0));
+
+        for(int i = 1; i < opts.size(); i++) {
+            this.chooser.addOption(opts.get(i), opts.get(i)); }
+    };
+}
+
 
 
 
@@ -135,6 +154,7 @@ public class telemetryUtil {
 
 
     public static final List<DashFuncChooser> funcChoosers = new ArrayList<>();
+    public static final List<StringChooser> strChoosers = new ArrayList<>();
 
 
     public static void makeChooser(String name, Consumer<Consumer<Robot>> applyFunc, String defaultOpt, Class<?> loadClass) {
@@ -170,8 +190,25 @@ public class telemetryUtil {
         }
     }
 
+    public static void makeChooser(String name, Consumer<String> setFunc, ArrayList<String> opts) {
+        StringChooser s = new StringChooser(name, opts, setFunc);
+        strChoosers.add(s);
+        SmartDashboard.putData(s.name, s.chooser);
+    }
+
+
     @SuppressWarnings("unchecked")
     public static void grabChoosers() {
+
+        for(StringChooser d : strChoosers) {
+
+            String sel = d.chooser.getSelected();
+
+            if(sel != d.prev) {
+                d.setFunc.accept(d.chooser.getSelected()); }
+
+            d.prev = sel;
+        }
 
         for(DashFuncChooser d : funcChoosers) {
 
@@ -193,7 +230,7 @@ public class telemetryUtil {
                 } catch(Exception e) {
                     c = Class.forName("frc.robot.behaviours.subsystem." + s.substring(0,idx));
                 }
-                
+
                 Field f = c.getField(s.substring(idx+1));
 
                 if(f.get(null) instanceof Consumer<?>) {

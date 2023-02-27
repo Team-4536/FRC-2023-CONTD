@@ -44,11 +44,11 @@ public class goToPosition extends Stage {
         error.y *= -1;
         error = error.rotateDegrees(-90 - r.gyro.getYaw());
         V2d m = new V2d(
-            xpid.tick(error.x, Robot.dt, false), 
+            xpid.tick(error.x, Robot.dt, false),
             ypid.tick(error.y, Robot.dt, false)
             );
 
-        final double c = 0.1;
+        final double c = StageConstants.GOTOPOS_SPEED_CLAMP;
         if(m.x > c) { m.x = c; }
         if(m.x < -c) { m.x = -c; }
 
@@ -60,8 +60,7 @@ public class goToPosition extends Stage {
         telemetryUtil.put("M.X", m.x, Tabs.DEBUG);
         telemetryUtil.put("M.Y", m.y, Tabs.DEBUG);
 
-        driveUtil.setPowerMechPID(r, m.x, m.y, 0.8);
-        //driveUtil.setPowerMechPID(r, 0, 0, 0.5);
+        driveUtil.setPowerMechPID(r, m.x, m.y, StageConstants.GOTOPOS_SPEED_SCALE);
 
         return false;
     }

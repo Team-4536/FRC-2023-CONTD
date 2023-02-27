@@ -4,9 +4,12 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 import edu.wpi.first.wpilibj.Filesystem;
+import frc.robot.Robot;
 import frc.robot.V2d;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
@@ -76,12 +79,25 @@ public class AutoBehaviours {
 
 
 
+    public static String selectedFile = "";
+
+    public static Consumer<Robot> loadFromFile = r -> {
+        r.autoData.sets = parseAutofile(selectedFile);
+        if(r.autoData.sets == null) {
+            r.autoData.sets = new ArrayList<>();
+        }
+
+        r.telescope.resetLiftEncoder();
+        r.telescope.resetRetractEncoder();
+        TeleopBehaviours.teleOpInit.accept(r);
+        r.positionData.reInit();
+    };
 
 
     @SuppressWarnings ("unchecked")
     public static ArrayList<Stage[]> parseAutofile(String relativePath) {
 
-        try (Scanner s = new Scanner(new File(Filesystem.getDeployDirectory().toString() + "/" + relativePath))) {
+        try (Scanner s = new Scanner(new File(Filesystem.getDeployDirectory().toString() + "/autos/" + relativePath))) {
 
 
             String line = "";
@@ -201,6 +217,8 @@ public class AutoBehaviours {
 
                 if(set.size() != 0) {
                     routine.add(Arrays.copyOf(set.toArray(), set.size(), Stage[].class)); }
+
+                if(inSet) { throw new Exception("All sets must be closed"); }
 
             } catch(Exception e) {
 

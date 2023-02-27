@@ -13,25 +13,25 @@ grab           false
 // Move arm back and move bot back
 #set
 retractToPosition   0               0.15
-goToPosition        -0.8,-0.45      0.3
+goToPosition        -0.8,-0.45
 #end
 timedPause          0.2
 
 
 
 // move back behind subst
-goToPosition        -3,-0.45        0.3
+goToPosition        -3,-0.45
 timedPause          0.2
 
 
 // turn around, foring Cl turn, keep in mind this will change with what side u start on
-goToAngle           90              3
-goToAngle           180             3
+goToAngle           90
+goToAngle           180
 
 
 // move forwards & extend claw to cone
 #set
-goToPosition        -4.5,-0.45      0.3
+goToPosition        -4.5,-0.45
 liftTo              12.5            0.15
 retractToPosition   5               .05
 #end
@@ -42,11 +42,15 @@ grab                true
 
 
 // fix claw pos
+// & turn around
+#set
+|liftTo             5.5             0.05
+|retractToPosition  0               0.15
+goToAngle           90
+#end
+
 #set
 liftTo              5.5             0.05
 retractToPosition   0               0.15
+goToAngle           0
 #end
-
-// turn around
-goToAngle           90              3
-goToAngle           0               3

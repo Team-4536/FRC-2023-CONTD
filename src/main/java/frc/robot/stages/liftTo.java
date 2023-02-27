@@ -2,10 +2,10 @@ package frc.robot.stages;
 
 import frc.robot.Robot;
 import frc.robot.behaviours.subsystem.LiftBehaviors;
+import frc.robot.constants.StageConstants;
 
 public class liftTo extends Stage {
 
-    double SPEED_CLAMP = 0.5;
     double stopRange;
     double targetPos;
 
@@ -25,7 +25,8 @@ public class liftTo extends Stage {
 
         double PIDOut = -LiftBehaviors.liftPID.tick(r.telescope.liftVal(), Robot.dt, false);
 
-        if (Math.abs(PIDOut) > SPEED_CLAMP) { PIDOut = SPEED_CLAMP * Math.signum(PIDOut); }
+        if (Math.abs(PIDOut) > StageConstants.LIFT_SPEED_CLAMP) {
+            PIDOut = StageConstants.LIFT_SPEED_CLAMP * Math.signum(PIDOut); }
 
         r.telescope.liftMotor.set(PIDOut);
 

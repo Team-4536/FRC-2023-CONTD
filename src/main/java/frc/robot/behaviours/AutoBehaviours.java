@@ -96,6 +96,8 @@ public class AutoBehaviours {
 
                 while(s.hasNextLine()){
 
+                    boolean stageRequired = true;
+
                     line = s.nextLine();
                     line = line.replaceAll("\t", " ");
                     line = line.trim();
@@ -124,6 +126,10 @@ public class AutoBehaviours {
 
                         lineNmb++;
                         continue;
+                    }
+                    else if(line.charAt(0) == '|') {
+                        stageRequired = false;
+                        line = line.substring(1);
                     }
 
 
@@ -182,6 +188,7 @@ public class AutoBehaviours {
                         }
 
                         set.add((Stage)con.newInstance((Object[])args.toArray()));
+                        set.get(set.size() - 1).requireForSet = stageRequired;
 
                         if(inSet == false) {
                             routine.add(Arrays.copyOf(set.toArray(), set.size(), Stage[].class)); 

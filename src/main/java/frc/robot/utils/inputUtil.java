@@ -1,4 +1,4 @@
-package frc.robot.functions;
+package frc.robot.utils;
 
 import frc.robot.constants.ControlSettings;
 
@@ -18,17 +18,6 @@ public class inputUtil {
         r = mapInput(r, 1, minLen, 1, 0);
         r *= Math.signum(input);
         return r;
-    }
-
-    public static double scalePoints(double low, double high, double newLow, double newHigh, double value){
-
-        double range = high - low;
-        double newRange = newHigh - newLow;
-
-        double val2 = (value - low)/(range) * newRange + newLow;
-
-        return val2;
-
     }
 
     public static double deadzoneStick(double x) {

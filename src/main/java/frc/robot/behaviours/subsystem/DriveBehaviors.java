@@ -3,13 +3,14 @@ package frc.robot.behaviours.subsystem;
 import java.util.function.Consumer;
 
 import frc.robot.Robot;
-import frc.robot.V2d;
 import frc.robot.constants.ControlSettings;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.gyroUtil;
 import frc.robot.functions.inputUtil;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
+import frc.robot.utils.V2d;
+import frc.robot.utils.inputUtil;
 
 public class DriveBehaviors {
 

@@ -9,10 +9,10 @@ import java.util.function.Consumer;
 
 import edu.wpi.first.wpilibj.Filesystem;
 import frc.robot.Robot;
-import frc.robot.V2d;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 import frc.robot.stages.Stage;
+import frc.robot.utils.V2d;
 
 public class AutoBehaviours {
 
@@ -181,17 +181,20 @@ public class AutoBehaviours {
 
                     Class<? extends Stage> c = (Class<? extends Stage>)cUnsafe;
 
+                    boolean constructorFound = false;
                     for(Constructor<?> con : c.getConstructors()) {
 
                         Class<?>[] argTypes = con.getParameterTypes();
 
+                        if(argTypes.length != strArgs.size()) { continue; }
+                        constructorFound = true;
+
                         ArrayList<Object> args = new ArrayList<>();
                         for(int i = 0; i < argTypes.length; i++) {
-
                             if     (argTypes[i].getName().equals("double")) { args.add(Double.valueOf(strArgs.get(i)).doubleValue()); }
                             else if(argTypes[i].getName().equals("boolean")) { args.add(Boolean.valueOf(strArgs.get(i)).booleanValue()); }
                             else if(argTypes[i].getName().equals("int")) { args.add(Integer.valueOf(strArgs.get(i)).intValue()); }
-                            else if(argTypes[i].getName().equals("frc.robot.V2d")) {
+                            else if(argTypes[i].getName().equals(V2d.class.getName())) {
 
                                 int idx = strArgs.get(i).indexOf(",");
                                 if(idx == -1) { throw new Exception("Your commas are fucked up"); }
@@ -210,6 +213,9 @@ public class AutoBehaviours {
                             set = new ArrayList<>();
                         }
                     }
+
+                    if(constructorFound == false) {
+                        throw new Exception("No matching constructor could be found"); }
 
                     lineNmb++;
                 } // end while

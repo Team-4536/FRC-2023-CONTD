@@ -1,7 +1,6 @@
 package frc.robot.stages;
 
 import frc.robot.Robot;
-import frc.robot.V2d;
 import frc.robot.constants.Hardware;
 import frc.robot.constants.VisionConstants;
 import frc.robot.controllers.PIDController;
@@ -9,6 +8,7 @@ import frc.robot.functions.driveUtil;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.visionUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
+import frc.robot.utils.V2d;
 
 public final class goToAprilTagTrig extends Stage {
 

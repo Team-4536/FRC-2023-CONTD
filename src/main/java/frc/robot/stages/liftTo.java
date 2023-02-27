@@ -1,8 +1,10 @@
 package frc.robot.stages;
 
+import edu.wpi.first.math.MathUsageId;
 import frc.robot.Robot;
 import frc.robot.behaviours.subsystem.LiftBehaviors;
-import frc.robot.constants.StageConstants;
+import frc.robot.constants.ControlSettings;
+import frc.robot.utils.mathUtil;
 
 public class liftTo extends Stage {
 
@@ -24,9 +26,7 @@ public class liftTo extends Stage {
     @Override public boolean run(Robot r) {
 
         double PIDOut = -LiftBehaviors.liftPID.tick(r.telescope.liftVal(), Robot.dt, false);
-
-        if (Math.abs(PIDOut) > StageConstants.LIFT_SPEED_CLAMP) {
-            PIDOut = StageConstants.LIFT_SPEED_CLAMP * Math.signum(PIDOut); }
+        PIDOut = mathUtil.clamp(PIDOut, ControlSettings.LIFT_MOTOR_MAX_OUTPUT, -ControlSettings.LIFT_MOTOR_MAX_OUTPUT);
 
         r.telescope.liftMotor.set(PIDOut);
 

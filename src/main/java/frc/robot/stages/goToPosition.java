@@ -1,12 +1,13 @@
 package frc.robot.stages;
 
 import frc.robot.Robot;
-import frc.robot.V2d;
 import frc.robot.constants.StageConstants;
 import frc.robot.controllers.PIDController;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
+import frc.robot.utils.V2d;
+import frc.robot.utils.mathUtil;
 
 public class goToPosition extends Stage {
 
@@ -49,11 +50,8 @@ public class goToPosition extends Stage {
             );
 
         final double c = StageConstants.GOTOPOS_SPEED_CLAMP;
-        if(m.x > c) { m.x = c; }
-        if(m.x < -c) { m.x = -c; }
-
-        if(m.y > c) { m.y = c; }
-        if(m.y < -c) { m.y = -c; }
+        m.x = mathUtil.clampLen(m.x, c);
+        m.y = mathUtil.clampLen(m.y, c);
 
         m.y *= -1;
 

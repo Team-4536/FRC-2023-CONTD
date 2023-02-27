@@ -58,6 +58,8 @@ public final class AutoData {
 
 
         if(stageFinished) {
+
+            for(Stage s : sets.get(0)) { s.end(r); };
             setIdx++;
 
             if(setIdx != sets.size())

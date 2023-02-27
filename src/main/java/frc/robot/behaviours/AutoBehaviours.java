@@ -2,32 +2,15 @@ package frc.robot.behaviours;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
-import java.util.function.Consumer;
 
 import edu.wpi.first.wpilibj.Filesystem;
-import frc.robot.Robot;
 import frc.robot.V2d;
-import frc.robot.behaviours.subsystem.DriveBehaviors;
-import frc.robot.behaviours.subsystem.LiftBehaviors;
-import frc.robot.behaviours.subsystem.PneumaticBehaviors;
-import frc.robot.behaviours.subsystem.RetractionBehaviors;
-import frc.robot.behaviours.subsystem.TurretBehaviors;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
-import frc.robot.stages.timedPause;
 import frc.robot.stages.Stage;
-import frc.robot.stages.goToAngle;
-import frc.robot.stages.goToAprilTagTrig;
-import frc.robot.stages.goToPosition;
-import frc.robot.stages.grab;
-import frc.robot.stages.liftTo;
-import frc.robot.stages.moveTimed;
-import frc.robot.stages.retractToPosition;
 
 public class AutoBehaviours {
 
@@ -105,8 +88,9 @@ public class AutoBehaviours {
 
             ArrayList<Stage> set = new ArrayList<>();
             ArrayList<Stage[]> routine = new ArrayList<>();
-            int setCount = 0;
+            boolean inSet = false;
 
+            int lineNmb = 0;
 
             try{
 
@@ -116,95 +100,104 @@ public class AutoBehaviours {
                     line = line.replaceAll("\t", " ");
                     line = line.trim();
 
-                    if(line.equals("")) {
-                        lineNmb++;
-                        continue;
-                    }
-
                     if(line.indexOf("//") == 0 || line.equals("")){
                         lineNmb++;
-                        continue;
-                    }
-
+                        continue; }
 
 
 
                     if(line.indexOf("#set") == 0) {
 
-                        if(setCount == 0) { setCount++; continue; }
+                        if(inSet) { throw new Exception("Cannot create a set within a set"); }
+                        inSet = true;
 
-                        routine.add((Stage[])set.toArray());
-                        set = new ArrayList<>();
+                        lineNmb++;
+                        continue;
                     }
-                    else {
-                        int splitIdx = line.indexOf(" ");
-                        if(splitIdx == -1) { throw new Exception("Bad line formatting"); }
+                    else if(line.indexOf("#end") == 0) {
 
-                        String className = line.substring(0, splitIdx);
-                        line = line.substring(splitIdx + 1);
-                        line = line.trim();
+                        if(!inSet) { throw new Exception("Cannot end a nonexistant set"); }
+                        inSet = false;
 
-
-
-
-                        // PARSE PARAMS
-                        ArrayList<String> strArgs = new ArrayList<>();
-                        while(true) {
-                            int idx = line.indexOf(" ");
-                            if(idx == -1) {
-                                if(!line.equals("")) strArgs.add(line);
-                                break;
-                            }
-
-                            strArgs.add(line.substring(0, idx));
-                            line = line.substring(idx + 1);
-                            line = line.trim();
-                        }
-
-
-                        // ATTEMPT MAKING AN OBJ
-                        Class<?> cUnsafe = Class.forName("frc.robot.stages." + className);
-                        if(!Stage.class.isAssignableFrom(cUnsafe)) {
-                            throw new Exception("Invalid class name");
-                        }
-
-                        Class<? extends Stage> c = (Class<? extends Stage>)cUnsafe;
-
-                        for(Constructor<?> con : c.getConstructors()) {
-
-                            Class<?>[] argTypes = con.getParameterTypes();
-
-                            ArrayList<Object> args = new ArrayList<>();
-                            for(int i = 0; i < argTypes.length; i++) {
-                                String serg = argTypes[i].getName();
-
-                                if     (argTypes[i].getName().equals("double")) { args.add(Double.valueOf(strArgs.get(i)).doubleValue()); }
-                                else if(argTypes[i].getName().equals("boolean")) { args.add(Boolean.valueOf(strArgs.get(i)).booleanValue()); }
-                                else if(argTypes[i].getName().equals("int")) { args.add(Integer.valueOf(strArgs.get(i)).intValue()); }
-                                else if(argTypes[i].getName().equals("frc.robot.V2d")) {
-
-                                    int idx = strArgs.get(i).indexOf(",");
-                                    if(idx == -1) { throw new Exception("Your commas are fucked up"); }
-
-                                    double d1 = Double.valueOf(strArgs.get(i).substring(0, idx)).doubleValue();
-                                    double d2 = Double.valueOf(strArgs.get(i).substring(idx+1)).doubleValue();
-                                    args.add(new V2d(d1, d2));
-                                }
-                            }
-
-                            set.add((Stage)con.newInstance((Object[])args.toArray()));
-                        }
-                    }
-
-                    if(set.size() != 0) {
                         routine.add(Arrays.copyOf(set.toArray(), set.size(), Stage[].class));
+                        set = new ArrayList<>();
+
+                        lineNmb++;
+                        continue;
                     }
 
-                }
+
+                    int splitIdx = line.indexOf(" ");
+                    if(splitIdx == -1) { throw new Exception("Bad line formatting"); }
+
+                    String className = line.substring(0, splitIdx);
+                    line = line.substring(splitIdx + 1);
+                    line = line.trim();
+
+
+
+
+                    // PARSE PARAMS
+                    ArrayList<String> strArgs = new ArrayList<>();
+                    while(true) {
+                        int idx = line.indexOf(" ");
+                        if(idx == -1) {
+                            if(!line.equals("")) strArgs.add(line);
+                            break;
+                        }
+
+                        strArgs.add(line.substring(0, idx));
+                        line = line.substring(idx + 1);
+                        line = line.trim();
+                    }
+
+
+                    // ATTEMPT MAKING AN OBJ
+                    Class<?> cUnsafe = Class.forName("frc.robot.stages." + className);
+                    if(!Stage.class.isAssignableFrom(cUnsafe)) {
+                        throw new Exception("Invalid class name");
+                    }
+
+                    Class<? extends Stage> c = (Class<? extends Stage>)cUnsafe;
+
+                    for(Constructor<?> con : c.getConstructors()) {
+
+                        Class<?>[] argTypes = con.getParameterTypes();
+
+                        ArrayList<Object> args = new ArrayList<>();
+                        for(int i = 0; i < argTypes.length; i++) {
+
+                            if     (argTypes[i].getName().equals("double")) { args.add(Double.valueOf(strArgs.get(i)).doubleValue()); }
+                            else if(argTypes[i].getName().equals("boolean")) { args.add(Boolean.valueOf(strArgs.get(i)).booleanValue()); }
+                            else if(argTypes[i].getName().equals("int")) { args.add(Integer.valueOf(strArgs.get(i)).intValue()); }
+                            else if(argTypes[i].getName().equals("frc.robot.V2d")) {
+
+                                int idx = strArgs.get(i).indexOf(",");
+                                if(idx == -1) { throw new Exception("Your commas are fucked up"); }
+
+                                double d1 = Double.valueOf(strArgs.get(i).substring(0, idx)).doubleValue();
+                                double d2 = Double.valueOf(strArgs.get(i).substring(idx+1)).doubleValue();
+                                args.add(new V2d(d1, d2));
+                            }
+                        }
+
+                        set.add((Stage)con.newInstance((Object[])args.toArray()));
+
+                        if(inSet == false) {
+                            routine.add(Arrays.copyOf(set.toArray(), set.size(), Stage[].class)); 
+                            set = new ArrayList<>();
+                        }
+                    }
+
+                    lineNmb++;
+                } // end while
+
+                if(set.size() != 0) {
+                    routine.add(Arrays.copyOf(set.toArray(), set.size(), Stage[].class)); }
 
             } catch(Exception e) {
 
-                telemetryUtil.logError("Error parsing file \"" + relativePath + "\": " + e.toString(), Tabs.DEBUG);
+                telemetryUtil.logError("Error parsing file, line " + lineNmb + " \"" + relativePath + "\": " + e.toString(), Tabs.DEBUG);
                 return null;
             };
 

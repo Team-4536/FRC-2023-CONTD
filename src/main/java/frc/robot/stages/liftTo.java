@@ -19,7 +19,7 @@ public class liftTo extends Stage {
         LiftBehaviors.liftPID.target = targetPos;
 
     }
-    
+
 
     @Override public boolean run(Robot r) {
 
@@ -32,5 +32,8 @@ public class liftTo extends Stage {
         return (Math.abs(r.telescope.liftVal() - targetPos) < stopRange);
     }
 
-
+    @Override
+    public void end(Robot r) {
+        r.telescope.liftMotor.set(0);
+    }
 }

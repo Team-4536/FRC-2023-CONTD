@@ -16,7 +16,6 @@ public class retractToPosition extends Stage {
 
     }
 
-    
     @Override public void init() {
         RetractionBehaviors.retractPID.reset();
         RetractionBehaviors.retractPID.target = goalPosition;
@@ -35,5 +34,10 @@ public class retractToPosition extends Stage {
         return (Math.abs(r.telescope.retractVal() - goalPosition) < pError);
 
     }
-    
+
+
+    @Override
+    public void end(Robot r) {
+        r.telescope.retractMotor.set(0);
+    }
 }

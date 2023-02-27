@@ -68,4 +68,10 @@ public class goToPosition extends Stage {
 
 
     }
+
+
+    @Override
+    public void end(Robot r) {
+        driveUtil.stop(r.drive);
+    }
 }

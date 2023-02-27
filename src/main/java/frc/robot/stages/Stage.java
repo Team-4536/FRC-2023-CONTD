@@ -10,6 +10,7 @@ public abstract class Stage {
 
     public abstract boolean run(Robot r);
     public void init() { };
+    public void end(Robot r) { };
 
 
 }

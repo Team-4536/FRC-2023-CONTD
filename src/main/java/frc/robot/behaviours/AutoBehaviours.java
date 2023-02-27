@@ -181,9 +181,13 @@ public class AutoBehaviours {
 
                     Class<? extends Stage> c = (Class<? extends Stage>)cUnsafe;
 
+                    boolean constructorFound = false;
                     for(Constructor<?> con : c.getConstructors()) {
 
                         Class<?>[] argTypes = con.getParameterTypes();
+
+                        if(argTypes.length != strArgs.size()) { continue; }
+                        constructorFound = true;
 
                         ArrayList<Object> args = new ArrayList<>();
                         for(int i = 0; i < argTypes.length; i++) {
@@ -209,6 +213,9 @@ public class AutoBehaviours {
                             set = new ArrayList<>();
                         }
                     }
+
+                    if(constructorFound == false) {
+                        throw new Exception("No matching constructor could be found"); }
 
                     lineNmb++;
                 } // end while

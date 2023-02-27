@@ -12,7 +12,7 @@ public class ControlSettings {
 
     public static final double TURNING_SPEED = 30;
 
-    public static final double TURNING_MULT = 0.1;
+    public static final double TURNING_MULT = 0.2;
 
     public static final double LIFT_MULT = 0.1;
 

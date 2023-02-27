@@ -65,7 +65,7 @@ public class telescopeUtil {
 
         if ((telescope.liftVal() <= ControlSettings.LIFT_ENCODER_MINIMUM || telescope.upBound.get()) && speed > 0){
             telescope.liftMotor.set(0);
-        } else if ((telescope.liftVal() >= ControlSettings.LIFT_ENCODER_MAXIMUM || telescope.lowBound.get()) && speed < 0){
+        } else if ((telescope.liftVal() >= ControlSettings.LIFT_ENCODER_MAXIMUM || !telescope.lowBound.get()) && speed < 0){
             telescope.liftMotor.set(0);
         } else {
             telescope.liftMotor.set(speed);

@@ -1,4 +1,4 @@
-package frc.robot.functions;
+package frc.robot.utils;
 
 import frc.robot.constants.ControlSettings;
 

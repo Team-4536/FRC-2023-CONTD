@@ -2,7 +2,7 @@ package frc.robot.constants;
 
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import frc.robot.V2d;
+import frc.robot.utils.V2d;
 
 public final class Hardware {
 

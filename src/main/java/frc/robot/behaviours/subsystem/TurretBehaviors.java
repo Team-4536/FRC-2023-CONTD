@@ -4,8 +4,8 @@ import java.util.function.Consumer;
 
 import frc.robot.Robot;
 import frc.robot.constants.ControlSettings;
-import frc.robot.functions.inputUtil;
 import frc.robot.functions.turretUtil;
+import frc.robot.utils.inputUtil;
 
 public class TurretBehaviors {
 

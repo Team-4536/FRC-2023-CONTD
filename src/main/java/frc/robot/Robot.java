@@ -96,6 +96,7 @@ public class Robot extends TimedRobot {
         startTime = Instant.now();
         prevtime = Instant.now();
 
+        AutoBehaviours.parseAutofile("test.auto");
 
         telemetryUtil.makeChooser("Auto Init", x -> { Robot.AUTO_INIT_FUNC = x; }, "nothing", AutoBehaviours.class);
         telemetryUtil.makeChooser("Teleop Init", x -> { Robot.TELEOP_INIT_FUNC = x; }, "TeleopBehaviours.teleOpInit", TeleopBehaviours.class);

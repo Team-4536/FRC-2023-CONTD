@@ -22,6 +22,10 @@ public class LiftBehaviors {
         if (liftPID.target < ControlSettings.LIFT_ENCODER_MINIMUM){ liftPID.target = ControlSettings.LIFT_ENCODER_MINIMUM; }
         if (liftPID.target > ControlSettings.LIFT_ENCODER_MAXIMUM){ liftPID.target = ControlSettings.LIFT_ENCODER_MAXIMUM; }
 
+        double max = telescopeUtil.getMaxArmEncoder();
+        if (liftPID.target > max) { liftPID.target = max; }
+
+
         double PIDOut = -liftPID.tick(r.telescope.liftVal(), Robot.dt, false);
 
         telemetryUtil.put(" lift pid raw output", PIDOut, Tabs.DEBUG);

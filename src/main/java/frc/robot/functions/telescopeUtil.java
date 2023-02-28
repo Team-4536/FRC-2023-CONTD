@@ -1,5 +1,6 @@
 package frc.robot.functions;
 
+import frc.robot.Robot;
 import frc.robot.constants.ControlSettings;
 import frc.robot.subsystems.TelescopeData;
 
@@ -75,9 +76,21 @@ public class telescopeUtil {
 
 
     //returns the distnace from the joint of the arm at the table to the base of the grabbing mechanism (gray plastic piece)
+    // in inches
     public static double armDistanceByEncoder(double encoderVal){
+        return (encoderVal * 3.25) + 44;
+    }
 
-        return (encoderVal * 3.25) + 35;
+    public static double getMaxArmEncoder() {
+
+        double r = Robot.instance.telescope.liftEncoder.getPosition() * ControlSettings.LIFT_TO_DISTANCE_CONVERSION;
+        double theta = Math.atan(r / ControlSettings.LEAD_SCREW_DIST);
+
+        // 22in is joint to frame edge, 
+        // max entension is 48 in
+        double maxExtensionDist = 70 * Math.cos(theta);
+        double encoderVal = (maxExtensionDist - 44) / 3.25;
+        return encoderVal;
 
     }
 

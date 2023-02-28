@@ -6,7 +6,7 @@ import frc.robot.Robot;
 import frc.robot.constants.ControlSettings;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.gyroUtil;
-import frc.robot.functions.inputUtil;
+import frc.robot.utils.inputUtil;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 import frc.robot.utils.V2d;

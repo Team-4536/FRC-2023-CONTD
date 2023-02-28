@@ -16,5 +16,18 @@ public class TurretBehaviors {
 
         turretUtil.run(r.turret, flymer);
     };
+
+    public static final Consumer<Robot> controlTurretBoundedPID = r -> {
+
+        double flymer = inputUtil.deadzoneStick(r.input.armController.getRightX())
+            * ControlSettings.TURRET_MULT;
+
+        turretUtil.run(r.turret, flymer);
+
+        if (r.turret.cwBound.get()){
+            r.turret.turretEncoder.setPosition(0);
+        }
+
+    };
     
 }

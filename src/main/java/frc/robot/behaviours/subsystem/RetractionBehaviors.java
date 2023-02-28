@@ -44,11 +44,6 @@ public class RetractionBehaviors {
 
         telescopeUtil.softLimitRetract(r.telescope, PIDOut);
 
-        if (r.input.armController.getBButtonPressed()){
-            retractPID.target = 6.63;
-            LiftBehaviors.liftPID.target = 4.25;
-        }
-
     };
     
 }

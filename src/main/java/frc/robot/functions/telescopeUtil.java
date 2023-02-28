@@ -1,7 +1,10 @@
 package frc.robot.functions;
 
+import frc.robot.behaviours.subsystem.LiftBehaviors;
+import frc.robot.behaviours.subsystem.RetractionBehaviors;
 import frc.robot.constants.ControlSettings;
 import frc.robot.subsystems.TelescopeData;
+import frc.robot.utils.V2d;
 
 public class telescopeUtil {
 
@@ -78,6 +81,13 @@ public class telescopeUtil {
     public static double armDistanceByEncoder(double encoderVal){
 
         return (encoderVal * 3.25) + 35;
+
+    }
+
+    public static void setArmPositionPID(V2d position){
+
+        RetractionBehaviors.retractPID.target = position.x;
+        LiftBehaviors.liftPID.target = position.y;
 
     }
 

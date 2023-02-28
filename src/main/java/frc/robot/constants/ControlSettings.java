@@ -1,5 +1,7 @@
 package frc.robot.constants;
 
+import frc.robot.utils.V2d;
+
 public class ControlSettings {
 
 
@@ -40,8 +42,24 @@ public class ControlSettings {
 
     public static final double LIFT_PID_USER_MULTIPLIER = .43;
 
-    public static final double LIFT_MOTOR_MAX_OUTPUT = 5.4/7.0;
+    public static final double LIFT_MOTOR_MAX_OUTPUT = 7.0/7.0;
 
-    public static final double LIFT_PID_SETPOINT_COMPOUND_COEFFICIENT = 6;
+    public static final double LIFT_PID_SETPOINT_COMPOUND_COEFFICIENT = 10;
+
+
+    //ENCODER MOTOR ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    public static final double TURRET_ENCODER_MINIMUM = -8.85;
+    public static final double TURRET_ENCODER_MAXIMUM = 0;
+
+    //ARM POSITIONING +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    public static final V2d ARM_SAFE = new V2d(0, 2.5);
+
+    public static final V2d HIGH_SCORE = new V2d(8.5, 4.45);
+
+    public static final V2d DOUBLE_SUB = new V2d(4.25, 6.63);
+
+    public static final V2d LOW_SCORE = new V2d(3, 7);
 
 }

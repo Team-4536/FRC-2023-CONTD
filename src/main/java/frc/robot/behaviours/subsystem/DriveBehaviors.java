@@ -10,7 +10,7 @@ import frc.robot.utils.inputUtil;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 import frc.robot.utils.V2d;
-import frc.robot.utils.inputUtil;
+
 
 public class DriveBehaviors {
 
@@ -57,11 +57,13 @@ public class DriveBehaviors {
         V2d flymer = new V2d(x * driveScalar, y * driveScalar);
         flymer = flymer.rotateDegrees(r.gyro.getYaw());
 
-        driveUtil.pid.target += z * ControlSettings.TURNING_SPEED * Robot.dt * 3;
+        driveUtil.pid.target += z * ControlSettings.TURNING_SPEED * Robot.dt * 4;
 
         driveUtil.pid.target = gyroUtil.wrapAngle(driveUtil.pid.target);
 
-        double drivePIDOut = driveUtil.pid.tick(gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle()), Robot.dt, true) + r.input.driveController.getRightY() * .12;
+        telemetryUtil.put("angle traget", driveUtil.pid.target, Tabs.DEBUG);
+
+        double drivePIDOut = driveUtil.pid.tick(gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle()), Robot.dt, true) + r.input.driveController.getRightY() * .18;
 
         double pwr = drivePIDOut;
         if(pwr > ControlSettings.DRIVE_PID_CLAMP) { pwr = ControlSettings.DRIVE_PID_CLAMP; }

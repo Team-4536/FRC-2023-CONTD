@@ -91,31 +91,4 @@ public class telescopeUtil {
 
     }
 
-    /*limit thin
-     * 
-      double pPow = PIDOut * pScale;
-        double nPow = PIDOut * nScale;
-
-        if (r.telescope.upBound.get() && PIDOut > 0)
-        {r.telescope.liftMotor.set(0);} 
-        else if (r.telescope.lowBound.get() && PIDOut < 0)
-        {r.telescope.liftMotor.set(0);} 
-        else {
-            
-            if (speed > 0){
-                r.telescope.liftMotor.set(pPow);
-            }
-            else if (speed < 0){
-                r.telescope.liftMotor.set(nPow);
-            } 
-            else {
-                r.telescope.liftMotor.set(0);
-            }
-            
-        }
-     * 
-     * 
-     * 
-     */
-
 }

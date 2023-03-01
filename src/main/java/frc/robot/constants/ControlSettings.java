@@ -22,18 +22,18 @@ public class ControlSettings {
     public static final double TURRET_MULT = 1.0 / 8;
     public static final double RETRACTION_MULT = 1.0 / 1.4;
 
-    public static final double DRIVE_PID_CLAMP = 0.4f;
+    public static final double DRIVE_PID_CLAMP = 0.27f;
 
     // RETRACT MOTOR ++++++++++++++++++++++++++++++++++++++++++++
 
     public static final double RETRACT_ENCODER_MINIMUM = 0;
     public static final double RETRACT_ENCODER_MAXIMUM = 11;
 
-    public static final double RETRACT_PID_USER_MULTIPLIER = .44;
+    public static final double RETRACT_PID_USER_MULTIPLIER = .47;
 
-    public static final double RETRACT_MOTOR_MAX_OUTPUT = 4.5/7.0;
+    public static final double RETRACT_MOTOR_MAX_OUTPUT = 7.0/7.0;
 
-    public static final double RETRACT_PID_SETPOINT_COMPOUND_COEFFICIENT = 3.4;
+    public static final double RETRACT_PID_SETPOINT_COMPOUND_COEFFICIENT = 8;
 
     // LIFT MOTOR +++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -42,9 +42,9 @@ public class ControlSettings {
 
     public static final double LIFT_PID_USER_MULTIPLIER = .43;
 
-    public static final double LIFT_MOTOR_MAX_OUTPUT = 7.0/7.0;
+    public static final double LIFT_MOTOR_MAX_OUTPUT = 5.4/7.0;
 
-    public static final double LIFT_PID_SETPOINT_COMPOUND_COEFFICIENT = 10;
+    public static final double LIFT_PID_SETPOINT_COMPOUND_COEFFICIENT = 6;
 
 
     //ENCODER MOTOR ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -56,7 +56,7 @@ public class ControlSettings {
 
     public static final V2d ARM_SAFE = new V2d(0, 2.5);
 
-    public static final V2d HIGH_SCORE = new V2d(8.5, 4.45);
+    public static final V2d HIGH_SCORE = new V2d(9.35, 4.4);
 
     public static final V2d DOUBLE_SUB = new V2d(4.25, 6.63);
 

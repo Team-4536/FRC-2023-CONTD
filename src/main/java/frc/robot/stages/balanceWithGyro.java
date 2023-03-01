@@ -5,42 +5,31 @@ import frc.robot.Robot;
 import frc.robot.controllers.PIDController;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.pneumaticUtil;
+import java.lang.Math;
 
 
 public final class balanceWithGyro extends Stage {
-    double motorPower;
     double STOP_RANGE = 2;
-    PIDController xPID;
-    double xMove;
+    PIDController yPID;
+    double yMove;
     
     Timer flymer = new Timer();
     
-    public balanceWithGyro(double motorPower) {
-        this.motorPower = motorPower;
-        this.xPID = new PIDController(motorPower, 0, 0);
-        xPID.target = 0;
+    public balanceWithGyro(double Pvalue) {
+        this.yPID = new PIDController(Pvalue, 0, 0);
+        yPID.target = 0;
     }
 
     @Override public boolean run(Robot r) {
-        xMove = xPID.tick(r.gyro.globGyroscope.getPitch(), Robot.dt, false);
-        if(r.gyro.globGyroscope.getPitch() > STOP_RANGE){
+        yMove = yPID.tick(r.gyro.globGyroscope.getPitch(), Robot.dt, false);
+        if(Math.abs(r.gyro.globGyroscope.getPitch()) > STOP_RANGE){
             flymer.stop();
             flymer.reset();
             pneumaticUtil.runSolenoid(r.brakes.brakeSolenoid, false);
             driveUtil.setPowerMechPID(
                 r,
-                xMove,
-                 0,
-             0.8);
-        }
-        if(r.gyro.globGyroscope.getPitch() < -STOP_RANGE){
-            flymer.stop();
-            flymer.reset();
-            pneumaticUtil.runSolenoid(r.brakes.brakeSolenoid, false);
-            driveUtil.setPowerMechPID(
-                r,
-                xMove,
-                 0,
+                0,
+                yMove,
              0.8);
         }
         if(Math.abs(r.gyro.globGyroscope.getPitch()) < STOP_RANGE){

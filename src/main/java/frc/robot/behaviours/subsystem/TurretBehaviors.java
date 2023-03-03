@@ -13,8 +13,16 @@ public class TurretBehaviors {
 
     public static final Consumer<Robot> controlTurretBounded = r -> {
 
+        if (r.input.armController.getLeftBumperPressed()){
+            glymer = !glymer;
+        }
+
         double flymer = inputUtil.deadzoneStick(r.input.armController.getRightX())
             * ControlSettings.TURRET_MULT;
+
+            if (glymer){
+                flymer = flymer * -1;
+            }
 
         turretUtil.run(r.turret, flymer);
     };

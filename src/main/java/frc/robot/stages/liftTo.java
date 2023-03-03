@@ -10,10 +10,12 @@ public class liftTo extends Stage {
 
     double stopRange;
     double targetPos;
+    double maxSpeed;
 
-    public liftTo(double pos, double srange) {
+    public liftTo(double pos, double srange, double maxSpee) {
         targetPos = pos;
         stopRange = srange;
+        maxSpeed = maxSpee;
     }
 
     @Override public void init() {
@@ -26,7 +28,7 @@ public class liftTo extends Stage {
     @Override public boolean run(Robot r) {
 
         double PIDOut = -LiftBehaviors.liftPID.tick(r.telescope.liftVal(), Robot.dt, false);
-        PIDOut = mathUtil.clamp(PIDOut, ControlSettings.LIFT_MOTOR_MAX_OUTPUT, -ControlSettings.LIFT_MOTOR_MAX_OUTPUT);
+        PIDOut = mathUtil.clamp(PIDOut, maxSpeed, -maxSpeed);
 
         r.telescope.liftMotor.set(PIDOut);
 

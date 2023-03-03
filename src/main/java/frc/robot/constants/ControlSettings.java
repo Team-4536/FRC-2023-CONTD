@@ -27,7 +27,7 @@ public class ControlSettings {
     // RETRACT MOTOR ++++++++++++++++++++++++++++++++++++++++++++
 
     public static final double RETRACT_ENCODER_MINIMUM = 0;
-    public static final double RETRACT_ENCODER_MAXIMUM = 11;
+    public static final double RETRACT_ENCODER_MAXIMUM = 11.2;
 
     public static final double RETRACT_PID_USER_MULTIPLIER = .47;
 

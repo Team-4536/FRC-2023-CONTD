@@ -5,12 +5,14 @@
 package frc.robot;
 
 
+import java.io.File;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.behaviours.AutoBehaviours;
 import frc.robot.behaviours.TeleopBehaviours;
@@ -97,7 +99,7 @@ public class Robot extends TimedRobot {
         prevtime = Instant.now();
 
 
-        telemetryUtil.makeChooser("Auto Init", x -> { Robot.AUTO_INIT_FUNC = x; }, "nothing", AutoBehaviours.class);
+        telemetryUtil.makeChooser("Auto init", x -> { Robot.AUTO_INIT_FUNC = x; }, "nothing", AutoBehaviours.class);
         telemetryUtil.makeChooser("Teleop Init", x -> { Robot.TELEOP_INIT_FUNC = x; }, "TeleopBehaviours.teleOpInit", TeleopBehaviours.class);
         telemetryUtil.makeChooser("DRIVE TeleOp", x -> { Robot.TELEOP_PER_FUNCS.set(0, x); }, "DriveBehaviors.driveMech", DriveBehaviors.class);
         telemetryUtil.makeChooser("LIFT TeleOp", x -> { Robot.TELEOP_PER_FUNCS.set(1, x); }, "LiftBehaviors.controlLiftUnbounded", LiftBehaviors.class);
@@ -105,7 +107,15 @@ public class Robot extends TimedRobot {
         telemetryUtil.makeChooser("RETRACTION TeleOp", x -> { Robot.TELEOP_PER_FUNCS.set(3, x); }, "RetractionBehaviors.controlRetractionUnbounded", RetractionBehaviors.class);
         telemetryUtil.makeChooser("TURRET TeleOp", x -> { Robot.TELEOP_PER_FUNCS.set(4, x); }, "TurretBehaviors.controlTurretBounded", TurretBehaviors.class);
 
-
+        // AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+        File folder = new File(Filesystem.getDeployDirectory().toString() + "/" + "autos");
+        File[] listOfFiles = folder.listFiles();
+        ArrayList<String> fileNames = new ArrayList<>();
+        for(int i = 0; i < listOfFiles.length; i++) { fileNames.add(listOfFiles[i].getName()); }
+        telemetryUtil.makeChooser("Auto File Select",
+            s -> {
+                AutoBehaviours.selectedFile = s;
+            }, fileNames);
 
         this.drive = new DriveData();
         this.input = new InputData();
@@ -137,6 +147,11 @@ public class Robot extends TimedRobot {
         vision.pipelineTag(1);
 
         telemetryUtil.grabChoosers();
+
+
+
+
+
 
         this.drive.sendTelemetry();
         this.input.sendTelemetry();

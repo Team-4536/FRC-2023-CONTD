@@ -2,8 +2,8 @@ package frc.robot.stages;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
-import frc.robot.V2d;
 import frc.robot.functions.driveUtil;
+import frc.robot.utils.V2d;
 
 public final class moveTimed extends Stage {
 

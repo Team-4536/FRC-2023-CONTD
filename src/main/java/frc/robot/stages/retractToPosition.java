@@ -2,7 +2,9 @@ package frc.robot.stages;
 
 import frc.robot.Robot;
 import frc.robot.behaviours.subsystem.RetractionBehaviors;
+import frc.robot.constants.StageConstants;
 import frc.robot.functions.telescopeUtil;
+import frc.robot.utils.mathUtil;
 
 public class retractToPosition extends Stage {
 
@@ -16,7 +18,6 @@ public class retractToPosition extends Stage {
 
     }
 
-    
     @Override public void init() {
         RetractionBehaviors.retractPID.reset();
         RetractionBehaviors.retractPID.target = goalPosition;
@@ -27,13 +28,17 @@ public class retractToPosition extends Stage {
 
 
         double PIDOut = -RetractionBehaviors.retractPID.tick(r.telescope.retractVal(), Robot.dt, false);
-
-        if (Math.abs(PIDOut) > .714) { PIDOut = PIDOut * (.714/Math.abs(PIDOut)); }
+        PIDOut = mathUtil.clampLen(PIDOut, StageConstants.RETRACT_SPEED_CLAMP);
 
         telescopeUtil.softLimitRetract(r.telescope, PIDOut);
 
         return (Math.abs(r.telescope.retractVal() - goalPosition) < pError);
 
     }
-    
+
+
+    @Override
+    public void end(Robot r) {
+        r.telescope.retractMotor.set(0);
+    }
 }

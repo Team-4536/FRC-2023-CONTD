@@ -16,17 +16,20 @@ public class TeleopBehaviours {
 
         robotUtil.stopRobot(r);
 
-        r.telescope.liftEncoder.setPosition(100);
-        r.telescope.retractEncoder.setPosition(100);
+        r.telescope.resetRetractEncoder();
+        r.telescope.resetLiftEncoder();
 
         r.gyro.globGyroscope.reset();
         driveUtil.pid.target = r.gyro.globGyroscope.getAngle();
         LiftBehaviors.liftPID.target = r.telescope.liftVal();
-        
+
         RetractionBehaviors.retractPID.target = r.telescope.retractVal();
+        LiftBehaviors.liftPID.target = r.telescope.liftVal();
 
         RetractionBehaviors.retractPID.reset();
-        
+
+        LiftBehaviors.liftPID.reset();
+
         r.drive.FLEncoder.setPosition(0);
         r.drive.FREncoder.setPosition(0);
         r.drive.BLEncoder.setPosition(0);

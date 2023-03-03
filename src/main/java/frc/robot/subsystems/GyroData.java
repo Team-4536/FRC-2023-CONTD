@@ -17,6 +17,10 @@ public class GyroData {
 
         telemetryUtil.put("Angle", globGyroscope.getAngle(), Tabs.ROBOT);
 
+        telemetryUtil.put("y", globGyroscope.getYaw(), Tabs.ROBOT);
+        telemetryUtil.put("p", globGyroscope.getPitch(), Tabs.ROBOT);
+        telemetryUtil.put("r", globGyroscope.getRoll(), Tabs.ROBOT);
+
     }
 
     public void init() {

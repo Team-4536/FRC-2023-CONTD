@@ -5,6 +5,8 @@ import java.util.function.Consumer;
 import frc.robot.Robot;
 import frc.robot.V2d;
 import frc.robot.stages.timedPause;
+import frc.robot.stages.balanceWithGyro;
+import frc.robot.stages.forwardTillPitch;
 import frc.robot.stages.goToAngle;
 import frc.robot.stages.goToAprilTagTrig;
 import frc.robot.stages.goToPosition;
@@ -57,6 +59,13 @@ public class AutoBehaviours {
                r.autoData.stages.add(new grab(true));
                r.autoData.stages.add(new timedPause(1));
                r.autoData.stages.add(new retractToPosition(0, .03)); };
+
+    public static Consumer<Robot> vonAuto =
+        r -> {  r.autoData.stages.add(new timedPause(1));
+                r.autoData.stages.add(new forwardTillPitch(5));
+                //r.autoData.stages.add(new balanceWithGyro(.01));
+                r.autoData.stages.add(new timedPause(1));
+                r.autoData.stages.add(new balanceWithGyro(.01));  };
 
 }
 

@@ -14,11 +14,11 @@ public final class forwardTillPitch extends Stage {
     @Override public boolean run(Robot r) {
         driveUtil.setPowerMechPID(
             r,
-            10,
             0,
+            0.4,
             0.8);
 
-        return (Math.abs(r.gyro.globGyroscope.getPitch()) > wantedAngle);
+        return (Math.abs(r.gyro.globGyroscope.getRoll()) > wantedAngle);
     }
 
 }

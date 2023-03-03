@@ -14,8 +14,8 @@ public class goToPosition extends Stage {
     public V2d targetPos = new V2d();
     public V2d lastErr = new V2d();
 
-    PIDController xpid = new PIDController(0.25, 0.01, -0.01);
-    PIDController ypid = new PIDController(0.25, 0.01, -0.01);
+    PIDController xpid = new PIDController(0.22, 0.01, -0.01);
+    PIDController ypid = new PIDController(0.22, 0.01, -0.01);
 
     public goToPosition(V2d t) {
         this.targetPos = t;

@@ -1,0 +1,22 @@
+//stay closed on piece and move grabber to high scoring area
+#set
+grab                true
+liftTo              4.1     0.05    .771
+retractToPosition   10.2    0.2
+moveTimed           1   0,.06   .5          
+#end
+
+timedPause          .1
+liftTo              5.4      0.1    .2
+
+//release the piece and move arm back
+#set
+grab                false
+timedPause          0.4
+#end
+
+// moving arm to safe area while moving backwards a bit
+#set
+retractToPosition   0       0.15
+liftTo              2       0.15    .771
+#end

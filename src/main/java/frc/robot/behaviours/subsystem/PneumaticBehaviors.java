@@ -34,7 +34,7 @@ public class PneumaticBehaviors {
             }
     
             if (r.input.armController.getBButtonPressed()){
-                
+                telescopeUtil.setArmPositionPID(ControlSettings.IN_CONE);
             }
 
         if (r.input.driveController.getBButtonPressed()){

@@ -2,7 +2,7 @@
 
 #set
 grab                true
-liftTo              5.5     0.05
+liftTo              5.5     0.05    .771
 retractToPosition   8.4     0.05
 #end
 

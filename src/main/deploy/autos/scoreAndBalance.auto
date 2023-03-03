@@ -3,7 +3,7 @@
 // grab piece and move grabber to high scoring area
 #set
 grab                true
-liftTo              5.5             0.05
+liftTo              5.5             0.05    .771
 retractToPosition   8.4             0.05
 #end
 
@@ -32,7 +32,7 @@ goToAngle           180
 // move forwards & extend claw to cone
 #set
 goToPosition        -4.5,-0.45
-liftTo              12.5            0.15
+liftTo              12.5            0.15    .771
 retractToPosition   5               .05
 #end
 
@@ -44,13 +44,13 @@ grab                true
 // fix claw pos
 // & turn around
 #set
-|liftTo             5.5             0.05
+|liftTo             5.5             0.05    .771
 |retractToPosition  0               0.15
 goToAngle           90
 #end
 
 #set
-liftTo              5.5             0.05
+liftTo              5.5             0.05    .771
 retractToPosition   0               0.15
 goToAngle           0
 #end

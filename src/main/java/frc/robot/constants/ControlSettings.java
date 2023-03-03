@@ -27,7 +27,7 @@ public class ControlSettings {
     // RETRACT MOTOR ++++++++++++++++++++++++++++++++++++++++++++
 
     public static final double RETRACT_ENCODER_MINIMUM = 0;
-    public static final double RETRACT_ENCODER_MAXIMUM = 11;
+    public static final double RETRACT_ENCODER_MAXIMUM = 11.2;
 
     public static final double RETRACT_PID_USER_MULTIPLIER = .47;
 
@@ -61,5 +61,7 @@ public class ControlSettings {
     public static final V2d DOUBLE_SUB = new V2d(4.25, 6.63);
 
     public static final V2d LOW_SCORE = new V2d(3, 7);
+
+    public static final V2d IN_CONE = new V2d(7.1, 3.5);
 
 }

@@ -239,7 +239,6 @@ public class AutoBehaviours {
             telemetryUtil.logError("Error loading file \"" + relativePath + "\": " + e.toString(), Tabs.DEBUG);
             return null;
         }
-
     }
 }
 

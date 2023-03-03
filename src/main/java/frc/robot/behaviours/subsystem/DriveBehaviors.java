@@ -73,12 +73,19 @@ public class DriveBehaviors {
         telemetryUtil.put("Drive PID target", driveUtil.pid.target, Tabs.ROBOT);
 
         if(r.input.driveController.getPOV() != -1){
+            driveUtil.pid.reset();
             driveUtil.pid.target = r.input.driveController.getPOV();
+        }
+
+        if(r.input.driveController.getRightStickButtonPressed()){
+            driveUtil.pid.reset();
+            driveUtil.pid.target = r.gyro.globGyroscope.getAngle()+180;
         }
 
         if (r.input.driveController.getYButtonPressed()){
 
             r.gyro.globGyroscope.reset();
+            driveUtil.pid.reset();
             driveUtil.pid.target = 0;
 
         }

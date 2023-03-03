@@ -1,11 +1,11 @@
 
 
-timedPause      2
-timedPause      2
+goToPosition        0,-2
+timedPause          1
+goToAngle           90
+goToAngle           180
+goToAngle           270
+goToAngle           0
 
-#set
-|timedPause     10
-timedPause      0.5
-#end
 
-timedPause      2
+

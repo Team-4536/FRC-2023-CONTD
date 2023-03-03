@@ -30,6 +30,7 @@ import frc.robot.subsystems.DriveData;
 import frc.robot.subsystems.GyroData;
 import frc.robot.subsystems.InputData;
 import frc.robot.subsystems.IntakeData;
+import frc.robot.subsystems.KinematicData;
 import frc.robot.subsystems.PneumaticData;
 import frc.robot.subsystems.PositionData;
 import frc.robot.subsystems.TelescopeData;
@@ -84,7 +85,7 @@ public class Robot extends TimedRobot {
     public PneumaticData brakes;
     public IntakeData grabber;
     public AutoData autoData;
-
+    public KinematicData kinematicData;
 
 
 
@@ -127,7 +128,7 @@ public class Robot extends TimedRobot {
         this.brakes = new PneumaticData();
         this.grabber = new IntakeData();
         this.autoData = new AutoData();
-
+        this.kinematicData = new KinematicData();
 
         this.vision.pipelineTag(1);
         pneumaticUtil.runSolenoid(grabber.grabberSolenoid, true);

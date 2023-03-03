@@ -141,7 +141,12 @@ public final class Hardware {
 
     // *ROBOT SPECS* ===============================================================================================
 
+    //Kinamatics=========================================================================================================
+    //all centimeters or meters/100
+    public static final V2d ROBOT_ORIGIN = new V2d(0, 0);
+    public static final V2d ARM_BASE = new V2d(14, 36);
+    public static final V2d backCenterPos = new V2d(0, 0);
 
-
-
+    //Lime light=====================================================================================================
+    public static final V2d LIME_LIGHT_POS = new V2d(21, 21);
 }

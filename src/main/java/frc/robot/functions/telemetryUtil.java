@@ -144,7 +144,22 @@ public class telemetryUtil {
         p.set(s);
     }
 
-
+    public static void put(String title, double[][] s, Tabs t) {
+        String path = t.name + "/" + title;
+        StringPublisher p = stringPubs.get(path);
+        if(p == null) { p = t.table.getStringTopic(title).publish();
+            stringPubs.put(path, p); }
+        String str = "";
+        for(int i = 0; i < s.length; i++){
+            str += "{";
+            for(int j = 0; j < s[i].length; j++){
+                str += String.valueOf(s[i][j]);
+                str += ", ";
+            }
+            str += "},";
+        }
+        p.set(str);
+    }
 
 
 

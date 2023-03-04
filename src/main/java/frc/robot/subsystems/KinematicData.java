@@ -31,7 +31,7 @@ public class KinematicData{
     
         return result;
     }
-    public static double[][] topOfArmPos(double armLength, double armAngle){
+    /*public static double[][] topOfArmPos(double armLength, double armAngle){
         //Arm angle must be a degree NOT a radian
         //arm length must be in centimeters
         //V2d backCenterPos = new V2d(0, 0);
@@ -54,9 +54,44 @@ public class KinematicData{
         
         double location[][] = multiplyMatrices(backCenterPos, T02);
         return location;
+    }*/                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+
+    public static double[][]topOfArmPos(double armAngle, double armLength, double turretAngle){
+        //Arm angle must be a degree NOT a radian
+        //arm length must be in centimeters
+        
+        double backCenterPos[][] = {
+            {1, 0, 0, 0},
+            {0, 1, 0, 0},
+            {0, 0, 1, 0},
+            {0, 0, 0, 1}
+        };
+
+        double T01[][] = Hardware.ARM_BASE;
+
+        double T12[][] = {
+            {Math.cos(turretAngle), -Math.sin(turretAngle), 0,  Hardware.ARM_BASE_TO_HINGE*Math.sin(turretAngle)},
+            {Math.sin(turretAngle),  Math.cos(turretAngle), 0, -Hardware.ARM_BASE_TO_HINGE*Math.cos(turretAngle)},
+            {0, 0, 1, 0},
+            {0, 0, 0, 1}
+        };
+
+        double T23[][] = {
+            {1, 0, 0, 0},
+            {0, Math.cos(armAngle), -Math.sin(armAngle), armLength*Math.cos(armAngle)},
+            {0, Math.sin(armAngle), Math.cos(armAngle), armLength*Math.sin(armAngle)},
+            {0, 0, 0, 1}
+        };
+
+        double T02[][] = multiplyMatrices(T01, T12);
+        double T03[][] = multiplyMatrices(T02, T23);
+        
+        double location[][] = multiplyMatrices(backCenterPos, T03);
+        return location;
+
     }
     public void sendTelemetry(){
-        telemetryUtil.put("Position of Arm", KinematicData.topOfArmPos(telescopeUtil.armDistanceByEncoderCm(Robot.instance.telescope.retractVal()), 0), Tabs.ROBOT);
+        //telemetryUtil.put("Position of Arm", KinematicData.topOfArmPos(telescopeUtil.armDistanceByEncoderCm(Robot.instance.telescope.retractVal()), 0), Tabs.ROBOT);
         telemetryUtil.put("retractVal", Robot.instance.telescope.retractVal(), Tabs.ROBOT);
         //133 is the smallest it can be
     }

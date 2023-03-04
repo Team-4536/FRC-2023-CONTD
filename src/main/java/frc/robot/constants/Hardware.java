@@ -144,7 +144,16 @@ public final class Hardware {
     //Kinamatics=========================================================================================================
     //all centimeters or meters/100
     public static final V2d ROBOT_ORIGIN = new V2d(0, 0);
-    public static final V2d ARM_BASE = new V2d(27.305, 32);//equal to 10.75in,12.59in it used to be 14cm, 36cm
+    //public static final V2d ARM_BASE = new V2d(27.305, 32);//equal to 10.75in,12.59in it used to be 14cm, 36cm
+    public static final double ARM_BASE[][] = {
+        {1, 0, 0, 37},
+        {0, 1, 0, 34},
+        {0, 0, 1, 31.5},
+        {0, 0, 0, 1}
+    };
+
+    public static final double ARM_BASE_TO_HINGE = 7; // centimeters
+    
     public static final V2d backCenterPos = new V2d(0, 0);
 
     //Lime light=====================================================================================================

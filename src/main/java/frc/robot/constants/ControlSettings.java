@@ -37,6 +37,9 @@ public class ControlSettings {
 
     // LIFT MOTOR +++++++++++++++++++++++++++++++++++++++++++++++
 
+    public static final double LIFT_TO_DISTANCE_CONVERSION = 1.09;
+    public static final double LEAD_SCREW_DIST = 11.3;
+
     public static final double LIFT_ENCODER_MINIMUM = 0;
     public static final double LIFT_ENCODER_MAXIMUM = 12.5;
 

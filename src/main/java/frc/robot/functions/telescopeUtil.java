@@ -1,7 +1,11 @@
 package frc.robot.functions;
 
+
 import frc.robot.behaviours.subsystem.LiftBehaviors;
 import frc.robot.behaviours.subsystem.RetractionBehaviors;
+
+import frc.robot.Robot;
+
 import frc.robot.constants.ControlSettings;
 import frc.robot.subsystems.TelescopeData;
 import frc.robot.utils.V2d;
@@ -78,10 +82,12 @@ public class telescopeUtil {
 
 
     //returns the distnace from the joint of the arm at the table to the base of the grabbing mechanism (gray plastic piece)
+    // in inches
     public static double armDistanceByEncoder(double encoderVal){
+
         //This is in inches
          //3.25in every rotation 
-        return (encoderVal * 3.25) + 40;
+        return (encoderVal * 3.25) + 44;
     }
     public static double armDistanceByEncoderCm(double encoderVal){
         //2.54cm for every inch so in*2.54
@@ -92,9 +98,27 @@ public class telescopeUtil {
 
         RetractionBehaviors.retractPID.target = position.x;
         LiftBehaviors.liftPID.target = position.y;
-
     }
 
+    public static double getMaxArmEncoder() {
+
+        double r = Robot.instance.telescope.liftEncoder.getPosition() * ControlSettings.LIFT_TO_DISTANCE_CONVERSION;
+        double theta = Math.atan(r / ControlSettings.LEAD_SCREW_DIST);
+
+        // 22in is joint to frame edge, 
+        // max entension is 48 in
+        double maxExtensionDist = 70 * Math.cos(theta);
+        double encoderVal = (maxExtensionDist - 44) / 3.25;
+        return encoderVal;
+
+
+    }
+    
+
+    /*public static double getArmAngle(double liftVal){
+        //max = 72.5 degreese
+
+    }*/
     /*limit thin
      * 
       double pPow = PIDOut * pScale;

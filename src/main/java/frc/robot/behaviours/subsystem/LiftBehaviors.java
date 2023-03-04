@@ -36,7 +36,7 @@ public class LiftBehaviors {
         telescopeUtil.softHardLimitLift(r.telescope, PIDOut);
 
         if (r.telescope.upBound.get()){
-            r.telescope.resetLiftEncoder();
+            //r.telescope.resetLiftEncoder();
         }
 
 

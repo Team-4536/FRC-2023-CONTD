@@ -22,7 +22,7 @@ public class ControlSettings {
     public static final double TURRET_MULT = 1.0 / 8;
     public static final double RETRACTION_MULT = 1.0 / 1.4;
 
-    public static final double DRIVE_PID_CLAMP = 0.5f;
+    public static final double DRIVE_PID_CLAMP = 0.6f;
 
     // RETRACT MOTOR ++++++++++++++++++++++++++++++++++++++++++++
 

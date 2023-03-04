@@ -1,0 +1,26 @@
+
+//stay closed on piece and move grabber to high scoring area
+#set
+grab                true
+liftTo              4.1     0.1    .771
+retractToPosition   10.2    0.25
+moveTimed           1   0,.06   .5          
+#end
+
+// lower piece onto pole
+timedPause          .1
+liftTo              5.4      0.1    .2
+
+//release the piece
+#set
+grab                false
+timedPause          0.3
+#end
+
+// start retracting arm and move to the side
+#set
+|retractToPosition   0       0.15
+|liftTo              0       0.15    .771
+|goToPosition        -0.6,1
+timedPause          0.75
+#end

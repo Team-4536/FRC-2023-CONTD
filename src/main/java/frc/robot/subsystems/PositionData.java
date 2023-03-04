@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 
+import edu.wpi.first.math.estimator.MecanumDrivePoseEstimator;
 import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
@@ -26,7 +27,7 @@ public class PositionData {
         new Translation2d(Hardware.BR_MOTOR_POS.x, Hardware.BR_MOTOR_POS.y)
     );
 
-    MecanumDriveOdometry m_odometry;
+    MecanumDrivePoseEstimator m_poseEstimate;
 
 
 
@@ -36,7 +37,8 @@ public class PositionData {
         
         this.pose = new Pose2d(new Translation2d(), new Rotation2d(0));
 
-        m_odometry = new MecanumDriveOdometry(
+
+        m_poseEstimate = new MecanumDrivePoseEstimator(
             m_kinematics,
             gyro.globGyroscope.getRotation2d(),
             new MecanumDriveWheelPositions(
@@ -52,7 +54,7 @@ public class PositionData {
 
         this.pose = new Pose2d(new Translation2d(), new Rotation2d(0));
 
-        m_odometry = new MecanumDriveOdometry(
+        m_poseEstimate = new MecanumDrivePoseEstimator(
             m_kinematics,
             r.gyro.globGyroscope.getRotation2d(),
             new MecanumDriveWheelPositions(
@@ -79,7 +81,7 @@ public class PositionData {
         var gyroAngle = r.gyro.globGyroscope.getRotation2d().unaryMinus();
 
         // Update the pose
-        this.pose = m_odometry.update(gyroAngle, wheelPositions);
+        this.pose = m_poseEstimate.update(gyroAngle, wheelPositions);
 
         f.setRobotPose(pose);
     }

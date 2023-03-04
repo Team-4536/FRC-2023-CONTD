@@ -82,6 +82,9 @@ public class PositionData {
 
         // Update the pose
         this.pose = m_poseEstimate.update(gyroAngle, wheelPositions);
+        double[] poseArr = Robot.instance.vision.pose.getDoubleArray(new double[] {});
+        Pose2d camPose = new Pose2d(poseArr[0], poseArr[1], new Rotation2d(Math.toRadians(poseArr[5])));
+        m_poseEstimate.addVisionMeasurement(camPose, Robot.timeSinceInit);
 
         f.setRobotPose(pose);
     }

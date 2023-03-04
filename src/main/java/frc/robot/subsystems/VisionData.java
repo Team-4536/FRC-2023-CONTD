@@ -15,6 +15,7 @@ public class VisionData {
     public NetworkTableEntry tx = limelight.getEntry("tx");
     public NetworkTableEntry ty = limelight.getEntry("ty");
     public NetworkTableEntry ta = limelight.getEntry("ta");
+    public NetworkTableEntry pose = limelight.getEntry("botpose");
 
     private boolean targetFound = (!(tv.getDouble(0.0) == 0));
     private double targetX = tx.getDouble(0.0);

@@ -1,12 +1,18 @@
 package frc.robot.subsystems;
 
+import frc.robot.Robot;
 import frc.robot.constants.Hardware;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
+import frc.robot.subsystems.TelescopeData;
+import frc.robot.functions.telescopeUtil;
 import frc.robot.utils.V2d;
 import java.lang.Math;
 
-public abstract class KinematicData{
+public class KinematicData{
+    public KinematicData(){
+
+    }
     static double multiplyMatricesCell(double[][] firstMatrix, double[][] secondMatrix, int row, int col) {
         double cell = 0;
         for (int i = 0; i < secondMatrix.length; i++) {
@@ -50,7 +56,8 @@ public abstract class KinematicData{
         return location;
     }
     public void sendTelemetry(){
-        telemetryUtil.put("Position of Arm", KinematicData.topOfArmPos(133, 0), Tabs.ROBOT);
+        telemetryUtil.put("Position of Arm", KinematicData.topOfArmPos(telescopeUtil.armDistanceByEncoderCm(Robot.instance.telescope.retractVal()), 0), Tabs.ROBOT);
+        telemetryUtil.put("retractVal", Robot.instance.telescope.retractVal(), Tabs.ROBOT);
         //133 is the smallest it can be
     }
 

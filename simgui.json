@@ -76,14 +76,8 @@
     "Retained Values": {
       "open": false
     },
-    "Transitory Values": {
-      "open": false
-    },
     "transitory": {
       "Debug": {
-        "open": true
-      },
-      "Limelight": {
         "open": true
       },
       "LiveWindow": {
@@ -97,13 +91,14 @@
       "Shuffleboard": {
         "Debug": {
           "open": true
-        },
-        "open": true
+        }
       },
       "SmartDashboard": {
         "SmartDashboard": {
           "open": true
-        },
+        }
+      },
+      "limelight": {
         "open": true
       }
     }

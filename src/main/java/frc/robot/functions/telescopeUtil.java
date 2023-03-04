@@ -79,9 +79,13 @@ public class telescopeUtil {
 
     //returns the distnace from the joint of the arm at the table to the base of the grabbing mechanism (gray plastic piece)
     public static double armDistanceByEncoder(double encoderVal){
-
-        return (encoderVal * 3.25) + 35;
-
+        //This is in inches
+         //3.25in every rotation 
+        return (encoderVal * 3.25) + 40;
+    }
+    public static double armDistanceByEncoderCm(double encoderVal){
+        //2.54cm for every inch so in*2.54
+        return armDistanceByEncoder(encoderVal) * 2.54;
     }
 
     public static void setArmPositionPID(V2d position){

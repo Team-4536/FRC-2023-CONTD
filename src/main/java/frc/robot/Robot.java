@@ -164,7 +164,8 @@ public class Robot extends TimedRobot {
         this.brakes.sendTelemetry();
         this.grabber.sendTelemetry();
         this.autoData.sendTelemetry();
-
+        this.kinematicData.sendTelemetry();
+        
         this.positionData.update();
 
         ROBOT_PER_FUNC.accept(this);

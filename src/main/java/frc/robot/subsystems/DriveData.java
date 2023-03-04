@@ -43,6 +43,15 @@ public class DriveData {
         FREncoder.setPositionConversionFactor(Hardware.ENCODER_CONVERSION);
     }
 
+    public void resetEncoders(){
+
+        FLEncoder.setPosition(0);
+        BLEncoder.setPosition(0);
+        FREncoder.setPosition(0);
+        BREncoder.setPosition(0);
+        
+    }
+
 
     public void sendTelemetry() {
 

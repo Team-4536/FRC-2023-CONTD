@@ -35,7 +35,13 @@ public class PneumaticBehaviors {
     
             if (r.input.armController.getBButtonPressed()){
                 telescopeUtil.setArmPositionPID(ControlSettings.IN_CONE);
+                TurretBehaviors.turretPID.target = 2.7;
             }
+            if (r.input.armController.getRightBumperPressed()){
+                telescopeUtil.setArmPositionPID(new V2d(0, 0));
+                TurretBehaviors.turretPID.target = 0;
+            }
+
 
         if (r.input.driveController.getBButtonPressed()){
             coneFindingIsActive = true;

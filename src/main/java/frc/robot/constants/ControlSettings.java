@@ -38,7 +38,7 @@ public class ControlSettings {
     // LIFT MOTOR +++++++++++++++++++++++++++++++++++++++++++++++
 
     public static final double LIFT_ENCODER_MINIMUM = 0;
-    public static final double LIFT_ENCODER_MAXIMUM = 12.5;
+    public static final double LIFT_ENCODER_MAXIMUM = 14;
 
     public static final double LIFT_PID_USER_MULTIPLIER = .43;
 
@@ -47,10 +47,16 @@ public class ControlSettings {
     public static final double LIFT_PID_SETPOINT_COMPOUND_COEFFICIENT = 6;
 
 
-    //ENCODER MOTOR ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //TURRET MOTOR ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    public static final double TURRET_ENCODER_MINIMUM = -8.85;
-    public static final double TURRET_ENCODER_MAXIMUM = 0;
+    public static final double TURRET_ENCODER_MINIMUM = -5.5;
+    public static final double TURRET_ENCODER_MAXIMUM = 4;
+
+    public static final double TURRET_PID_USER_MULTIPLIER = .14;
+
+    public static final double TURRET_MOTOR_MAX_OUTPUT = 1.0/8.0;
+
+    public static final double TURRET_PID_SETPOINT_COMPOUND_COEFFICIENT = 5.5;
 
     //ARM POSITIONING +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -62,6 +68,6 @@ public class ControlSettings {
 
     public static final V2d LOW_SCORE = new V2d(3, 7);
 
-    public static final V2d IN_CONE = new V2d(7.1, 3.5);
+    public static final V2d IN_CONE = new V2d(7.23, 3.5);
 
 }

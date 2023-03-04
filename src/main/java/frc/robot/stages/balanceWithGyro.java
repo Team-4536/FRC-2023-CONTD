@@ -13,7 +13,7 @@ import java.lang.Math;
 
 
 public final class balanceWithGyro extends Stage {
-    double STOP_RANGE = 1;
+    double STOP_RANGE = 2.5;
     PIDController yPID;
     double yMove;
     
@@ -45,7 +45,7 @@ public final class balanceWithGyro extends Stage {
 
         telemetryUtil.put("balls", flymer.get(), Tabs.DEBUG);
         
-        return flymer.get() > 2;
+        return flymer.get() > 1.2;
 
     }
 

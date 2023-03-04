@@ -88,6 +88,7 @@ public class AutoBehaviours {
 
         r.telescope.resetLiftEncoder();
         r.telescope.resetRetractEncoder();
+        r.drive.resetEncoders();
         TeleopBehaviours.teleOpInit.accept(r);
         r.positionData.reInit();
     };

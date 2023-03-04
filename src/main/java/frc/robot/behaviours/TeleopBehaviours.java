@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import frc.robot.Robot;
 import frc.robot.behaviours.subsystem.LiftBehaviors;
 import frc.robot.behaviours.subsystem.RetractionBehaviors;
+import frc.robot.behaviours.subsystem.TurretBehaviors;
 import frc.robot.functions.driveUtil;
 import frc.robot.functions.robotUtil;
 
@@ -18,6 +19,7 @@ public class TeleopBehaviours {
 
         r.telescope.resetRetractEncoder();
         r.telescope.resetLiftEncoder();
+        r.turret.turretEncoder.setPosition(0);
 
         r.gyro.globGyroscope.reset();
         driveUtil.pid.target = r.gyro.globGyroscope.getAngle();
@@ -25,10 +27,11 @@ public class TeleopBehaviours {
 
         RetractionBehaviors.retractPID.target = r.telescope.retractVal();
         LiftBehaviors.liftPID.target = r.telescope.liftVal();
+        TurretBehaviors.turretPID.target = r.turret.turretEncoder.getPosition();
 
         RetractionBehaviors.retractPID.reset();
-
         LiftBehaviors.liftPID.reset();
+        TurretBehaviors.turretPID.reset();
 
         r.drive.FLEncoder.setPosition(0);
         r.drive.FREncoder.setPosition(0);

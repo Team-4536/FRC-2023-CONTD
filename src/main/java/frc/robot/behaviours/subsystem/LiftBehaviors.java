@@ -5,9 +5,9 @@ import java.util.function.Consumer;
 import frc.robot.Robot;
 import frc.robot.constants.ControlSettings;
 import frc.robot.controllers.PIDController;
-import frc.robot.functions.telemetryUtil;
+//import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telescopeUtil;
-import frc.robot.functions.telemetryUtil.Tabs;
+//import frc.robot.functions.telemetryUtil.Tabs;
 import frc.robot.utils.inputUtil;
 
 
@@ -24,16 +24,20 @@ public class LiftBehaviors {
 
         double PIDOut = -liftPID.tick(r.telescope.liftVal(), Robot.dt, false);
 
-        telemetryUtil.put(" lift pid raw output", PIDOut, Tabs.DEBUG);
+        //telemetryUtil.put(" lift pid raw output", PIDOut, Tabs.DEBUG);
 
         if (Math.abs(PIDOut) > ControlSettings.LIFT_MOTOR_MAX_OUTPUT) { PIDOut = PIDOut * (ControlSettings.LIFT_MOTOR_MAX_OUTPUT/Math.abs(PIDOut)); }
 
-        telemetryUtil.put("Arm PID out", PIDOut, Tabs.DEBUG);
-        telemetryUtil.put("Arm PID target", liftPID.target, Tabs.DEBUG);
+        //telemetryUtil.put("Arm PID out", PIDOut, Tabs.DEBUG);
+        //telemetryUtil.put("Arm PID target", liftPID.target, Tabs.DEBUG);
 
         PIDOut += -r.input.armController.getRightY() * ControlSettings.LIFT_PID_USER_MULTIPLIER;
 
         telescopeUtil.softHardLimitLift(r.telescope, PIDOut);
+
+        if (r.telescope.upBound.get()){
+            r.telescope.resetLiftEncoder();
+        }
 
 
     };

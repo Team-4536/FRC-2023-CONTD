@@ -33,12 +33,12 @@ public class RetractionBehaviors {
 
         double PIDOut = -retractPID.tick(r.telescope.retractVal(), Robot.dt, false);
 
-        telemetryUtil.put("pid raw output", PIDOut, Tabs.DEBUG);
+        //telemetryUtil.put("pid raw output", PIDOut, Tabs.DEBUG);
 
         if (Math.abs(PIDOut) > ControlSettings.RETRACT_MOTOR_MAX_OUTPUT) { PIDOut = PIDOut * (ControlSettings.RETRACT_MOTOR_MAX_OUTPUT/Math.abs(PIDOut)); }
 
-        telemetryUtil.put("retract target", retractPID.target, Tabs.DEBUG);
-        telemetryUtil.put("pid output", PIDOut, Tabs.DEBUG);
+        //telemetryUtil.put("retract target", retractPID.target, Tabs.DEBUG);
+        //telemetryUtil.put("pid output", PIDOut, Tabs.DEBUG);
 
         PIDOut += r.input.armController.getLeftY() * ControlSettings.RETRACT_PID_USER_MULTIPLIER;
 

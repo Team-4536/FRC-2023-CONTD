@@ -22,8 +22,8 @@ retractToPosition   0       0.15
 liftTo              2       0.15    .771
 #end
 
-//flip robot around, move until the roll changes, and then balance.
-moveTimed           1   .04,-.04   .65
+//move robot back, flip around, and move towards second piece.
+moveTimed           1   -.1,-.1   .9
+timedPause          0.2
 goToAngle           180
-forwardTillPitch    7
-balanceWithGyro     .01
+moveTimed           1   0,.2   2.4

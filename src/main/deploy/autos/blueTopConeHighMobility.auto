@@ -13,7 +13,7 @@ liftTo              5.4      0.1    .2
 //release the piece and move arm back
 #set
 grab                false
-timedPause          0.4
+timedPause          0.2
 #end
 
 // moving arm to safe area while moving backwards a bit
@@ -21,3 +21,9 @@ timedPause          0.4
 retractToPosition   0       0.15
 liftTo              2       0.15    .771
 #end
+
+//move robot back, flip around, and move towards second piece.
+moveTimed           1   .13,-.13   .9
+timedPause          0.2
+goToAngle           180
+moveTimed           1   0,.175   2.0

@@ -67,6 +67,7 @@ public class Robot extends TimedRobot {
     public static Instant prevtime;
     public static double dt;
     public static double timeSinceInit;
+    public static boolean emergencyPIDstop;
 
 
 
@@ -97,6 +98,8 @@ public class Robot extends TimedRobot {
 
         startTime = Instant.now();
         prevtime = Instant.now();
+
+        emergencyPIDstop = false;
 
 
         telemetryUtil.makeChooser("Auto init", x -> { Robot.AUTO_INIT_FUNC = x; }, "nothing", AutoBehaviours.class);

@@ -25,22 +25,22 @@ public class PneumaticBehaviors {
             pneumaticUtil.toggleSolenoid(r.brakes.brakeSolenoid); }
 
 
-            if (r.input.armController.getXButtonPressed()){
-                telescopeUtil.setArmPositionPID(ControlSettings.ARM_SAFE);
-            }
+        if (r.input.armController.getXButtonPressed()){
+           telescopeUtil.setArmPositionPID(ControlSettings.ARM_SAFE);}
     
-            if (r.input.armController.getYButtonPressed()){
-                telescopeUtil.setArmPositionPID(ControlSettings.HIGH_SCORE);
-            }
+
+        if (r.input.armController.getYButtonPressed()){
+            telescopeUtil.setArmPositionPID(ControlSettings.HIGH_SCORE);}
     
-            if (r.input.armController.getBButtonPressed()){
-                telescopeUtil.setArmPositionPID(ControlSettings.IN_CONE);
-                TurretBehaviors.turretPID.target = 2.7;
-            }
-            if (r.input.armController.getRightBumperPressed()){
-                telescopeUtil.setArmPositionPID(new V2d(0, 0));
-                TurretBehaviors.turretPID.target = 0;
-            }
+
+        if (r.input.armController.getBButtonPressed()){
+            telescopeUtil.setArmPositionPID(ControlSettings.IN_CONE);
+            TurretBehaviors.turretPID.target = 2.7;}
+
+
+        if (false){
+            Robot.emergencyPIDstop = !Robot.emergencyPIDstop;
+        }    
 
 
         if (r.input.driveController.getBButtonPressed()){

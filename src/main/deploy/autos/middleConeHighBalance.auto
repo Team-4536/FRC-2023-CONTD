@@ -26,4 +26,4 @@ liftTo              2       0.15    .771
 moveTimed           1   .08,-.04   .8
 goToAngle           180
 forwardTillPitch    7
-balanceWithGyro     .014
+balanceWithGyro     .012

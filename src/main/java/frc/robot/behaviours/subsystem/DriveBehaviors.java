@@ -69,7 +69,7 @@ public class DriveBehaviors {
         if(pwr > ControlSettings.DRIVE_PID_CLAMP) { pwr = ControlSettings.DRIVE_PID_CLAMP; }
         if(pwr < -ControlSettings.DRIVE_PID_CLAMP) { pwr = -ControlSettings.DRIVE_PID_CLAMP; }
         
-        driveUtil.setPowerMechanum(r.drive, flymer.x, flymer.y, pwr, 0.8);
+        driveUtil.setPowerMechanum(r.drive, flymer.x, flymer.y, pwr, 1.0);
         telemetryUtil.put("Drive PID target", driveUtil.pid.target, Tabs.ROBOT);
 
         if(r.input.driveController.getPOV() != -1){

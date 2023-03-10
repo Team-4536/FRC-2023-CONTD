@@ -33,11 +33,11 @@ public class LiftBehaviors {
 
         PIDOut += -r.input.armController.getRightY() * ControlSettings.LIFT_PID_USER_MULTIPLIER;
 
-        telescopeUtil.softHardLimitLift(r.telescope, PIDOut);
+        double pwr = inputUtil.deadzoneStick(-r.input.armController.getRightY())
+            * ControlSettings.LIFT_MULT * 6;
 
-        if (r.telescope.upBound.get()){
-            //r.telescope.resetLiftEncoder();
-        }
+        if (Robot.emergencyPIDstop){ r.telescope.liftMotor.set(pwr); }
+        if (!Robot.emergencyPIDstop){ telescopeUtil.softHardLimitLift(r.telescope, PIDOut); }
 
 
     };

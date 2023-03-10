@@ -2,7 +2,7 @@
 //stay closed on piece and move grabber to high scoring area
 #set
 grab                true
-liftTo              4.1     0.1    .771
+liftTo              4.1     0.2    .771
 retractToPosition   10.2    0.25
 moveTimed           1   0,.06   .5          
 #end

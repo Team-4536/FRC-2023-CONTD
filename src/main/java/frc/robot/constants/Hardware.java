@@ -14,7 +14,9 @@ public final class Hardware {
     public static final int CONTROLLER_PORT = 0;
     public static final int CONTROLLER_MECH_PORT = 2;
 
-    public static final int JOYSTICK_PORT = 1;
+    public static final int BUTTON_PANEL_PORT = 1;
+
+    public static final int JOYSTICK_PORT = 3;
 
     // #endregion
     // *INPUT PORTS* =============================================================================================

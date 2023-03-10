@@ -6,13 +6,16 @@ import frc.robot.Robot;
 import frc.robot.constants.ControlSettings;
 import frc.robot.functions.pneumaticUtil;
 import frc.robot.functions.robotUtil;
+import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telescopeUtil;
+import frc.robot.functions.telemetryUtil.Tabs;
 import frc.robot.utils.V2d;
 
 public class PneumaticBehaviors {
 
     static boolean coneFindingIsActive = false;
     static int coneFindingCounter = 0;
+
 
     static V2d[] limelightSpots = { new V2d(0, 0)};
 
@@ -21,7 +24,7 @@ public class PneumaticBehaviors {
         if (r.input.armController.getAButtonPressed()){
             pneumaticUtil.toggleSolenoid(r.grabber.grabberSolenoid); }
 
-        if (r.input.driveController.getLeftBumperPressed()){
+        if (r.input.buttonPanel.getRawButtonPressed(2)|| r.input.driveController.getLeftBumperPressed()){
             pneumaticUtil.toggleSolenoid(r.brakes.brakeSolenoid); }
 
 
@@ -37,22 +40,15 @@ public class PneumaticBehaviors {
                 telescopeUtil.setArmPositionPID(ControlSettings.IN_CONE);
                 TurretBehaviors.turretPID.target = 2.7;
             }
-            if (r.input.armController.getRightBumperPressed()){
-                telescopeUtil.setArmPositionPID(new V2d(0, 0));
-                TurretBehaviors.turretPID.target = 0;
+            if (r.input.buttonPanel.getRawButtonPressed(6)){
+                Robot.emergencyPIDstop = !Robot.emergencyPIDstop;
+                telemetryUtil.put("Emergency PID stop", Robot.emergencyPIDstop, Tabs.ROBOT);
+
+            }
+            if (r.input.buttonPanel.getRawButtonPressed(1)){
+                telemetryUtil.put("king von song", Robot.emergencyPIDstop, Tabs.DEBUG);
             }
 
-
-        if (r.input.driveController.getBButtonPressed()){
-            coneFindingIsActive = true;
-            coneFindingCounter = 0;
-        }  
-        
-        if (coneFindingIsActive){
-            limelightSpots[0].x = Robot.instance.vision.getX();
-            limelightSpots[0].y = Robot.instance.vision.getY();
-
-        }
 
     };
 

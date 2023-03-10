@@ -13,7 +13,7 @@ liftTo              5.7      0.1    .2
 //release the piece and move arm back
 #set
 grab                false
-timedPause          0.2
+timedPause          0.1
 #end
 
 // moving arm to safe area while moving backwards a bit
@@ -23,7 +23,8 @@ liftTo              2       0.15    .771
 #end
 
 //flip robot around, move until the roll changes, and then balance.
-moveTimed           1   .12,-.03   1.2
+moveTimed           1   .15,-.045   0.9
 goToAngle           180
+timedPause         .1
 forwardTillPitch    7
-balanceWithGyro     .0134
+balanceWithGyro     .0135

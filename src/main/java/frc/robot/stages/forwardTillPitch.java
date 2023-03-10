@@ -15,7 +15,7 @@ public final class forwardTillPitch extends Stage {
         driveUtil.setPowerMechPID(
             r,
             0,
-            0.82,
+            1.0,
             1);
 
         return (Math.abs(r.gyro.globGyroscope.getRoll()) > wantedAngle);

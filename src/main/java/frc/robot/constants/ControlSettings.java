@@ -60,7 +60,7 @@ public class ControlSettings {
 
     //ARM POSITIONING +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    public static final V2d ARM_SAFE = new V2d(0, 0);
+    public static final V2d ARM_SAFE = new V2d(0, 2);
 
     public static final V2d HIGH_SCORE = new V2d(9.35, 4.4);
 

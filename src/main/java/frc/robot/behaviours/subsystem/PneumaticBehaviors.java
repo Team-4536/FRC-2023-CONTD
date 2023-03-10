@@ -28,26 +28,24 @@ public class PneumaticBehaviors {
             pneumaticUtil.toggleSolenoid(r.brakes.brakeSolenoid); }
 
 
-            if (r.input.armController.getXButtonPressed()){
-                telescopeUtil.setArmPositionPID(ControlSettings.ARM_SAFE);
-            }
+        if (r.input.armController.getXButtonPressed() || r.input.buttonPanel.getRawButtonPressed(1)){
+            telescopeUtil.setArmPositionPID(ControlSettings.ARM_SAFE);
+        }
     
-            if (r.input.armController.getYButtonPressed()){
-                telescopeUtil.setArmPositionPID(ControlSettings.HIGH_SCORE);
-            }
+        if (r.input.armController.getYButtonPressed()){
+            telescopeUtil.setArmPositionPID(ControlSettings.HIGH_SCORE);
+        }
     
-            if (r.input.armController.getBButtonPressed()){
-                telescopeUtil.setArmPositionPID(ControlSettings.IN_CONE);
-                TurretBehaviors.turretPID.target = 2.7;
-            }
-            if (r.input.buttonPanel.getRawButtonPressed(6)){
-                Robot.emergencyPIDstop = !Robot.emergencyPIDstop;
-                telemetryUtil.put("Emergency PID stop", Robot.emergencyPIDstop, Tabs.ROBOT);
+        if (r.input.armController.getBButtonPressed()){
+            telescopeUtil.setArmPositionPID(ControlSettings.IN_CONE);
+            TurretBehaviors.turretPID.target = 2.7;
+        }
+        if (r.input.buttonPanel.getRawButtonPressed(6)){
+            Robot.emergencyPIDstop = !Robot.emergencyPIDstop;
+            telemetryUtil.put("Emergency PID stop", Robot.emergencyPIDstop, Tabs.ROBOT);
 
-            }
-            if (r.input.buttonPanel.getRawButtonPressed(1)){
-                telemetryUtil.put("king von song", Robot.emergencyPIDstop, Tabs.DEBUG);
-            }
+        }
+        
 
 
     };

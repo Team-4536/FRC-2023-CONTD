@@ -2,13 +2,13 @@
 //stay closed on piece and move grabber to high scoring area
 #set
 grab                true
-liftTo              4.1     0.1    .771
-retractToPosition   10.2    0.25
+liftTo              4.0     0.2    .771
+retractToPosition   10.3    0.25
 moveTimed           1   0,.06   .5          
 #end
 
 timedPause          .1
-liftTo              5.4      0.1    .2
+liftTo              5.7      0.1    .2
 
 //release the piece and move arm back
 #set
@@ -23,7 +23,7 @@ liftTo              2       0.15    .771
 #end
 
 //flip robot around, move until the roll changes, and then balance.
-moveTimed           1   .04,-.04   .65
+moveTimed           1   .12,-.03   1.2
 goToAngle           180
 forwardTillPitch    7
-balanceWithGyro     .01
+balanceWithGyro     .0134

@@ -3,7 +3,7 @@ package frc.robot.constants;
 public final class StageConstants {
 
 
-    public static final double GOTOANGLE_SRANGE = 4;
+    public static final double GOTOANGLE_SRANGE = 6;
     public static final double GOTOPOS_SRANGE = 0.3;
     public static final double GRAB_WAIT = .2;
 

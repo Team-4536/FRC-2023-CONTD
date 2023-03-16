@@ -16,12 +16,16 @@ public final class balanceWithGyro extends Stage {
     double STOP_RANGE = 2.5;
     PIDController yPID;
     double yMove;
+    double hasNegative;
     
     Timer flymer = new Timer();
+
+    boolean hasRun = true;
     
     public balanceWithGyro(double Pvalue) {
         this.yPID = new PIDController(Pvalue, 0, -.025);
         yPID.target = 0;
+        hasNegative = 1.0;
     }
 
     @Override public boolean run(Robot r) {
@@ -33,7 +37,7 @@ public final class balanceWithGyro extends Stage {
             driveUtil.setPowerMechPID(
                 r,
                 0,
-                yMove,
+                yMove * hasNegative,
              0.8);
         }
         if(Math.abs(r.gyro.globGyroscope.getRoll()) < STOP_RANGE){
@@ -42,6 +46,8 @@ public final class balanceWithGyro extends Stage {
                 flymer.start();
             }    
         }
+
+        if (yMove < 0 && hasRun == true){ hasNegative *= .46; hasRun = false;}
 
         telemetryUtil.put("balls", flymer.get(), Tabs.DEBUG);
         

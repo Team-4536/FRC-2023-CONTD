@@ -44,6 +44,14 @@ public class RetractionBehaviors {
 
         telescopeUtil.softLimitRetract(r.telescope, PIDOut);
 
+        if (Robot.emergencyPIDstop){ r.telescope.retractMotor.set(
+            inputUtil.deadzoneAxis(
+                r.input.armController.getLeftY(),
+                ControlSettings.MOVEMENT_DEADZONE
+            ) * ControlSettings.RETRACTION_MULT
+        );  }
+        if (!Robot.emergencyPIDstop){ telescopeUtil.softLimitRetract(r.telescope, PIDOut); }
+
     };
     
 }

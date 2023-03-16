@@ -27,7 +27,6 @@ public class PneumaticBehaviors {
         if (r.input.buttonPanel.getRawButtonPressed(2)|| r.input.driveController.getLeftBumperPressed()){
             pneumaticUtil.toggleSolenoid(r.brakes.brakeSolenoid); }
 
-
         if (r.input.armController.getXButtonPressed() || r.input.buttonPanel.getRawButtonPressed(1)){
             telescopeUtil.setArmPositionPID(ControlSettings.ARM_SAFE);
         }
@@ -43,6 +42,7 @@ public class PneumaticBehaviors {
         if (r.input.buttonPanel.getRawButtonPressed(6)){
             Robot.emergencyPIDstop = !Robot.emergencyPIDstop;
             telemetryUtil.put("Emergency PID stop", Robot.emergencyPIDstop, Tabs.ROBOT);
+
 
         }
         

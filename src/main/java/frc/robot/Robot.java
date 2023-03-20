@@ -25,6 +25,7 @@ import frc.robot.constants.Constants;
 import frc.robot.functions.pneumaticUtil;
 import frc.robot.functions.robotUtil;
 import frc.robot.functions.telemetryUtil;
+import frc.robot.subsystems.AccelData;
 import frc.robot.subsystems.AutoData;
 import frc.robot.subsystems.DriveData;
 import frc.robot.subsystems.GyroData;
@@ -85,6 +86,7 @@ public class Robot extends TimedRobot {
     public PneumaticData brakes;
     public IntakeData grabber;
     public AutoData autoData;
+    public AccelData accelerometer;
 
 
 
@@ -168,6 +170,9 @@ public class Robot extends TimedRobot {
         this.autoData.sendTelemetry();
 
         this.positionData.update();
+
+        this.accelerometer.update(dt);
+        this.accelerometer.sendTelemetry();
 
         ROBOT_PER_FUNC.accept(this);
     }

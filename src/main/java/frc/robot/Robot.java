@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.behaviours.AutoBehaviours;
@@ -93,6 +96,8 @@ public class Robot extends TimedRobot {
     // runs once when the robot is turned on
     @Override
     public void robotInit() {
+
+        CameraServer.startAutomaticCapture("Telescope Camera", 0);
 
         instance = this;
 

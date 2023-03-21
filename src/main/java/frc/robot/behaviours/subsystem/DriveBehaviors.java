@@ -2,6 +2,7 @@ package frc.robot.behaviours.subsystem;
 
 import java.util.function.Consumer;
 
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
 import frc.robot.constants.ControlSettings;
 import frc.robot.functions.driveUtil;
@@ -85,6 +86,8 @@ public class DriveBehaviors {
 
     public static final Consumer<Robot> emmettDrive = r -> {
 
+        Timer emmettSackett = new Timer();
+
         double x = inputUtil.deadzoneStick(r.input.driveController.getLeftX());
         double y = inputUtil.deadzoneStick(-r.input.driveController.getLeftY());
         double z = inputUtil.deadzoneStick(r.input.driveController.getRightX());
@@ -102,9 +105,16 @@ public class DriveBehaviors {
         double pwr = drivePIDOut;
 
         if (!(z == 0)){
-            pwr = inputUtil.mapInput(z, 1.0, -1.0, 0.6, -0.6);
+            pwr = inputUtil.mapInput(z, 1.0, -1.0, 0.3, -0.3);
+            driveUtil.pid.target = r.gyro.globGyroscope.getAngle();
+            emmettSackett.start();
+        }
+        if (emmettSackett.get() <= .25){
             driveUtil.pid.target = r.gyro.globGyroscope.getAngle();
         }
+        
+
+        telemetryUtil.put("balls22", emmettSackett.get(), Tabs.DEBUG);
 
         driveUtil.pid.target = gyroUtil.wrapAngle(driveUtil.pid.target);
 

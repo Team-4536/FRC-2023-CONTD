@@ -4,7 +4,7 @@
 grab                true
 liftTo              4.1     0.2    .771
 retractToPosition   10.2    0.25
-moveTimed           1   0,.06   .5          
+moveTimed           1   0,.1   .5          
 #end
 
 timedPause          .1
@@ -23,7 +23,7 @@ liftTo              2       0.15    .771
 #end
 
 //move robot back, flip around, and move towards second piece.
-moveTimed           1   -.13,-.13   .9
+moveTimed           1   -.26,-.13   2.2
 timedPause          0.2
 goToAngle           180
-moveTimed           1   0,.175   2.0
+moveTimed           1   0,.225   3.6

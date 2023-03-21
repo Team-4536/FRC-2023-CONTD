@@ -4,7 +4,7 @@
 grab                true
 liftTo              4.0     0.2    .771
 retractToPosition   10.3    0.25
-moveTimed           1   0,.06   .5          
+moveTimed           1   0,.1   .5          
 #end
 
 timedPause          .1
@@ -23,7 +23,7 @@ liftTo              2       0.15    .771
 #end
 
 //flip robot around, move until the roll changes, and then balance.
-moveTimed           1   .15,-.045   0.9
+moveTimed           1   .3,-.09   0.5
 goToAngle           180
 timedPause         .1
 forwardTillPitch    7

@@ -42,7 +42,7 @@ public class ControlSettings {
 
     public static final double LIFT_PID_USER_MULTIPLIER = .43;
 
-    public static final double LIFT_MOTOR_MAX_OUTPUT = 6.0/7.0;
+    public static final double LIFT_MOTOR_MAX_OUTPUT = 7.0/7.0;
 
     public static final double LIFT_PID_SETPOINT_COMPOUND_COEFFICIENT = 8;
 

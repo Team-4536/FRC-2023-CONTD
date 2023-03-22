@@ -115,7 +115,7 @@ public class DriveBehaviors {
         }
         if (emmettSackett.get() >= .25){
             emmettSackett.reset();
-            emmettSacket.stop();
+            emmettSackett.stop();
         }
         
 

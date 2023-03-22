@@ -99,6 +99,8 @@ public class Robot extends TimedRobot {
 
         CameraServer.startAutomaticCapture("Telescope Camera", 0);
 
+
+
         instance = this;
 
         startTime = Instant.now();
@@ -135,6 +137,8 @@ public class Robot extends TimedRobot {
         this.brakes = new PneumaticData();
         this.grabber = new IntakeData();
         this.autoData = new AutoData();
+
+        gyro.armGyro.calibrate();
 
 
         this.vision.pipelineTag(1);

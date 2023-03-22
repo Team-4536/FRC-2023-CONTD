@@ -107,10 +107,15 @@ public class DriveBehaviors {
         if (!(z == 0)){
             pwr = inputUtil.mapInput(z, 1.0, -1.0, 0.3, -0.3);
             driveUtil.pid.target = r.gyro.globGyroscope.getAngle();
+            emmettSackett.reset();
             emmettSackett.start();
         }
         if (emmettSackett.get() <= .25){
             driveUtil.pid.target = r.gyro.globGyroscope.getAngle();
+        }
+        if (emmettSackett.get() >= .25){
+            emmettSackett.reset();
+            emmettSacket.stop();
         }
         
 

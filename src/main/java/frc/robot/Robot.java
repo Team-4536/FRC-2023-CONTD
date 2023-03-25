@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.behaviours.AutoBehaviours;
@@ -94,6 +97,10 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
 
+        CameraServer.startAutomaticCapture("Telescope Camera", 0);
+
+
+
         instance = this;
 
         startTime = Instant.now();
@@ -130,6 +137,8 @@ public class Robot extends TimedRobot {
         this.brakes = new PneumaticData();
         this.grabber = new IntakeData();
         this.autoData = new AutoData();
+
+        gyro.armGyro.calibrate();
 
 
         this.vision.pipelineTag(1);

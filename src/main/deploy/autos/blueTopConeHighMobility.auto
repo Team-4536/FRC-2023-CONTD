@@ -23,7 +23,7 @@ liftTo              2       0.15    .771
 #end
 
 //move robot back, flip around, and move towards second piece.
-moveTimed           1   .13,-.13   .9
+moveTimed           1   .2,-.13   2
 timedPause          0.2
 goToAngle           180
-moveTimed           1   0,.175   2.0
+moveTimed           1   0,.175   4.2

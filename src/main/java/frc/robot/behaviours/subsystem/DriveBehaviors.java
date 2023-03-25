@@ -79,8 +79,9 @@ public class DriveBehaviors {
         }
 
         if (r.input.driveController.getYButtonPressed()){
-
+            
             r.gyro.globGyroscope.reset();
+
             driveUtil.pid.reset();
             driveUtil.pid.target = 0;
 

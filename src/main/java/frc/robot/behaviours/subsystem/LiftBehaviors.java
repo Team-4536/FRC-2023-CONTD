@@ -55,18 +55,19 @@ public class LiftBehaviors {
         if (gyroPID.target < ControlSettings.LIFT_GYRO_MINIMUM){ gyroPID.target = ControlSettings.LIFT_GYRO_MINIMUM; }
         if (gyroPID.target > ControlSettings.LIFT_GYRO_MAXIMUM){ gyroPID.target = ControlSettings.LIFT_GYRO_MAXIMUM; }
 
-        double PIDOut = -gyroPID.tick(r.gyro.armGyro.getAngle(), Robot.dt, false);
+        double PIDOut = -gyroPID.tick(r.gyro.getArm(), Robot.dt, false);
 
         telemetryUtil.put(" lift pid raw output", PIDOut, Tabs.DEBUG);
 
         //if (Math.abs(PIDOut) > maxOutput) { PIDOut = PIDOut * (maxOutput/Math.abs(PIDOut)); }
-        if (PIDOut < -.4) { PIDOut = -.4; }
-        if (PIDOut > ControlSettings.LIFT_MOTOR_MAX_OUTPUT) {PIDOut = ControlSettings.LIFT_MOTOR_MAX_OUTPUT;}
 
         telemetryUtil.put("Arm PID out", PIDOut, Tabs.DEBUG);
         telemetryUtil.put("Arm PID target", gyroPID.target, Tabs.DEBUG);
 
         PIDOut += -r.input.armController.getRightY() * ControlSettings.GYRO_PID_USER_MULTIPLIER;
+
+        if (PIDOut < -.4) { PIDOut = -.4; }
+        if (PIDOut > ControlSettings.LIFT_MOTOR_MAX_OUTPUT) {PIDOut = ControlSettings.LIFT_MOTOR_MAX_OUTPUT;}
 
         telescopeUtil.softHardLimitLift(r.telescope, PIDOut);
 

@@ -21,7 +21,7 @@ public class PneumaticBehaviors {
         if (r.input.armController.getAButtonPressed()){
             pneumaticUtil.toggleSolenoid(r.grabber.grabberSolenoid); }
 
-        if (r.input.driveController.getLeftBumperPressed()){
+        if (r.input.driveController.getBButtonPressed()){
             pneumaticUtil.toggleSolenoid(r.brakes.brakeSolenoid); }
 
 

@@ -23,6 +23,7 @@ public class TeleopBehaviours {
         r.turret.turretEncoder.setPosition(0);
 
         r.gyro.globGyroscope.reset();
+        r.gyro.armHelper.reset();
         RetractionBehaviors.retractPID.reset();
         LiftBehaviors.liftPID.reset();
         TurretBehaviors.turretPID.reset();

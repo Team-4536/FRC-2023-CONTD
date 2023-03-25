@@ -18,8 +18,10 @@ import frc.robot.utils.V2d;
 
 public class DriveBehaviors {
 
-    public static PIDController xPID = new PIDController(0.005, 0.000, 0);
+    public static PIDController xPID = new PIDController(0.01, 0.001, -.01);
     public static PIDController yPID = new PIDController(0.005, 0.000, 0);
+
+    public static Timer emmettSackett = new Timer();
 
 
     public static final Consumer<Robot> driveMech  = r -> {
@@ -91,10 +93,11 @@ public class DriveBehaviors {
 
     public static final Consumer<Robot> emmettDrive = r -> {
 
-        Timer emmettSackett = new Timer();
-
         DriveBehaviors.xPID.target = -7.5;
         DriveBehaviors.yPID.target = 36;
+
+        boolean stage1 = false;
+        boolean stage2 = false;
 
 
         double x = inputUtil.deadzoneStick(r.input.driveController.getLeftX());
@@ -119,7 +122,7 @@ public class DriveBehaviors {
         if (!(z == 0)){
             pwr = inputUtil.mapInput(z, 1.0, -1.0, 0.3, -0.3);
             driveUtil.pid.target = r.gyro.globGyroscope.getAngle();
-            //emmettSackett.reset();
+            emmettSackett.reset();
             emmettSackett.start();
         }
         if (emmettSackett.get() <= .25){
@@ -148,7 +151,7 @@ public class DriveBehaviors {
 
         }
 
-        if(r.input.driveController.getRightStickButton()){
+        if(r.input.driveController.getRightStickButtonPressed()){
 
             driveUtil.pid.reset();
             driveUtil.pid.target = r.gyro.globGyroscope.getAngle()+180;
@@ -171,8 +174,7 @@ public class DriveBehaviors {
             yPID.reset();
         }
 
-        if (r.input.driveController.getXButton())
-        {
+        if (r.input.driveController.getXButton()){
             telemetryUtil.put("xPID vasdaadsfasdf", Math.random(), Tabs.LIMELIGHT);
 
             double x1 = -xPID.tick(visionUtil.horizontalOffset(r.vision.getArea(), r.vision.getX()), Robot.dt, false);

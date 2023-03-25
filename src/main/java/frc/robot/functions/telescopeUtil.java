@@ -87,7 +87,7 @@ public class telescopeUtil {
     public static void setArmPositionPID(V2d position){
 
         RetractionBehaviors.retractPID.target = position.x;
-        LiftBehaviors.liftPID.target = position.y;
+        LiftBehaviors.gyroPID.target = position.y;
 
     }
 

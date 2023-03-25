@@ -41,10 +41,18 @@ public class ControlSettings {
     public static final double LIFT_ENCODER_MAXIMUM = 14;
 
     public static final double LIFT_PID_USER_MULTIPLIER = .43;
+    public static final double GYRO_PID_USER_MULTIPLIER = .3;
 
     public static final double LIFT_MOTOR_MAX_OUTPUT = 5.4/7.0;
 
     public static final double LIFT_PID_SETPOINT_COMPOUND_COEFFICIENT = 6;
+
+    public static final double LIFT_GYRO_MINIMUM = -3;
+    public static final double LIFT_GYRO_MAXIMUM = 72;
+
+    public static final double LIFT_GYRO_SETPOINT_COMPOUND_COEFFICIENT = 40;
+
+    
 
 
     //TURRET MOTOR ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

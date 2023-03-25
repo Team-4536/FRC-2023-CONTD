@@ -30,7 +30,6 @@ public class GyroData {
         telemetryUtil.put("r", globGyroscope.getRoll(), Tabs.ROBOT);
 
         telemetryUtil.put("arm angle", armGyro.getAngle(), Tabs.ROBOT);
-        telemetryUtil.put("sarm angle", armGyro.getRotation2d().getDegrees(), Tabs.ROBOT);
 
         if (Robot.instance.telescope.upBound.get()){
             armGyro.reset();

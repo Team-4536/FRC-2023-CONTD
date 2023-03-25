@@ -148,7 +148,7 @@ public class DriveBehaviors {
 
         }
 
-        if(r.input.driveController.getRightStickButtonPressed()){
+        if(r.input.driveController.getRightStickButton()){
 
             driveUtil.pid.reset();
             driveUtil.pid.target = r.gyro.globGyroscope.getAngle()+180;

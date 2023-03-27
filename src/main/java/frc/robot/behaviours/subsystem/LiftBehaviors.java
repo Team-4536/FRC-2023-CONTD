@@ -14,7 +14,7 @@ import frc.robot.utils.inputUtil;
 public class LiftBehaviors {
 
     public static PIDController liftPID = new PIDController(0.4, 0.01, 0);
-    public static PIDController gyroPID = new PIDController(0.09, 0.00001, 0);
+    public static PIDController gyroPID = new PIDController(0.09, 0.00001, -.0013);
 
     public static final Consumer<Robot> controlLiftUnboundedPID = r -> {
 
@@ -50,7 +50,7 @@ public class LiftBehaviors {
 
     public static final Consumer<Robot> gyroPIDControl = r -> {
 
-        gyroPID.target += inputUtil.deadzoneStick(r.input.armController.getRightY()) * Robot.dt * ControlSettings.LIFT_GYRO_SETPOINT_COMPOUND_COEFFICIENT;
+        gyroPID.target += inputUtil.deadzoneStick(r.input.armController.getLeftY()) * Robot.dt * ControlSettings.LIFT_GYRO_SETPOINT_COMPOUND_COEFFICIENT;
 
         if (gyroPID.target < ControlSettings.LIFT_GYRO_MINIMUM){ gyroPID.target = ControlSettings.LIFT_GYRO_MINIMUM; }
         if (gyroPID.target > ControlSettings.LIFT_GYRO_MAXIMUM){ gyroPID.target = ControlSettings.LIFT_GYRO_MAXIMUM; }
@@ -64,7 +64,7 @@ public class LiftBehaviors {
         telemetryUtil.put("Arm PID out", PIDOut, Tabs.DEBUG);
         telemetryUtil.put("Arm PID target", gyroPID.target, Tabs.DEBUG);
 
-        PIDOut += -r.input.armController.getRightY() * ControlSettings.GYRO_PID_USER_MULTIPLIER;
+        PIDOut += -r.input.armController.getLeftY() * ControlSettings.GYRO_PID_USER_MULTIPLIER;
 
         if (PIDOut < -.4) { PIDOut = -.4; }
         if (PIDOut > ControlSettings.LIFT_MOTOR_MAX_OUTPUT) {PIDOut = ControlSettings.LIFT_MOTOR_MAX_OUTPUT;}

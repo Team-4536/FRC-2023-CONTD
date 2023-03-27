@@ -26,7 +26,7 @@ public class RetractionBehaviors {
 
     public static final Consumer<Robot> controlRetractUnboundedPID = r -> {
 
-        retractPID.target += -inputUtil.deadzoneStick(r.input.armController.getLeftY()) * Robot.dt * ControlSettings.RETRACT_PID_SETPOINT_COMPOUND_COEFFICIENT;
+        retractPID.target += -inputUtil.deadzoneStick(r.input.armController.getRightY()) * Robot.dt * ControlSettings.RETRACT_PID_SETPOINT_COMPOUND_COEFFICIENT;
 
         if (retractPID.target < ControlSettings.RETRACT_ENCODER_MINIMUM){ retractPID.target = ControlSettings.RETRACT_ENCODER_MINIMUM; }
         if (retractPID.target > ControlSettings.RETRACT_ENCODER_MAXIMUM){ retractPID.target = ControlSettings.RETRACT_ENCODER_MAXIMUM; }
@@ -40,7 +40,7 @@ public class RetractionBehaviors {
         //telemetryUtil.put("retract target", retractPID.target, Tabs.DEBUG);
         //telemetryUtil.put("pid output", PIDOut, Tabs.DEBUG);
 
-        PIDOut += r.input.armController.getLeftY() * ControlSettings.RETRACT_PID_USER_MULTIPLIER;
+        PIDOut += r.input.armController.getRightY() * ControlSettings.RETRACT_PID_USER_MULTIPLIER;
 
         telescopeUtil.softLimitRetract(r.telescope, PIDOut);
 

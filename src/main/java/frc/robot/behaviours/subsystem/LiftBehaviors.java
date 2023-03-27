@@ -58,6 +58,8 @@ public class LiftBehaviors {
 
     public static final Consumer<Robot> gyroPIDControl = r -> {
 
+        if (gyroPID.target <= 0 && (inputUtil.deadzoneStick(r.input.armController.getLeftY()) <= 0)){ gyroPID.target = 0; }
+
         gyroPID.target += inputUtil.deadzoneStick(r.input.armController.getLeftY()) * Robot.dt * ControlSettings.LIFT_GYRO_SETPOINT_COMPOUND_COEFFICIENT;
 
         if (gyroPID.target < ControlSettings.LIFT_GYRO_MINIMUM){ gyroPID.target = ControlSettings.LIFT_GYRO_MINIMUM; }

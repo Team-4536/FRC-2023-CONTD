@@ -46,6 +46,11 @@ public class PneumaticBehaviors {
             telescopeUtil.setArmPositionPID(ControlSettings.HIGH_CONE); }
 
 
+        // safe arm setpoint - button panel
+        if (r.input.buttonPanel.getRawButtonPressed(4)){
+            telescopeUtil.setArmPositionPID(ControlSettings.ARM_RESET); }
+
+
         // emergency PID stop button - button panel
         if (r.input.buttonPanel.getRawButtonPressed(6)){
             Robot.emergencyPIDstop = !Robot.emergencyPIDstop;

@@ -53,6 +53,9 @@ public class LiftBehaviors {
         r.telescope.liftMotor.set(pwr);
     };
 
+
+    
+
     public static final Consumer<Robot> gyroPIDControl = r -> {
 
         gyroPID.target += inputUtil.deadzoneStick(r.input.armController.getLeftY()) * Robot.dt * ControlSettings.LIFT_GYRO_SETPOINT_COMPOUND_COEFFICIENT;
@@ -74,7 +77,13 @@ public class LiftBehaviors {
         if (PIDOut < -.4) { PIDOut = -.4; }
         if (PIDOut > ControlSettings.LIFT_MOTOR_MAX_OUTPUT) {PIDOut = ControlSettings.LIFT_MOTOR_MAX_OUTPUT;}
 
-        telescopeUtil.softHardLimitLift(r.telescope, PIDOut);
+
+        double pwr = inputUtil.deadzoneStick(-r.input.armController.getRightY())
+            * ControlSettings.LIFT_MULT * 6;
+
+
+        if (Robot.emergencyPIDstop){ r.telescope.liftMotor.set(pwr); }
+        if (!Robot.emergencyPIDstop){ telescopeUtil.softHardLimitLift(r.telescope, PIDOut); }
 
 
     };

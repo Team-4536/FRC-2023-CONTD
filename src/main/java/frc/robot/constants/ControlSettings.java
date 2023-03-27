@@ -47,7 +47,7 @@ public class ControlSettings {
 
     public static final double LIFT_PID_SETPOINT_COMPOUND_COEFFICIENT = 8;
 
-    public static final double LIFT_GYRO_MINIMUM = -40;
+    public static final double LIFT_GYRO_MINIMUM = -30;
     public static final double LIFT_GYRO_MAXIMUM = 72;
 
     public static final double LIFT_GYRO_SETPOINT_COMPOUND_COEFFICIENT = 40;
@@ -73,5 +73,7 @@ public class ControlSettings {
     public static final V2d DOUBLE_SUB = new V2d(9.85, 36.83);
 
     public static final V2d HIGH_CONE = new V2d(7.78, 22);
+
+    public static final V2d ARM_RESET = new V2d(0,-15);
 
 }

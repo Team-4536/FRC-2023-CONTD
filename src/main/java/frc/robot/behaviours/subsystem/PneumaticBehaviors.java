@@ -32,27 +32,27 @@ public class PneumaticBehaviors {
 
 
         // low cone arm setpoint - X button on arm controller OR button panel 
-        if (r.input.armController.getXButtonPressed() || r.input.buttonPanel.getRawButtonPressed(1)){
+        if (r.input.armController.getXButtonPressed() || r.input.buttonPanel.getRawButtonPressed(2)){
             telescopeUtil.setArmPositionPID(ControlSettings.LOW_CONE); }
     
 
         // double substation arm setpoint - Y button on arm controller OR button panel
-        if (r.input.armController.getYButtonPressed() || r.input.buttonPanel.getRawButtonPressed(2)){
+        if (r.input.armController.getYButtonPressed() || r.input.buttonPanel.getRawButtonPressed(3)){
             telescopeUtil.setArmPositionPID(ControlSettings.DOUBLE_SUB); }
     
 
         // high cone arm setpoint - B button on arm controller OR button panel
-        if (r.input.armController.getBButtonPressed() || r.input.buttonPanel.getRawButtonPressed(3)){
+        if (r.input.armController.getBButtonPressed() || r.input.buttonPanel.getRawButtonPressed(4)){
             telescopeUtil.setArmPositionPID(ControlSettings.HIGH_CONE); }
 
 
         // safe arm setpoint - button panel
-        if (r.input.buttonPanel.getRawButtonPressed(4)){
+        if (r.input.buttonPanel.getRawButtonPressed(5)){
             telescopeUtil.setArmPositionPID(ControlSettings.ARM_RESET); }
 
 
         // emergency PID stop button - button panel
-        if (r.input.buttonPanel.getRawButtonPressed(6)){
+        if (r.input.buttonPanel.getRawButtonPressed(1)){
             Robot.emergencyPIDstop = !Robot.emergencyPIDstop;
             telemetryUtil.put("Emergency PID stop", Robot.emergencyPIDstop, Tabs.ROBOT); }
         

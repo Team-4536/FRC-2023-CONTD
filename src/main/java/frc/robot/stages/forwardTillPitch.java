@@ -17,7 +17,6 @@ public final class forwardTillPitch extends Stage {
 
     @Override public boolean run(Robot r) {
 
-        boolean foolean = false;
         driveUtil.setPowerMechPID(
             r,
             0,

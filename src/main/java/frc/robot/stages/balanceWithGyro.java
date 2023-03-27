@@ -1,7 +1,6 @@
 package frc.robot.stages;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.controllers.PIDController;
 import frc.robot.functions.driveUtil;

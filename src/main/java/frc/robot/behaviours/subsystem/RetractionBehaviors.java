@@ -5,9 +5,7 @@ import java.util.function.Consumer;
 import frc.robot.controllers.PIDController;
 import frc.robot.Robot;
 import frc.robot.constants.ControlSettings;
-import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telescopeUtil;
-import frc.robot.functions.telemetryUtil.Tabs;
 import frc.robot.utils.inputUtil;
 
 public class RetractionBehaviors {

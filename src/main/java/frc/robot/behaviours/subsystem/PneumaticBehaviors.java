@@ -5,7 +5,6 @@ import java.util.function.Consumer;
 import frc.robot.Robot;
 import frc.robot.constants.ControlSettings;
 import frc.robot.functions.pneumaticUtil;
-import frc.robot.functions.robotUtil;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telescopeUtil;
 import frc.robot.functions.telemetryUtil.Tabs;

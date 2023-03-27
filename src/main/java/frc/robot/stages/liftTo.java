@@ -1,9 +1,7 @@
 package frc.robot.stages;
 
-import edu.wpi.first.math.MathUsageId;
 import frc.robot.Robot;
 import frc.robot.behaviours.subsystem.LiftBehaviors;
-import frc.robot.constants.ControlSettings;
 import frc.robot.utils.mathUtil;
 
 public class liftTo extends Stage {

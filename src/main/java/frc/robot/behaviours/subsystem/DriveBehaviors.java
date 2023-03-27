@@ -4,7 +4,6 @@ import java.util.function.Consumer;
 
 import frc.robot.controllers.PIDController;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.constants.ControlSettings;
 import frc.robot.functions.driveUtil;
@@ -97,8 +96,6 @@ public class DriveBehaviors {
         DriveBehaviors.xPID.target = -7.5;
         DriveBehaviors.yPID.target = 36;
 
-        boolean stage1 = false;
-        boolean stage2 = false;
 
 
         double x = inputUtil.deadzoneStick(r.input.driveController.getLeftX());

@@ -20,30 +20,36 @@ public class PneumaticBehaviors {
 
     public static final Consumer<Robot> controlPneumatics = r -> {
 
+
+        // grabber actuation control - A button on arm controller
         if (r.input.armController.getAButtonPressed()){
             pneumaticUtil.toggleSolenoid(r.grabber.grabberSolenoid); }
 
+
+        // brake actuation control - B button on drive controller OR button panel
         if (r.input.buttonPanel.getRawButtonPressed(2)|| r.input.driveController.getBButtonPressed()){
             pneumaticUtil.toggleSolenoid(r.brakes.brakeSolenoid); }
 
+
+        // low cone arm setpoint - X button on arm controller OR button panel 
         if (r.input.armController.getXButtonPressed() || r.input.buttonPanel.getRawButtonPressed(1)){
-            telescopeUtil.setArmPositionPID(ControlSettings.ARM_SAFE);
-        }
+            telescopeUtil.setArmPositionPID(ControlSettings.LOW_CONE); }
     
-        if (r.input.armController.getYButtonPressed()){
-            telescopeUtil.setArmPositionPID(ControlSettings.HIGH_SCORE);
-        }
+
+        // double substation arm setpoint - Y button on arm controller OR button panel
+        if (r.input.armController.getYButtonPressed() || r.input.buttonPanel.getRawButtonPressed(2)){
+            telescopeUtil.setArmPositionPID(ControlSettings.DOUBLE_SUB); }
     
-        if (r.input.armController.getBButtonPressed()){
-            telescopeUtil.setArmPositionPID(ControlSettings.IN_CONE);
-            TurretBehaviors.turretPID.target = 2.7;
-        }
+
+        // high cone arm setpoint - B button on arm controller OR button panel
+        if (r.input.armController.getBButtonPressed() || r.input.buttonPanel.getRawButtonPressed(3)){
+            telescopeUtil.setArmPositionPID(ControlSettings.HIGH_CONE); }
+
+
+        // emergency PID stop button - button panel
         if (r.input.buttonPanel.getRawButtonPressed(6)){
             Robot.emergencyPIDstop = !Robot.emergencyPIDstop;
-            telemetryUtil.put("Emergency PID stop", Robot.emergencyPIDstop, Tabs.ROBOT);
-
-
-        }
+            telemetryUtil.put("Emergency PID stop", Robot.emergencyPIDstop, Tabs.ROBOT); }
         
 
 

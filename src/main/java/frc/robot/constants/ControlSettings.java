@@ -68,14 +68,10 @@ public class ControlSettings {
 
     //ARM POSITIONING +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    public static final V2d ARM_SAFE = new V2d(1.8, 21.00);
+    public static final V2d LOW_CONE = new V2d(1.8, 21.00);
 
-    public static final V2d HIGH_SCORE = new V2d(9.85, 36.83);
+    public static final V2d DOUBLE_SUB = new V2d(9.85, 36.83);
 
-    public static final V2d DOUBLE_SUB = new V2d(4.25, 6.63);
-
-    public static final V2d LOW_SCORE = new V2d(3, 7);
-
-    public static final V2d IN_CONE = new V2d(7.78, 22);
+    public static final V2d HIGH_CONE = new V2d(7.78, 22);
 
 }

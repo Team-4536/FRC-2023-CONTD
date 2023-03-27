@@ -22,7 +22,7 @@ retractToPosition   0       0.15
 liftTo              2       0.15    .771
 #end
 
-//move robot back, flip around, and move towards second piece.
+//move robot back, flip around, and move towards second piece
 moveTimed           1   .20,-.13   2.0
 timedPause          0.2
 goToAngle           180

@@ -22,7 +22,7 @@ public class TurretBehaviors {
             glymer = !glymer;
         }
 
-        double flymer = inputUtil.deadzoneStick(r.input.armController.getRightX())
+        double flymer = inputUtil.deadzoneStick(r.input.armController.getRightTriggerAxis() - r.input.armController.getLeftTriggerAxis())
             * ControlSettings.TURRET_MULT;
 
             

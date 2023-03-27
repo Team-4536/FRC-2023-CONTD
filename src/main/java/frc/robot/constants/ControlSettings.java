@@ -5,7 +5,7 @@ import frc.robot.utils.V2d;
 public class ControlSettings {
 
 
-    public static final double MAX_DRIVE_OUT = 0.9;
+    public static final double MAX_DRIVE_OUT = 1.0;
     public static final double DEFAULT_DRIVE_OUT = 0.1;
 
     public static final double TURNING_DEADZONE = 0.1;
@@ -43,9 +43,9 @@ public class ControlSettings {
     public static final double LIFT_PID_USER_MULTIPLIER = .43;
     public static final double GYRO_PID_USER_MULTIPLIER = .3;
 
-    public static final double LIFT_MOTOR_MAX_OUTPUT = 5.4/7.0;
+    public static final double LIFT_MOTOR_MAX_OUTPUT = 7.0/7.0;
 
-    public static final double LIFT_PID_SETPOINT_COMPOUND_COEFFICIENT = 6;
+    public static final double LIFT_PID_SETPOINT_COMPOUND_COEFFICIENT = 8;
 
     public static final double LIFT_GYRO_MINIMUM = -40;
     public static final double LIFT_GYRO_MAXIMUM = 72;

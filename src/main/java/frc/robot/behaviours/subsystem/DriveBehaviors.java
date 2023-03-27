@@ -53,19 +53,19 @@ public class DriveBehaviors {
         V2d flymer = new V2d(x * driveScalar, y * driveScalar);
         flymer = flymer.rotateDegrees(r.gyro.getYaw());
 
-        driveUtil.pid.target += z * ControlSettings.TURNING_SPEED * Robot.dt * 4;
+        driveUtil.pid.target += z * ControlSettings.TURNING_SPEED * Robot.dt * 4.3;
 
         driveUtil.pid.target = gyroUtil.wrapAngle(driveUtil.pid.target);
 
         telemetryUtil.put("angle traget", driveUtil.pid.target, Tabs.DEBUG);
 
-        double drivePIDOut = driveUtil.pid.tick(gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle()), Robot.dt, true) + r.input.driveController.getRightY() * .18;
+        double drivePIDOut = driveUtil.pid.tick(gyroUtil.wrapAngle(r.gyro.globGyroscope.getAngle()), Robot.dt, true) + r.input.driveController.getRightY() * .23;
 
         double pwr = drivePIDOut;
         if(pwr > ControlSettings.DRIVE_PID_CLAMP) { pwr = ControlSettings.DRIVE_PID_CLAMP; }
         if(pwr < -ControlSettings.DRIVE_PID_CLAMP) { pwr = -ControlSettings.DRIVE_PID_CLAMP; }
         
-        driveUtil.setPowerMechanum(r.drive, flymer.x, flymer.y, pwr, 0.8);
+        driveUtil.setPowerMechanum(r.drive, flymer.x, flymer.y, pwr, 1.0);
         telemetryUtil.put("Drive PID target", driveUtil.pid.target, Tabs.ROBOT);
 
         if(r.input.driveController.getPOV() != -1){

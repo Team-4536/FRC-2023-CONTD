@@ -2,9 +2,9 @@
 //stay closed on piece and move grabber to high scoring area
 #set
 grab                true
-liftTo              4.1     0.1    .771
+liftTo              4.1     0.2    .771
 retractToPosition   10.2    0.25
-moveTimed           1   0,.06   .5          
+moveTimed           1   0,.1   .5          
 #end
 
 timedPause          .1
@@ -22,8 +22,8 @@ retractToPosition   0       0.15
 liftTo              2       0.15    .771
 #end
 
-//move robot back, flip around, and move towards second piece.
-moveTimed           1   .2,-.13   2
+//move robot back, flip around, and move towards second piece
+moveTimed           1   .20,-.13   2.0
 timedPause          0.2
 goToAngle           180
-moveTimed           1   0,.175   4.2
+moveTimed           1   0,.225   3.6

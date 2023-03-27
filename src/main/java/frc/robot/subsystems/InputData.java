@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 
 
+import java.lang.ModuleLayer.Controller;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.constants.Hardware;
@@ -12,6 +14,9 @@ public final class InputData {
 
     public XboxController driveController;
     public XboxController armController;
+
+    public Joystick buttonPanel;
+
     public Joystick joystick;
 
 
@@ -19,6 +24,9 @@ public final class InputData {
     public InputData() {
         driveController = new XboxController(Hardware.CONTROLLER_PORT);
         armController = new XboxController(Hardware.CONTROLLER_MECH_PORT);
+
+        buttonPanel = new Joystick(Hardware.BUTTON_PANEL_PORT);
+
         joystick = new Joystick(Hardware.JOYSTICK_PORT);
     }
 

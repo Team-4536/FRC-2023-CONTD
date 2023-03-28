@@ -29,12 +29,26 @@ public final class InputData {
         joystick = new Joystick(Hardware.JOYSTICK_PORT);
     }
 
+    public boolean buttonPanelL2(){
+
+        return (buttonPanel.getRawAxis(2) >= .99);
+
+    }
+
+    public boolean buttonPanelR2(){
+
+        return (buttonPanel.getRawAxis(3) >= .99);
+
+    }
+
 
     public void sendTelemetry() {
 
         telemetryUtil.warnOn(!driveController.isConnected(), "Controller is disconnected (Port 0)", Tabs.DRIVER);
         telemetryUtil.warnOn(!armController.isConnected(), "Mechanism Controller is disconnected (Port 2)", Tabs.DRIVER);
         telemetryUtil.warnOn(!joystick.isConnected(), "Joystick is disconnected (Port 1)", Tabs.DRIVER);
+
+        telemetryUtil.put("button panel", buttonPanelR2(), Tabs.ROBOT);
 
     }
 }

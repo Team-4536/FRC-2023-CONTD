@@ -9,12 +9,15 @@ import frc.robot.functions.turretUtil;
 import frc.robot.utils.inputUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 import frc.robot.functions.telemetryUtil;
+import edu.wpi.first.wpilibj.Timer;
 
 public class TurretBehaviors {
 
     public static boolean glymer = false;
 
     public static PIDController turretPID = new PIDController(.13, 0.004, 0);
+
+    public static Timer plymer = new Timer();
 
     public static final Consumer<Robot> controlTurretBounded = r -> {
 
@@ -60,6 +63,46 @@ public class TurretBehaviors {
         }
 
     };
+
+    public static final Consumer<Robot> turretAdvanced = r -> {
+
+        double flymer = inputUtil.deadzoneStick(r.input.armController.getRightTriggerAxis() - r.input.armController.getLeftTriggerAxis())
+            * ControlSettings.TURRET_MULT;
+
+        boolean pidActive = (flymer == 0);
+
+        if (!pidActive){
+            plymer.reset();
+            plymer.start();
+        }
+
+        if (r.input.armController.getLeftBumperPressed()){
+            glymer = !glymer;
+        }
+
+        if (glymer){
+            flymer = flymer * -1;
+        }
+
+        boolean targetReset = (plymer.get() <= .2);
+
+        if (targetReset){ turretPID.target = r.turret.turretEncoder.getPosition(); }
+
+        if (pidActive){
+
+            double PIDOut = turretPID.tick(r.turret.turretEncoder.getPosition(), Robot.dt, false);
+
+            if (Math.abs(PIDOut) > ControlSettings.TURRET_MOTOR_MAX_OUTPUT) { PIDOut = PIDOut * (ControlSettings.TURRET_MOTOR_MAX_OUTPUT/Math.abs(PIDOut)); }
+    
+            turretUtil.run(r.turret, PIDOut);
+
+        }
+        if (!pidActive){
+            turretUtil.run(r.turret, flymer);
+        }
+
+    };
+
 
     
 }

@@ -14,7 +14,7 @@ import frc.robot.utils.inputUtil;
 public class LiftBehaviors {
 
     public static PIDController liftPID = new PIDController(0.4, 0.01, 0);
-    public static PIDController gyroPID = new PIDController(0.09, 0.00001, -.0013);
+    public static PIDController gyroPID = new PIDController(0.08, 0.0005, -.003);
 
     public static final Consumer<Robot> controlLiftUnboundedPID = r -> {
 
@@ -57,6 +57,8 @@ public class LiftBehaviors {
     
 
     public static final Consumer<Robot> gyroPIDControl = r -> {
+
+        if (gyroPID.target <= 0 && (inputUtil.deadzoneStick(r.input.armController.getLeftY()) <= 0)){ gyroPID.target = 0; }
 
         gyroPID.target += inputUtil.deadzoneStick(r.input.armController.getLeftY()) * Robot.dt * ControlSettings.LIFT_GYRO_SETPOINT_COMPOUND_COEFFICIENT;
 

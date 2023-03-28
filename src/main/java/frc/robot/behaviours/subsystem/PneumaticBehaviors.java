@@ -7,6 +7,7 @@ import frc.robot.constants.ControlSettings;
 import frc.robot.functions.pneumaticUtil;
 import frc.robot.functions.telemetryUtil;
 import frc.robot.functions.telescopeUtil;
+import frc.robot.functions.turretUtil;
 import frc.robot.functions.telemetryUtil.Tabs;
 import frc.robot.utils.V2d;
 
@@ -43,7 +44,8 @@ public class PneumaticBehaviors {
 
         // high cone arm setpoint - B button on arm controller OR button panel
         if (r.input.armController.getBButtonPressed() || r.input.buttonPanel.getRawButtonPressed(6)){
-            telescopeUtil.setArmPositionPID(ControlSettings.HIGH_CONE); }
+            telescopeUtil.setArmPositionPID(ControlSettings.HIGH_CONE); 
+            TurretBehaviors.turretPID.target = 3; }
 
 
         // safe arm setpoint - button panel

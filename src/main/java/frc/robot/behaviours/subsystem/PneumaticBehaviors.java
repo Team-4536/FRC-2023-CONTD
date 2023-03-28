@@ -32,7 +32,7 @@ public class PneumaticBehaviors {
 
 
         // low cone arm setpoint - X button on arm controller OR button panel 
-        if (r.input.armController.getXButtonPressed() || r.input.buttonPanel.getRawButtonPressed(2)){
+        if (r.input.armController.getXButtonPressed() || r.input.buttonPanel.getRawButtonPressed(6)){
             telescopeUtil.setArmPositionPID(ControlSettings.LOW_CONE); }
     
 

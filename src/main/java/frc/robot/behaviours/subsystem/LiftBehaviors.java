@@ -2,6 +2,7 @@ package frc.robot.behaviours.subsystem;
 
 import java.util.function.Consumer;
 
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
 import frc.robot.constants.ControlSettings;
 import frc.robot.controllers.PIDController;
@@ -15,6 +16,8 @@ public class LiftBehaviors {
 
     public static PIDController liftPID = new PIDController(0.4, 0.01, 0);
     public static PIDController gyroPID = new PIDController(0.08, 0.0005, -.003);
+
+    public static Timer flymer = new Timer();
 
     public static final Consumer<Robot> controlLiftUnboundedPID = r -> {
 
@@ -80,8 +83,21 @@ public class LiftBehaviors {
         if (PIDOut > ControlSettings.LIFT_MOTOR_MAX_OUTPUT) {PIDOut = ControlSettings.LIFT_MOTOR_MAX_OUTPUT;}
 
 
-        double pwr = inputUtil.deadzoneStick(-r.input.armController.getRightY())
+        double pwr = inputUtil.deadzoneStick(-r.input.armController.getLeftY())
             * ControlSettings.LIFT_MULT * 6;
+
+        if ((inputUtil.deadzoneStick(r.input.armController.getLeftY()) >= 0) || r.input.armController.getXButtonPressed() || r.input.buttonPanel.getRawButtonPressed(6) ||
+             r.input.armController.getYButtonPressed() || r.input.buttonPanel.getRawButtonPressed(3) || r.input.armController.getBButtonPressed() ||
+             r.input.buttonPanel.getRawButtonPressed(4) || r.input.buttonPanel.getRawButtonPressed(5)){
+
+                flymer.reset();
+                flymer.start();
+
+             }
+
+        if (flymer.get() >= 2.00 && PIDOut <= .22){
+            PIDOut *= .4;
+        }
 
 
         if (Robot.emergencyPIDstop){ r.telescope.liftMotor.set(pwr); }

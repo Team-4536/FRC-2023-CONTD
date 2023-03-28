@@ -84,7 +84,7 @@ public class TurretBehaviors {
             flymer = flymer * -1;
         }
 
-        boolean targetReset = (plymer.get() <= .2);
+        boolean targetReset = (plymer.get() <= .1);
 
         if (targetReset){ turretPID.target = r.turret.turretEncoder.getPosition(); }
 

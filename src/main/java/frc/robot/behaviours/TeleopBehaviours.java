@@ -23,14 +23,17 @@ public class TeleopBehaviours {
         r.turret.turretEncoder.setPosition(0);
 
         r.gyro.globGyroscope.reset();
+        r.gyro.armGyro.reset();
         r.gyro.armHelper.reset();
         RetractionBehaviors.retractPID.reset();
         LiftBehaviors.liftPID.reset();
+        LiftBehaviors.gyroPID.reset();
         TurretBehaviors.turretPID.reset();
 
         driveUtil.pid.target = r.gyro.globGyroscope.getAngle();
         RetractionBehaviors.retractPID.target = r.telescope.retractVal();
         LiftBehaviors.liftPID.target = r.telescope.liftVal();
+        LiftBehaviors.gyroPID.target = 0;
         TurretBehaviors.turretPID.target = r.turret.turretEncoder.getPosition();
 
 

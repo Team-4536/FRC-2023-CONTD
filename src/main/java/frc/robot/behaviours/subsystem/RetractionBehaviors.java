@@ -16,7 +16,7 @@ public class RetractionBehaviors {
 
         r.telescope.retractMotor.set(
             inputUtil.deadzoneAxis(
-                r.input.armController.getLeftY(),
+                r.input.armController.getRightY(),
                 ControlSettings.MOVEMENT_DEADZONE
             ) * ControlSettings.RETRACTION_MULT
         ); 

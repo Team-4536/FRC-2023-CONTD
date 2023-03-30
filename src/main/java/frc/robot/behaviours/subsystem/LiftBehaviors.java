@@ -61,7 +61,7 @@ public class LiftBehaviors {
 
     public static final Consumer<Robot> gyroPIDControl = r -> {
 
-        if (gyroPID.target <= 0 && (inputUtil.deadzoneStick(r.input.armController.getLeftY()) <= 0)){ gyroPID.target = 0; }
+        if (gyroPID.target <= 0 && (inputUtil.deadzoneStick(r.input.armController.getLeftY()) >= 0)){ gyroPID.target = 0; }
 
         gyroPID.target += inputUtil.deadzoneStick(r.input.armController.getLeftY()) * Robot.dt * ControlSettings.LIFT_GYRO_SETPOINT_COMPOUND_COEFFICIENT;
 
@@ -98,6 +98,8 @@ public class LiftBehaviors {
         if (flymer.get() >= 2.00 && PIDOut <= .22){
             PIDOut *= .4;
         }
+
+        telemetryUtil.put("Gyro pid target", gyroPID.target, Tabs.ROBOT);
 
 
         if (Robot.emergencyPIDstop){ r.telescope.liftMotor.set(pwr); }

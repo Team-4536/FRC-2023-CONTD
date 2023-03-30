@@ -68,7 +68,7 @@ public class PneumaticBehaviors {
 
 
         // emergency PID stop button - button panel
-        if (r.input.buttonPanel.getRawButtonPressed(1)){
+        if (r.input.buttonPanel.getRawButtonPressed(7)){
             Robot.emergencyPIDstop = !Robot.emergencyPIDstop;
             telemetryUtil.put("Emergency PID stop", Robot.emergencyPIDstop, Tabs.ROBOT); }
         

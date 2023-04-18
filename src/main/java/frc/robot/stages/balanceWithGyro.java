@@ -46,7 +46,7 @@ public final class balanceWithGyro extends Stage {
             }    
         }
 
-        if (yMove < 0 && hasRun == true){ hasNegative *= .38; hasRun = false;}
+        if (yMove < 0 && hasRun == true){ hasNegative *= .39; hasRun = false;}
 
         telemetryUtil.put("balls", flymer.get(), Tabs.DEBUG);
         

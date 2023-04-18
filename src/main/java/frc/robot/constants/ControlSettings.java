@@ -48,7 +48,7 @@ public class ControlSettings {
     public static final double LIFT_PID_SETPOINT_COMPOUND_COEFFICIENT = 8;
 
     public static final double LIFT_GYRO_MINIMUM = -100000;
-    public static final double LIFT_GYRO_MAXIMUM = 72;
+    public static final double LIFT_GYRO_MAXIMUM = 74;
 
     public static final double LIFT_GYRO_SETPOINT_COMPOUND_COEFFICIENT = 40;
 

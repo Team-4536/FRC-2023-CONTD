@@ -1,0 +1,4 @@
+goToAngle           180
+timedPause         .1
+forwardTillPitch    7
+balanceWithGyro     .0135

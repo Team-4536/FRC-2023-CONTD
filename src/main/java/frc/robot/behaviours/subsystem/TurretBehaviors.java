@@ -25,7 +25,7 @@ public class TurretBehaviors {
             glymer = !glymer;
         }
 
-        double flymer = inputUtil.deadzoneStick(r.input.armController.getRightTriggerAxis() - r.input.armController.getLeftTriggerAxis())
+        double flymer = inputUtil.deadzoneStick(r.input.armController.getRightX())
             * ControlSettings.TURRET_MULT;
 
             
@@ -66,7 +66,7 @@ public class TurretBehaviors {
 
     public static final Consumer<Robot> turretAdvanced = r -> {
 
-        double flymer = inputUtil.deadzoneStick(r.input.armController.getRightTriggerAxis() - r.input.armController.getLeftTriggerAxis())
+        double flymer = inputUtil.deadzoneStick(r.input.armController.getRightX())
             * ControlSettings.TURRET_MULT;
 
         boolean pidActive = (flymer == 0);

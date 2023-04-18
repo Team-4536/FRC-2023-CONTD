@@ -26,4 +26,4 @@ liftTo              2       0.15    .771
 moveTimed           1   -.09,-.09   .7
 timedPause          0.2
 goToAngle           180
-moveTimed           1   0,.175   2.0
+moveTimed           1   0,.225   5.0

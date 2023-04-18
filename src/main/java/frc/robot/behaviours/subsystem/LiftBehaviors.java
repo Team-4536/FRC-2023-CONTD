@@ -50,7 +50,7 @@ public class LiftBehaviors {
 
     public static final Consumer<Robot> controlLiftUnbounded = r -> {
 
-        double pwr = inputUtil.deadzoneStick(-r.input.armController.getLeftY())
+        double pwr = inputUtil.deadzoneStick(-r.input.armController.getRightY())
             * ControlSettings.LIFT_MULT * 6;
 
         r.telescope.liftMotor.set(pwr);
@@ -61,9 +61,9 @@ public class LiftBehaviors {
 
     public static final Consumer<Robot> gyroPIDControl = r -> {
 
-        if (gyroPID.target <= 0 && (inputUtil.deadzoneStick(r.input.armController.getLeftY()) >= 0)){ gyroPID.target = 0; }
+        if (gyroPID.target <= 0 && (inputUtil.deadzoneStick(r.input.armController.getRightY()) >= 0)){ gyroPID.target = 0; }
 
-        gyroPID.target += inputUtil.deadzoneStick(r.input.armController.getLeftY()) * Robot.dt * ControlSettings.LIFT_GYRO_SETPOINT_COMPOUND_COEFFICIENT;
+        gyroPID.target += inputUtil.deadzoneStick(r.input.armController.getRightY()) * Robot.dt * ControlSettings.LIFT_GYRO_SETPOINT_COMPOUND_COEFFICIENT;
 
         if (gyroPID.target < ControlSettings.LIFT_GYRO_MINIMUM){ gyroPID.target = ControlSettings.LIFT_GYRO_MINIMUM; }
         if (gyroPID.target > ControlSettings.LIFT_GYRO_MAXIMUM){ gyroPID.target = ControlSettings.LIFT_GYRO_MAXIMUM; }
@@ -77,16 +77,16 @@ public class LiftBehaviors {
         telemetryUtil.put("Arm PID out", PIDOut, Tabs.DEBUG);
         telemetryUtil.put("Arm PID target", gyroPID.target, Tabs.DEBUG);
 
-        PIDOut += -r.input.armController.getLeftY() * ControlSettings.GYRO_PID_USER_MULTIPLIER;
+        PIDOut += -r.input.armController.getRightY() * ControlSettings.GYRO_PID_USER_MULTIPLIER;
 
         if (PIDOut < -.4) { PIDOut = -.4; }
         if (PIDOut > ControlSettings.LIFT_MOTOR_MAX_OUTPUT) {PIDOut = ControlSettings.LIFT_MOTOR_MAX_OUTPUT;}
 
 
-        double pwr = inputUtil.deadzoneStick(-r.input.armController.getLeftY())
+        double pwr = inputUtil.deadzoneStick(-r.input.armController.getRightY())
             * ControlSettings.LIFT_MULT * 6;
 
-        if ((inputUtil.deadzoneStick(r.input.armController.getLeftY()) >= 0) || r.input.armController.getXButtonPressed() || r.input.buttonPanel.getRawButtonPressed(6) ||
+        if ((inputUtil.deadzoneStick(r.input.armController.getRightY()) >= 0) || r.input.armController.getXButtonPressed() || r.input.buttonPanel.getRawButtonPressed(6) ||
              r.input.armController.getYButtonPressed() || r.input.buttonPanel.getRawButtonPressed(3) || r.input.armController.getBButtonPressed() ||
              r.input.buttonPanel.getRawButtonPressed(4) || r.input.buttonPanel.getRawButtonPressed(5)){
 
@@ -100,6 +100,7 @@ public class LiftBehaviors {
         }
 
         telemetryUtil.put("Gyro pid target", gyroPID.target, Tabs.ROBOT);
+        telemetryUtil.put("april shatg", PIDOut, Tabs.ROBOT);
 
 
         if (Robot.emergencyPIDstop){ r.telescope.liftMotor.set(pwr); }

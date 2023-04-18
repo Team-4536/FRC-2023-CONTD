@@ -19,7 +19,7 @@ timedPause          0.2
 // moving arm to safe area while moving backwards a bit
 #set
 retractToPosition   0       0.15
-liftTo              2       0.15    .771
+liftTo              2       0.15 .771
 #end
 
 //move robot back, flip around, and move towards second piece

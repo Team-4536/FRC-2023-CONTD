@@ -167,22 +167,6 @@ public class DriveBehaviors {
         driveUtil.setPowerMechanum(r.drive, flymer.x, flymer.y, pwr, 0.8);
         telemetryUtil.put("Drive PID target", driveUtil.pid.target, Tabs.ROBOT);
 
-        if (r.input.driveController.getXButtonPressed()){
-            xPID.reset();
-            yPID.reset();
-        }
-
-        if (r.input.driveController.getXButton()){
-            telemetryUtil.put("xPID vasdaadsfasdf", Math.random(), Tabs.LIMELIGHT);
-
-            double x1 = -xPID.tick(visionUtil.horizontalOffset(r.vision.getArea(), r.vision.getX()), Robot.dt, false);
-            telemetryUtil.put("xPID value", x1, Tabs.LIMELIGHT);
-
-            double y1 = -yPID.tick(visionUtil.distanceFrom(r.vision.getArea()), Robot.dt, false);
-            telemetryUtil.put("yPID value", y1, Tabs.LIMELIGHT);
-
-            driveUtil.setPowerMechPID(r, x1, y1, 0.8);
-        } 
 
     };
 
